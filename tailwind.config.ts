@@ -19,15 +19,14 @@ const config = {
     },
     extend: {
       fontSize: {
-        xsm: "0.625rem",
-        sm: "0.812rem",
-        body: "1rem",
-        md: "1.250rem",
-        lg: "1.562rem",
-        xl: "1.938rem",
-        "2xl": "2.438rem",
-        "3xl": "3.062rem",
-        "4xl": "3.812rem",
+        xsm: "0.812rem",
+        sm: "1rem",
+        body: "1.250rem",
+        md: "1.562rem",
+        lg: "1.938rem",
+        xl: "2.438rem",
+        "2xl": "3.062rem",
+        "3xl": "3.812rem",
       },
       colors: {
         border: "hsl(var(--border))",
