@@ -5,9 +5,7 @@ export type Event = {
   location: string;
   event_start: string;
   event_end: string;
-  orientation_start: string;
-  orientation_end: string;
-  description: string;
+  description: string | null;
 };
 
 export type EventStatus = "active" | "upcoming" | "past";
