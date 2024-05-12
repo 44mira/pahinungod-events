@@ -1,4 +1,4 @@
-import { EventStatus } from "./types";
+import { EventStatus } from "./_api/types";
 
 /**
  * Returns a string depicting the day difference from now to an event.
