@@ -54,7 +54,7 @@ export function AddEvent() {
           Add Event
         </Button>
       </DialogTrigger>
-      <DialogContent className="min-w-9/12">
+      <DialogContent className="max-w-[40%]">
         <DialogHeader className="text-lg font-bold">Add Event</DialogHeader>
 
         <AddEventForm />

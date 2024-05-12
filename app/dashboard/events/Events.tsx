@@ -8,7 +8,7 @@ import calendar_icon from "@/public/calendar.svg";
 import location_icon from "@/public/location_icon.svg";
 import person_icon from "@/public/person_icon.svg";
 import { Input } from "@/components/ui/input";
-import { Event, EventStatus } from "./types";
+import { Event, EventStatus } from "./_api/types";
 import {
   Card,
   CardDescription,
@@ -16,56 +16,106 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { calculateStatus, deltaDate } from "./utils";
+import useEventQuery from "@/hooks/use-event-query";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
-export default function Events({ data }: { data: Event[] }) {
-  const [event, setEvents] = useState<Event[]>([]);
-  useEffect(() => {
-    setEvents(data ?? []);
-  }, [data]);
+import { useSearchParams, useParams } from "next/navigation";
+import { useCallback } from "react";
+
+export default function Events() {
+  // for pagination
+  const pathname = useParams();
+  const searchParams = useSearchParams();
+  const page = Number(searchParams.get("page") ?? 0);
+
+  const { data: event, status } = useEventQuery(page);
+
+  // Get a new searchParams string by merging the current
+  // searchParams with a provided key/value pair
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams],
+  );
 
   return (
     <>
       <Searchbar />
       <div className="grid xl:grid-cols-4 lg:grid-cols-2 grid-cols-1 w-full items-center gap-3">
-        {event.map(({ event_id, ...props }: Event) => (
-          <Card
-            key={event_id}
-            className="min-w-fit h-full flex flex-col w-full"
-          >
-            <CardHeader className="h-full min-w-fit">
-              <CardTitle className="flex items-center w-full mb-2 h-full">
-                <span className="text-lg grow">{props.name}</span>
-                <Badge
-                  status={calculateStatus(props.event_start, props.event_end)}
-                />
-              </CardTitle>
-              <CardDescription className="flex flex-col gap-2 w-full text-primary">
-                <span className="flex gap-3 items-center">
-                  <Image src={location_icon} alt="location icon" />
-                  {props.location}
-                </span>
-                <span className="flex min-w-full grow">
-                  <span className="flex gap-3 p-5 border border-primary grow">
-                    <Image src={person_icon} alt="person icon" />0
+        {status === "pending" ? (
+          <PendingResponse />
+        ) : status === "error" ? (
+          <ErrorResponse />
+        ) : (
+          event!.map(({ event_id, ...props }: Event) => (
+            <Card
+              key={event_id}
+              className="min-w-fit flex flex-col w-full h-full"
+            >
+              <CardHeader className="h-full min-w-fit">
+                <CardTitle className="flex items-center w-full mb-2 h-full">
+                  <span className="text-lg grow">{props.name}</span>
+                  <Badge
+                    status={calculateStatus(props.event_start, props.event_end)}
+                  />
+                </CardTitle>
+
+                <CardDescription className="flex flex-col gap-2 w-full text-primary">
+                  <span className="flex gap-3 items-center">
+                    <Image src={location_icon} alt="location icon" />
+                    {props.location}
                   </span>
-                  <span className="flex gap-3 p-5 border border-primary grow">
-                    <Image src={calendar_icon} alt="calendar icon" />
-                    {deltaDate(props.event_start, props.event_end)}
+                  <span className="flex min-w-full">
+                    <span className="flex items-center gap-3 p-5 border border-primary">
+                      <Image src={person_icon} alt="person icon" />0
+                    </span>
+                    <span className="flex items-center gap-3 p-5 border border-primary grow">
+                      <Image src={calendar_icon} alt="calendar icon" />
+                      {deltaDate(props.event_start, props.event_end)}
+                    </span>
                   </span>
-                </span>
-              </CardDescription>
-            </CardHeader>
-            <CardFooter className="flex flex-col gap-2 grow">
-              <Button variant="outline" className="border-primary w-full">
-                VIEW EVENT
-              </Button>
-            </CardFooter>
-          </Card>
-        ))}
+                </CardDescription>
+              </CardHeader>
+
+              <CardFooter className="flex flex-col gap-2 justify-self-end">
+                <Button variant="outline" className="border-primary w-full">
+                  VIEW EVENT
+                </Button>
+              </CardFooter>
+            </Card>
+          ))
+        )}
       </div>
+    </>
+  );
+}
+
+export function ErrorResponse() {
+  return (
+    <Alert variant="destructive">
+      <AlertTitle>An error has occurred!</AlertTitle>
+      <AlertDescription>
+        There was an error in fetching Events data.
+      </AlertDescription>
+    </Alert>
+  );
+}
+
+export function PendingResponse() {
+  return (
+    <>
+      {Array(12)
+        .fill(0)
+        .map((_, i) => (
+          <Skeleton key={i} className="min-w-fit h-56" />
+        ))}
     </>
   );
 }
