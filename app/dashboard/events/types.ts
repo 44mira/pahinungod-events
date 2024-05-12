@@ -3,8 +3,11 @@ export type Event = {
   admin_id: string;
   name: string;
   location: string;
-  event_time: string;
-  orientation_time: string;
+  event_start: string;
+  event_end: string;
+  orientation_start: string;
+  orientation_end: string;
   description: string;
-  status: string;
 };
+
+export type EventStatus = "active" | "upcoming" | "past";

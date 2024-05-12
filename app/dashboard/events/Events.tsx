@@ -8,7 +8,7 @@ import calendar_icon from "@/public/calendar.svg";
 import location_icon from "@/public/location_icon.svg";
 import person_icon from "@/public/person_icon.svg";
 import { Input } from "@/components/ui/input";
-import { Event } from "./types";
+import { Event, EventStatus } from "./types";
 import {
   Card,
   CardDescription,
@@ -18,16 +18,7 @@ import {
 } from "@/components/ui/card";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-
-function deltaDate(event_time: string): string {
-  const event_time_ms = new Date(event_time).valueOf();
-  const time_now_ms = new Date().valueOf();
-
-  const BY_DAY = 1000 * 60 * 60 * 24;
-  const difference = Math.floor((time_now_ms - event_time_ms) / BY_DAY);
-
-  return `${Math.abs(difference)} ${difference === 1 ? "day" : "days"}${difference < 0 ? " ago" : ""}`;
-}
+import { calculateStatus, deltaDate } from "./utils";
 
 export default function Events({ data }: { data: Event[] }) {
   const [event, setEvents] = useState<Event[]>([]);
@@ -47,9 +38,11 @@ export default function Events({ data }: { data: Event[] }) {
             <CardHeader className="h-full min-w-fit">
               <CardTitle className="flex items-center w-full mb-2 h-full">
                 <span className="text-lg grow">{props.name}</span>
-                <Badge status={props.status} />
+                <Badge
+                  status={calculateStatus(props.event_start, props.event_end)}
+                />
               </CardTitle>
-              <CardDescription className="flex flex-col gap-2 w-full">
+              <CardDescription className="flex flex-col gap-2 w-full text-primary">
                 <span className="flex gap-3 items-center">
                   <Image src={location_icon} alt="location icon" />
                   {props.location}
@@ -60,7 +53,7 @@ export default function Events({ data }: { data: Event[] }) {
                   </span>
                   <span className="flex gap-3 p-5 border border-primary grow">
                     <Image src={calendar_icon} alt="calendar icon" />
-                    {deltaDate(props.event_time)}
+                    {deltaDate(props.event_start, props.event_end)}
                   </span>
                 </span>
               </CardDescription>
@@ -77,7 +70,7 @@ export default function Events({ data }: { data: Event[] }) {
   );
 }
 
-export function Badge({ status }: { status: string }) {
+export function Badge({ status }: { status: EventStatus }) {
   return (
     <span
       className={clsx("rounded-full w-fit px-4 py-2 text-sm", {
