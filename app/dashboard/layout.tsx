@@ -13,7 +13,7 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex w-screen h-screen">
-      <div className="flex flex-col min-w-[290px] bg-muted p-5 gap-5 border rounded-r-2xl">
+      <div className="md:flex flex-col min-w-[290px] bg-muted p-5 gap-5 border rounded-r-2xl hidden">
         <div className="mb-5">logo</div>
         <Separator className="bg-black" />
         <ul className="flex flex-col gap-5">
@@ -30,7 +30,7 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
           ))}
         </ul>
       </div>
-      <div className="w-full p-10 pl-16">{children}</div>
+      <div className="w-full p-10 lg:pl-16">{children}</div>
     </div>
   );
 }

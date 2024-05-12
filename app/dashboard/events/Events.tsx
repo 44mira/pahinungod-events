@@ -1,10 +1,12 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import clsx from "clsx";
 import search_icon from "@/public/search_icon.svg";
 import filter_icon from "@/public/filter_icon.svg";
+import calendar_icon from "@/public/calendar.svg";
+import location_icon from "@/public/location_icon.svg";
+import person_icon from "@/public/person_icon.svg";
 import { Input } from "@/components/ui/input";
 import { Event } from "./types";
 import {
@@ -15,6 +17,17 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+
+function deltaDate(event_time: string): string {
+  const event_time_ms = new Date(event_time).valueOf();
+  const time_now_ms = new Date().valueOf();
+
+  const BY_DAY = 1000 * 60 * 60 * 24;
+  const difference = Math.floor((time_now_ms - event_time_ms) / BY_DAY);
+
+  return `${Math.abs(difference)} ${difference === 1 ? "day" : "days"}${difference < 0 ? " ago" : ""}`;
+}
 
 export default function Events({ data }: { data: Event[] }) {
   const [event, setEvents] = useState<Event[]>([]);
@@ -25,21 +38,38 @@ export default function Events({ data }: { data: Event[] }) {
   return (
     <>
       <Searchbar />
-      <div className="grid grid-cols-4 w-full items-center gap-3">
+      <div className="grid xl:grid-cols-4 lg:grid-cols-2 grid-cols-1 w-full items-center gap-3">
         {event.map(({ event_id, ...props }: Event) => (
-          <Card key={event_id} className="min-w-[56p] h-full">
-            <CardHeader>
-              <CardTitle className="flex items-center w-full mb-2">
-                <p className="text-lg grow">{props.name}</p>
+          <Card
+            key={event_id}
+            className="min-w-fit h-full flex flex-col w-full"
+          >
+            <CardHeader className="h-full min-w-fit">
+              <CardTitle className="flex items-center w-full mb-2 h-full">
+                <span className="text-lg grow">{props.name}</span>
                 <Badge status={props.status} />
               </CardTitle>
-              <CardDescription>
-                <p>Event time: {props.event_time}</p>
-                <p>Orientation time: {props.orientation_time}</p>
-                <p>Location: {props.location}</p>
+              <CardDescription className="flex flex-col gap-2 w-full">
+                <span className="flex gap-3 items-center">
+                  <Image src={location_icon} alt="location icon" />
+                  {props.location}
+                </span>
+                <span className="flex min-w-full grow">
+                  <span className="flex gap-3 p-5 border border-primary grow">
+                    <Image src={person_icon} alt="person icon" />0
+                  </span>
+                  <span className="flex gap-3 p-5 border border-primary grow">
+                    <Image src={calendar_icon} alt="calendar icon" />
+                    {deltaDate(props.event_time)}
+                  </span>
+                </span>
               </CardDescription>
             </CardHeader>
-            <CardFooter>{props.description}</CardFooter>
+            <CardFooter className="flex flex-col gap-2 grow">
+              <Button variant="outline" className="border-primary w-full">
+                VIEW EVENT
+              </Button>
+            </CardFooter>
           </Card>
         ))}
       </div>
@@ -49,7 +79,7 @@ export default function Events({ data }: { data: Event[] }) {
 
 export function Badge({ status }: { status: string }) {
   return (
-    <div
+    <span
       className={clsx("rounded-full w-fit px-4 py-2 text-sm", {
         "bg-primary text-primary-foreground": status == "active",
         "bg-secondary text-secondary-foreground": status == "upcoming",
@@ -57,7 +87,7 @@ export function Badge({ status }: { status: string }) {
       })}
     >
       {status}
-    </div>
+    </span>
   );
 }
 
