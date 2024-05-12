@@ -45,7 +45,7 @@ export default async function EventPage() {
   );
 }
 
-export function AddEvent() {
+function AddEvent() {
   return (
     <Dialog>
       <DialogTrigger asChild>
