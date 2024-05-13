@@ -15,7 +15,7 @@ import useAddEventMutation from "@/hooks/use-add-event-mutation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { DialogClose } from "@radix-ui/react-dialog";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Textarea } from "@/components/ui/textarea";
 
 export default function AddEventForm() {
