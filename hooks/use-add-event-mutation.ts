@@ -11,7 +11,15 @@ export default function useAddEventMutation() {
   const queryClient = useQueryClient();
 
   const mutationFn = async (formData: Event) => {
-    const { data } = await supabase.from("events").insert(formData).select();
+    const { data, error } = await supabase
+      .from("events")
+      .insert(formData)
+      .select();
+
+    if (error) {
+      console.log("An error has occurred in creating an event");
+      throw error;
+    }
 
     return data;
   };
