@@ -48,7 +48,7 @@ export default function Events() {
   return (
     <>
       <Searchbar />
-      <div className="grid xl:grid-cols-4 lg:grid-cols-2 grid-cols-1 w-full items-center gap-3">
+      <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 w-full items-center gap-3">
         {status === "pending" ? (
           <PendingResponse />
         ) : status === "error" ? (
