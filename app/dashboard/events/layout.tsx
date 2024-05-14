@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import AddEvent from "./addEvent";
+import { Suspense } from "react";
 
 export default function Events({ children }: { children: React.ReactNode }) {
   return (
@@ -19,7 +20,7 @@ export default function Events({ children }: { children: React.ReactNode }) {
         <h1 className="text-2xl text-primary font-bold mx-auto">Events</h1>
         <AddEvent />
       </div>
-      {children}
+      <Suspense>{children}</Suspense>
     </div>
   );
 }

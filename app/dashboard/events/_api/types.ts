@@ -9,3 +9,12 @@ export type Event = {
 };
 
 export type EventStatus = "active" | "upcoming" | "past";
+
+export type EventVolunteer = {
+  volunteer_id: string;
+  event_id: string;
+  status: EventVolunteerStatus;
+  time_logged: number;
+};
+
+export type EventVolunteerStatus = "accepted" | "rejected";
