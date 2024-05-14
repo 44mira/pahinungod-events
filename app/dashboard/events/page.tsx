@@ -101,7 +101,7 @@ export default function Events() {
   );
 }
 
-export function ErrorResponse() {
+function ErrorResponse() {
   return (
     <Alert variant="destructive">
       <AlertTitle>An error has occurred!</AlertTitle>
@@ -112,7 +112,7 @@ export function ErrorResponse() {
   );
 }
 
-export function PendingResponse() {
+function PendingResponse() {
   return (
     <>
       {Array(12)
@@ -139,7 +139,7 @@ export function PendingResponse() {
 //   );
 // }
 
-export function Searchbar() {
+function Searchbar() {
   return (
     <div className="flex gap-2">
       <Button className="flex gap-2 text-body" variant="outline">

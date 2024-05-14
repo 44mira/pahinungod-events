@@ -35,7 +35,7 @@ export default function AddEventForm() {
 
   useEffect(() => {
     form.setValue("event_id", crypto.randomUUID());
-  }, []);
+  }, [form]);
 
   return (
     <Form {...form}>
