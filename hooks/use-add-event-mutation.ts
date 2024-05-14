@@ -1,10 +1,6 @@
 import { Event } from "@/app/dashboard/events/_api/types";
 import useSupabase from "./useSupabase";
-import {
-  RefetchQueryFilters,
-  useMutation,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export default function useAddEventMutation() {
   const supabase = useSupabase();

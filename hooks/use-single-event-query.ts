@@ -11,12 +11,12 @@ export default function useSingleEventQuery(event_id: UUID) {
       .select()
       .eq("event_id", event_id);
 
-    if (error) {
+    if (error || !data) {
       console.log("An error has occurred in fetching event information.");
       throw error;
     }
 
-    return data;
+    return data[0];
   };
 
   const volunteerListQuery = async () => {
