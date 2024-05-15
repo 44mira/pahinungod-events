@@ -22,7 +22,7 @@ export default function useSingleEventQuery(event_id: UUID) {
   const volunteerListQuery = async () => {
     const { data, error } = await supabase
       .from("event_volunteer")
-      .select()
+      .select(`*, volunteer ( name )`)
       .eq("event_id", event_id);
 
     if (error) {
