@@ -7,7 +7,7 @@ import calendar_icon from "@/public/calendar.svg";
 import location_icon from "@/public/location_icon.svg";
 import person_icon from "@/public/person_icon.svg";
 import { Input } from "@/components/ui/input";
-import { Event } from "./_api/types";
+import { Event } from "./_types/types";
 import {
   Card,
   CardDescription,
