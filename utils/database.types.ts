@@ -1,3 +1,6 @@
+Need to install the following packages:
+supabase@1.167.4
+Ok to proceed? (y) 
 export type Json =
   | string
   | number
@@ -128,19 +131,31 @@ export type Database = {
       event_volunteer: {
         Row: {
           event_id: string
-          status: string
+          final_attendance: Database["public"]["Enums"]["attendance"] | null
+          orientation_attendance:
+            | Database["public"]["Enums"]["attendance"]
+            | null
+          status: Database["public"]["Enums"]["event_volunteer_status"]
           time_logged: number
           volunteer_id: string
         }
         Insert: {
           event_id?: string
-          status?: string
+          final_attendance?: Database["public"]["Enums"]["attendance"] | null
+          orientation_attendance?:
+            | Database["public"]["Enums"]["attendance"]
+            | null
+          status?: Database["public"]["Enums"]["event_volunteer_status"]
           time_logged?: number
           volunteer_id: string
         }
         Update: {
           event_id?: string
-          status?: string
+          final_attendance?: Database["public"]["Enums"]["attendance"] | null
+          orientation_attendance?:
+            | Database["public"]["Enums"]["attendance"]
+            | null
+          status?: Database["public"]["Enums"]["event_volunteer_status"]
           time_logged?: number
           volunteer_id?: string
         }
@@ -170,6 +185,8 @@ export type Database = {
           event_start: string
           location: string
           name: string
+          orientation_end: string | null
+          orientation_start: string | null
         }
         Insert: {
           admin_id?: string
@@ -179,6 +196,8 @@ export type Database = {
           event_start: string
           location?: string
           name?: string
+          orientation_end?: string | null
+          orientation_start?: string | null
         }
         Update: {
           admin_id?: string
@@ -188,6 +207,8 @@ export type Database = {
           event_start?: string
           location?: string
           name?: string
+          orientation_end?: string | null
+          orientation_start?: string | null
         }
         Relationships: [
           {
@@ -332,7 +353,6 @@ export type Database = {
           name: string
           nickname: string | null
           occupation: string | null
-          password: string
           phone_number: string | null
           sex: string | null
           volunteer_id: string
@@ -347,7 +367,6 @@ export type Database = {
           name?: string
           nickname?: string | null
           occupation?: string | null
-          password?: string
           phone_number?: string | null
           sex?: string | null
           volunteer_id?: string
@@ -362,7 +381,6 @@ export type Database = {
           name?: string
           nickname?: string | null
           occupation?: string | null
-          password?: string
           phone_number?: string | null
           sex?: string | null
           volunteer_id?: string
@@ -377,7 +395,8 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      attendance: "attended" | "missed"
+      event_volunteer_status: "accepted" | "rejected"
     }
     CompositeTypes: {
       [_ in never]: never
