@@ -15,8 +15,7 @@ export const AddEventSchema = z
     }),
     location: z.string(),
     description: z.string().nullable(),
-    orientation_start: z.string().date().optional(),
-    orientation_end: z.string().date().optional(),
+    orientation_date: z.string().date().optional(),
   })
   .refine(
     ({ event_start, event_end }) =>
@@ -24,17 +23,6 @@ export const AddEventSchema = z
     {
       message: "Event start must be before event end.",
       path: ["event_start"],
-    },
-  )
-  .refine(
-    ({ orientation_start, orientation_end }) =>
-      (!orientation_start && !orientation_end) ||
-      new Date(orientation_start!).valueOf() <=
-        new Date(orientation_end!).valueOf(),
-    {
-      message:
-        "Orientation start must be before or on the same day as orientation end.",
-      path: ["orientation_start"],
     },
   );
 
