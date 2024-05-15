@@ -13,6 +13,7 @@ export default function Events({ children }: { children: React.ReactNode }) {
           <Button className="text-xsm text-primary-foreground">Log out</Button>
         </div>
       </div>
+
       <div className="flex flex-col items-center gap-2 lg:hidden">
         <div className="flex gap-2 items-center self-end">
           <Button className="text-xsm text-primary-foreground">Log out</Button>

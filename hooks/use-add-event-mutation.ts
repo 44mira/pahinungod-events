@@ -1,4 +1,4 @@
-import { Event } from "@/app/dashboard/events/_api/types";
+import { Event } from "@/app/dashboard/events/_types/types";
 import useSupabase from "./useSupabase";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 

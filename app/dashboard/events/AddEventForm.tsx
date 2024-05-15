@@ -10,12 +10,13 @@ import {
   FormControl,
   FormMessage,
 } from "@/components/ui/form";
-import { AddEventSchema, type AddEventFields } from "./_api/schemas";
+import { AddEventSchema, type AddEventFields } from "./_types/schemas";
 import useAddEventMutation from "@/hooks/use-add-event-mutation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { DialogClose } from "@radix-ui/react-dialog";
-import { useEffect } from "react";
+import { Switch } from "@/components/ui/switch";
+import { useEffect, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 
 export default function AddEventForm() {
@@ -30,8 +31,11 @@ export default function AddEventForm() {
       description: "",
       event_start: "",
       event_end: "",
+      orientation_date: undefined,
     },
   });
+
+  const [orientation, setOrientation] = useState<boolean>(false);
 
   useEffect(() => {
     form.setValue("event_id", crypto.randomUUID());
@@ -111,6 +115,7 @@ export default function AddEventForm() {
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name="location"
@@ -143,6 +148,39 @@ export default function AddEventForm() {
             </FormItem>
           )}
         />
+
+        <div className="p-5 bg-muted col-span-2 ">
+          <FormItem className="flex gap-5 items-center justify-center">
+            <Switch
+              onCheckedChange={() => {
+                setOrientation((state) => !state);
+                form.setValue("orientation_date", undefined);
+              }}
+            />
+            Does this event have an orientation?
+          </FormItem>
+          <div hidden={!orientation}>
+            <FormField
+              control={form.control}
+              name="orientation_date"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Orientation Date</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="date"
+                      {...field}
+                      onChange={(e) => {
+                        field.onChange(e.target.value.toString());
+                      }}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        </div>
 
         <div className="col-span-2 flex flex-row-reverse gap-3">
           <DialogClose asChild>

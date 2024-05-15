@@ -2,8 +2,10 @@ import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import Link from "next/link";
 import favicon from "@/app/favicon.ico";
+import logo from "@/public/logo.png";
 
 export default function Navbar({ children }: { children: React.ReactNode }) {
+  const logoDimensions = 225;
   const NavbarItems: string[][] = [
     ["Dashboard", ""],
     ["Events", "/events"],
@@ -14,7 +16,14 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex w-full min-h-screen">
       <div className="md:flex flex-col min-w-[290px] bg-muted p-5 gap-5 border rounded-r-2xl hidden">
-        <div className="mb-5">logo</div>
+        <div className="flex mb-5 justify-center items-center">
+          <Image
+            src={logo}
+            alt="pahinungod logo"
+            height={logoDimensions}
+            width={logoDimensions}
+          />
+        </div>
         <Separator className="bg-black" />
         <ul className="flex flex-col gap-5">
           {NavbarItems.map(([item, url], idx) => (
