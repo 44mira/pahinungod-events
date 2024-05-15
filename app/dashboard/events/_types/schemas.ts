@@ -6,7 +6,7 @@ export const AddEventSchema = z
   .object({
     event_id: z.string().uuid(),
     admin_id: z.string().uuid(),
-    name: z.string({ required_error: "Event name is required" }),
+    name: z.string().min(1, { message: "Event name is required" }),
     event_start: z.string().regex(DATETIME_LOCAL, {
       message: "Event start time is required",
     }),
@@ -15,6 +15,8 @@ export const AddEventSchema = z
     }),
     location: z.string(),
     description: z.string().nullable(),
+    orientation_start: z.string().date().optional(),
+    orientation_end: z.string().date().optional(),
   })
   .refine(
     ({ event_start, event_end }) =>
@@ -22,6 +24,17 @@ export const AddEventSchema = z
     {
       message: "Event start must be before event end.",
       path: ["event_start"],
+    },
+  )
+  .refine(
+    ({ orientation_start, orientation_end }) =>
+      (!orientation_start && !orientation_end) ||
+      new Date(orientation_start!).valueOf() <=
+        new Date(orientation_end!).valueOf(),
+    {
+      message:
+        "Orientation start must be before or on the same day as orientation end.",
+      path: ["orientation_start"],
     },
   );
 
