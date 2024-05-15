@@ -21,40 +21,47 @@ import useEventQuery from "@/hooks/use-event-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
-import { useSearchParams, useParams, useRouter } from "next/navigation";
-import { useCallback } from "react";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { useDebouncedCallback } from "use-debounce";
+import { useEffect } from "react";
 
 export default function Events() {
   // for pagination
-  const pathname = useParams();
+  const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
   const page = Number(searchParams.get("page") ?? 0);
 
-  const { data: event, status } = useEventQuery(page);
+  const {
+    data: event,
+    status,
+    refetch,
+  } = useEventQuery(page, searchParams.get("search") ?? "");
 
-  // Get a new searchParams string by merging the current
-  // searchParams with a provided key/value pair
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value);
+  const handleSearch = useDebouncedCallback((searchedName: string) => {
+    const params = new URLSearchParams(searchParams);
+    if (searchedName) {
+      params.set("search", searchedName);
+    } else {
+      params.delete("search");
+    }
+    router.replace(`${pathname}?${params.toString()}`);
+  }, 300);
 
-      return params.toString();
-    },
-    [searchParams],
-  );
+  useEffect(() => {
+    refetch();
+  }, [searchParams]);
 
   return (
     <>
-      <Searchbar />
+      <Searchbar handleSearch={handleSearch} />
       <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 w-full items-center gap-3">
         {status === "pending" ? (
           <PendingResponse />
         ) : status === "error" ? (
           <ErrorResponse />
         ) : (
-          event!.map(({ event_id, ...props }: Event) => (
+          event.map(({ event_id, ...props }: Event) => (
             <Card
               key={event_id}
               className="min-w-fit flex flex-col w-full h-full"
@@ -139,7 +146,11 @@ function PendingResponse() {
 //   );
 // }
 
-function Searchbar() {
+function Searchbar({
+  handleSearch,
+}: {
+  handleSearch: (searchedName: string) => void;
+}) {
   return (
     <div className="flex gap-2">
       <Button className="flex gap-2 text-body" variant="outline">
@@ -153,7 +164,8 @@ function Searchbar() {
         <Image src={search_icon} alt="search icon" />
         <Input
           className="border-0 focus-visible:ring-2/0 bg-inherit"
-          placeholder="Search for events by title or id"
+          placeholder="Search for events by title"
+          onChange={(e) => handleSearch(e.target.value)}
         />
       </div>
     </div>
