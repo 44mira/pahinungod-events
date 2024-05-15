@@ -59,7 +59,7 @@ export default function EventInformation() {
                 ) : (
                   <div className="flex gap-3 justify-center items-center shrink-0">
                     <Image src={person_icon} alt="person icon" />
-                    <p>{volunteerList!.length} volunteers</p>
+                    <span>{volunteerList!.length} volunteers</span>
                   </div>
                 )}
                 <div className="flex gap-3 justifcy-center items-center grow">
@@ -80,13 +80,13 @@ export default function EventInformation() {
                   <span className="font-bold">Location</span>
                   <span className="flex gap-3 items-center">
                     <Image src={location_icon} alt="location icon" />
-                    <p>{eventInfo.location}</p>
+                    <span>{eventInfo.location}</span>
                   </span>
                 </span>
                 <span className="flex flex-col gap-2">
                   <span className="font-bold">Description</span>
                   <span className="flex gap-3 items-center">
-                    <p>{eventInfo.description}</p>
+                    <span>{eventInfo.description}</span>
                   </span>
                 </span>
               </CardDescription>

@@ -31,7 +31,7 @@ export default function AddEventForm() {
       description: "",
       event_start: "",
       event_end: "",
-      orientation_date: "",
+      orientation_date: undefined,
     },
   });
 
@@ -154,7 +154,7 @@ export default function AddEventForm() {
             <Switch
               onCheckedChange={() => {
                 setOrientation((state) => !state);
-                form.setValue("orientation_date", "");
+                form.setValue("orientation_date", undefined);
               }}
             />
             Does this event have an orientation?
@@ -167,7 +167,13 @@ export default function AddEventForm() {
                 <FormItem>
                   <FormLabel>Orientation Date</FormLabel>
                   <FormControl>
-                    <Input type="date" {...field} />
+                    <Input
+                      type="date"
+                      {...field}
+                      onChange={(e) => {
+                        field.onChange(e.target.value.toString());
+                      }}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
