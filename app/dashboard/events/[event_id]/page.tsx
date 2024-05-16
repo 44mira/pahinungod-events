@@ -146,7 +146,7 @@ export default function EventInformation() {
           <></>
         ) : (
           <>
-            <Tabs className="w-full">
+            <Tabs defaultValue="accepted" className="w-full">
               <TabsList className="grid grid-cols-2 w-full bg-secondary text-secondary-foreground">
                 <TabsTrigger value="accepted">Accepted</TabsTrigger>
                 <TabsTrigger value="rejected">Rejected</TabsTrigger>

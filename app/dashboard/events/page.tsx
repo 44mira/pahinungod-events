@@ -7,7 +7,14 @@ import calendar_icon from "@/public/calendar.svg";
 import location_icon from "@/public/location_icon.svg";
 import person_icon from "@/public/person_icon.svg";
 import { Input } from "@/components/ui/input";
-import { Event } from "./_types/types";
+import { Event, EventStatus } from "./_types/types";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectValue,
+  SelectTrigger,
+} from "@/components/ui/select";
 import {
   Card,
   CardDescription,
@@ -16,14 +23,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { deltaDate } from "./utils";
+import { calculateStatus, deltaDate } from "./utils";
 import useEventQuery from "@/hooks/use-event-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Events() {
   // for pagination
@@ -48,60 +55,73 @@ export default function Events() {
     router.replace(`${pathname}?${params.toString()}`);
   }, 300);
 
+  const [eventFilter, setEventFilter] = useState<EventStatus | "none">("none");
+
   useEffect(() => {
     refetch();
   }, [searchParams, refetch]);
 
   return (
     <>
-      <Searchbar handleSearch={handleSearch} />
+      <Searchbar
+        handleSearch={handleSearch}
+        eventFilter={eventFilter}
+        setEventFilter={setEventFilter}
+      />
       <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 w-full items-center gap-3">
         {status === "pending" ? (
           <PendingResponse />
         ) : status === "error" ? (
           <ErrorResponse />
         ) : (
-          event.map(({ event_id, ...props }: Event) => (
-            <Card
-              key={event_id}
-              className="min-w-fit flex flex-col w-full h-full"
-            >
-              <CardHeader className="h-full min-w-fit flex flex-col">
-                <CardTitle className="flex items-center w-full mb-2 h-full">
-                  <span className="text-lg grow">{props.name}</span>
-                  {/*<Badge
+          event
+            .filter(
+              (props) =>
+                eventFilter === "none" ||
+                calculateStatus(props.event_start, props.event_end) ===
+                  eventFilter,
+            )
+            .map(({ event_id, ...props }: Event) => (
+              <Card
+                key={event_id}
+                className="min-w-fit flex flex-col w-full h-full"
+              >
+                <CardHeader className="h-full min-w-fit flex flex-col">
+                  <CardTitle className="flex items-center w-full mb-2 h-full">
+                    <span className="text-lg grow">{props.name}</span>
+                    {/*<Badge
                     status={calculateStatus(props.event_start, props.event_end)}
                   />*/}
-                </CardTitle>
+                  </CardTitle>
 
-                <CardDescription className="flex flex-col gap-2 w-full text-primary">
-                  <span className="flex gap-3 items-center">
-                    <Image src={location_icon} alt="location icon" />
-                    {props.location}
-                  </span>
-                  <span className="flex min-w-full">
-                    <span className="flex items-center gap-3 p-5 border border-primary">
-                      <Image src={person_icon} alt="person icon" />0
+                  <CardDescription className="flex flex-col gap-2 w-full text-primary">
+                    <span className="flex gap-3 items-center">
+                      <Image src={location_icon} alt="location icon" />
+                      {props.location}
                     </span>
-                    <span className="flex items-center gap-3 p-5 border border-primary grow">
-                      <Image src={calendar_icon} alt="calendar icon" />
-                      {deltaDate(props.event_start, props.event_end)}
+                    <span className="flex min-w-full">
+                      <span className="flex items-center gap-3 p-5 border border-primary">
+                        <Image src={person_icon} alt="person icon" />0
+                      </span>
+                      <span className="flex items-center gap-3 p-5 border border-primary grow">
+                        <Image src={calendar_icon} alt="calendar icon" />
+                        {deltaDate(props.event_start, props.event_end)}
+                      </span>
                     </span>
-                  </span>
-                </CardDescription>
-              </CardHeader>
+                  </CardDescription>
+                </CardHeader>
 
-              <CardFooter className="flex flex-col gap-2 justify-self-end">
-                <Button
-                  variant="outline"
-                  className="border-primary w-full"
-                  onClick={() => router.push("events/" + event_id)}
-                >
-                  VIEW EVENT
-                </Button>
-              </CardFooter>
-            </Card>
-          ))
+                <CardFooter className="flex flex-col gap-2 justify-self-end">
+                  <Button
+                    variant="outline"
+                    className="border-primary w-full"
+                    onClick={() => router.push("events/" + event_id)}
+                  >
+                    VIEW EVENT
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))
         )}
       </div>
     </>
@@ -148,15 +168,31 @@ function PendingResponse() {
 
 function Searchbar({
   handleSearch,
+  eventFilter,
+  setEventFilter,
 }: {
   handleSearch: (searchedName: string) => void;
+  eventFilter: EventStatus | "none";
+  setEventFilter: any;
 }) {
   return (
     <div className="flex gap-2">
-      <Button className="flex gap-2 text-body" variant="outline">
-        Add a filter
-        <Image src={filter_icon} alt="filter icon" />
-      </Button>
+      <Select onValueChange={setEventFilter} defaultValue="none">
+        <SelectTrigger className="min-w-fit max-w-fit">
+          <SelectValue>
+            <div className="flex gap-2">
+              <span>Add a filter ({eventFilter})</span>
+              <Image src={filter_icon} alt="filter icon" />
+            </div>
+          </SelectValue>
+        </SelectTrigger>
+        <SelectContent className="min-w-fit">
+          <SelectItem value="none">None</SelectItem>
+          <SelectItem value="upcoming">Upcoming</SelectItem>
+          <SelectItem value="active">Active</SelectItem>
+          <SelectItem value="past">Past</SelectItem>
+        </SelectContent>
+      </Select>
       <div
         className="border border-input flex grow rounded-md pl-3
         focus-within:ring-ring focus-within:ring-2 ring-0 bg-muted"
