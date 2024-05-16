@@ -8,6 +8,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogTrigger,
+  AlertDialogTitle,
+  AlertDialogCancel,
+  AlertDialogDescription,
+  AlertDialogFooter,
+} from "@/components/ui/alert-dialog";
 import { Skeleton } from "@/components/ui/skeleton";
 import Image from "next/image";
 import useDeleteEventMutaion from "@/hooks/use-delete-event-mutation";
@@ -22,6 +31,7 @@ import moment from "moment";
 import { DataTable } from "./data-table";
 import { EventVolunteerList, EventVolunteerColumns } from "./columns";
 import delete_icon from "@/public/delete_icon.svg";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 export default function EventInformation() {
   // get information of the viewed event
