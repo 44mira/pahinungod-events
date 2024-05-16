@@ -39,7 +39,7 @@ export function DataTable<TData, TValue>({
         .getAllColumns()
         .find((a) => a.id === "orientation_attendance")
         ?.toggleVisibility(false);
-  }, [orientation]);
+  }, [orientation, table]);
 
   if (!table.getRowModel().rows?.length) {
     return (

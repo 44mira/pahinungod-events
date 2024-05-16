@@ -50,7 +50,7 @@ export default function Events() {
 
   useEffect(() => {
     refetch();
-  }, [searchParams]);
+  }, [searchParams, refetch]);
 
   return (
     <>
