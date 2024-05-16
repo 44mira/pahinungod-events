@@ -34,6 +34,8 @@ import delete_icon from "@/public/delete_icon.svg";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import UpdateEvent from "./UpdateEvent";
 import { AddEventFields } from "../_types/schemas";
+import { useState } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function EventInformation() {
   // get information of the viewed event
@@ -43,6 +45,9 @@ export default function EventInformation() {
   );
 
   const { mutate: deleteEvent } = useDeleteEventMutaion();
+  const [volunteerStatus, setVolunteerStatus] = useState<
+    "accepted" | "rejected"
+  >("accepted");
   const router = useRouter();
   const READABLE_FORMAT = "MMM D YYYY, hh:mm a";
   const { data: eventInfo, status: eventStatus } = eventInfoData;
@@ -135,21 +140,45 @@ export default function EventInformation() {
           </Card>
         )}
         {/* Volunteer list */}
+
         {volunteerListStatus === "pending" ||
         volunteerListStatus === "error" ? (
           <></>
         ) : (
-          <DataTable
-            columns={EventVolunteerColumns}
-            orientation={!!eventInfo?.orientation_date}
-            data={
-              volunteerList
-                .filter(({ status }) => status === "accepted")
-                .sort(
-                  (a, b) => b.time_logged - a.time_logged,
-                ) as EventVolunteerList[]
-            }
-          />
+          <>
+            <Tabs className="w-full">
+              <TabsList className="grid grid-cols-2 w-full bg-secondary text-secondary-foreground">
+                <TabsTrigger value="accepted">Accepted</TabsTrigger>
+                <TabsTrigger value="rejected">Rejected</TabsTrigger>
+              </TabsList>
+              <TabsContent value="accepted">
+                <DataTable
+                  columns={EventVolunteerColumns}
+                  orientation={!!eventInfo?.orientation_date}
+                  data={
+                    volunteerList
+                      .filter(({ status }) => status === "accepted")
+                      .sort(
+                        (a, b) => b.time_logged - a.time_logged,
+                      ) as EventVolunteerList[]
+                  }
+                />
+              </TabsContent>
+              <TabsContent value="rejected">
+                <DataTable
+                  columns={EventVolunteerColumns}
+                  orientation={!!eventInfo?.orientation_date}
+                  data={
+                    volunteerList
+                      .filter(({ status }) => status === "rejected")
+                      .sort(
+                        (a, b) => b.time_logged - a.time_logged,
+                      ) as EventVolunteerList[]
+                  }
+                />
+              </TabsContent>
+            </Tabs>
+          </>
         )}
       </div>
     </>

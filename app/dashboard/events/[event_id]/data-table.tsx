@@ -41,6 +41,14 @@ export function DataTable<TData, TValue>({
         ?.toggleVisibility(false);
   }, [orientation]);
 
+  if (!table.getRowModel().rows?.length) {
+    return (
+      <div className="rounded-md border bg-background p-5">
+        <h2>No results.</h2>
+      </div>
+    );
+  }
+
   return (
     <div className="rounded-md border">
       <Table>
