@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import Image from "next/image";
+import useDeleteEventMutaion from "@/hooks/use-delete-event-mutation";
 import person_icon from "@/public/person_icon.svg";
 import calendar_icon from "@/public/calendar.svg";
 import location_icon from "@/public/location_icon.svg";
@@ -20,6 +21,7 @@ import { useParams, useRouter } from "next/navigation";
 import moment from "moment";
 import { DataTable } from "./data-table";
 import { EventVolunteerList, EventVolunteerColumns } from "./columns";
+import delete_icon from "@/public/delete_icon.svg";
 
 export default function EventInformation() {
   // get information of the viewed event
@@ -28,6 +30,7 @@ export default function EventInformation() {
     event_id as UUID,
   );
 
+  const { mutate: deleteEvent } = useDeleteEventMutaion();
   const router = useRouter();
   const READABLE_FORMAT = "MMM D YYYY, hh:mm a";
   const { data: eventInfo, status: eventStatus } = eventInfoData;
@@ -36,13 +39,21 @@ export default function EventInformation() {
 
   return (
     <>
-      <Button
-        className="border-primary w-full self max-w-fit"
-        onClick={() => router.back()}
-      >
-        <Image src={left_arrow_icon} alt="left arrow icon" />
-        Back
-      </Button>
+      <div className="flex gap-3 items-center w-full">
+        <Button
+          className="border-primary w-full max-w-fit"
+          onClick={() => router.back()}
+        >
+          <Image src={left_arrow_icon} alt="left arrow icon" />
+          Back
+        </Button>
+        <div className="grow" />
+        <DeleteAlert
+          event_id={event_id as UUID}
+          deleteEvent={deleteEvent}
+          router={router}
+        />
+      </div>
       <div className="flex flex-col gap-5 min-h-screen min-w-screen bg-muted p-5 rounded-md">
         {/* Event info */}
         {eventStatus === "pending" ? (
@@ -61,7 +72,7 @@ export default function EventInformation() {
                 ) : (
                   <div className="flex gap-3 justify-center items-center shrink-0">
                     <Image src={person_icon} alt="person icon" />
-                    <span>{volunteerList!.length} volunteers</span>
+                    <span>{`${volunteerList!.length} volunteer${volunteerList!.length === 1 ? "" : "s"}`}</span>
                   </div>
                 )}
                 <div className="flex gap-3 justify-center items-center grow">
@@ -124,5 +135,44 @@ export default function EventInformation() {
         )}
       </div>
     </>
+  );
+}
+function DeleteAlert({
+  event_id,
+  deleteEvent,
+  router,
+}: {
+  event_id: UUID;
+  deleteEvent: any; // type too long
+  router: AppRouterInstance;
+}) {
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button variant="destructive" className="w-full max-w-fit">
+          <Image src={delete_icon} alt="delete icon" />
+          Delete
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+        <AlertDialogDescription>
+          This action cannot be undone. This will permanently delete this event
+          and remove this data from our servers.
+        </AlertDialogDescription>
+        <AlertDialogFooter className="mt-2">
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <Button
+            variant="destructive"
+            onClick={() => {
+              deleteEvent(event_id);
+              router.back();
+            }}
+          >
+            Continue
+          </Button>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }
