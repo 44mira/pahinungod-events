@@ -32,6 +32,8 @@ import { DataTable } from "./data-table";
 import { EventVolunteerList, EventVolunteerColumns } from "./columns";
 import delete_icon from "@/public/delete_icon.svg";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import UpdateEvent from "./UpdateEvent";
+import { AddEventFields } from "../_types/schemas";
 
 export default function EventInformation() {
   // get information of the viewed event
@@ -58,6 +60,12 @@ export default function EventInformation() {
           Back
         </Button>
         <div className="grow" />
+        <UpdateEvent
+          event_id={event_id as UUID}
+          eventInfo={eventInfo as AddEventFields}
+          disabled={eventStatus !== "success"}
+        />
+
         <DeleteAlert
           event_id={event_id as UUID}
           deleteEvent={deleteEvent}
