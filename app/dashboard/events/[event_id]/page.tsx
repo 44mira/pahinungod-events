@@ -18,6 +18,8 @@ import useSingleEventQuery from "@/hooks/use-single-event-query";
 import { UUID } from "crypto";
 import { useParams, useRouter } from "next/navigation";
 import moment from "moment";
+import { DataTable } from "./data-table";
+import { EventVolunteerList, EventVolunteerColumns } from "./columns";
 
 export default function EventInformation() {
   // get information of the viewed event
@@ -62,8 +64,9 @@ export default function EventInformation() {
                     <span>{volunteerList!.length} volunteers</span>
                   </div>
                 )}
-                <div className="flex gap-3 justifcy-center items-center grow">
+                <div className="flex gap-3 justify-center items-center grow">
                   <Image src={calendar_icon} alt="calendar icon" />
+                  {"Event Date: "}
                   <span>
                     {moment(eventInfo.event_start).format(READABLE_FORMAT)}
                   </span>{" "}
@@ -72,6 +75,15 @@ export default function EventInformation() {
                     {moment(eventInfo.event_end).format(READABLE_FORMAT)}
                   </span>
                 </div>
+                {!!eventInfo.orientation_date && (
+                  <div className="flex gap-3 justify-center items-center grow">
+                    <Image src={calendar_icon} alt="calendar icon" />
+                    <span>
+                      {"Orientation Date: "}
+                      {moment(eventInfo.orientation_date).format("MMM DD YYYY")}
+                    </span>{" "}
+                  </div>
+                )}
               </div>
             </CardHeader>
             <CardContent>
@@ -94,6 +106,22 @@ export default function EventInformation() {
           </Card>
         )}
         {/* Volunteer list */}
+        {volunteerListStatus === "pending" ||
+        volunteerListStatus === "error" ? (
+          <></>
+        ) : (
+          <DataTable
+            columns={EventVolunteerColumns}
+            orientation={!!eventInfo?.orientation_date}
+            data={
+              volunteerList
+                .filter(({ status }) => status === "accepted")
+                .sort(
+                  (a, b) => b.time_logged - a.time_logged,
+                ) as EventVolunteerList[]
+            }
+          />
+        )}
       </div>
     </>
   );
