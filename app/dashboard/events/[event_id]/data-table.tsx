@@ -6,7 +6,7 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-
+import { useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -18,11 +18,13 @@ import {
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
+  orientation: boolean;
   data: TData[];
 }
 
 export function DataTable<TData, TValue>({
   columns,
+  orientation,
   data,
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
@@ -30,6 +32,22 @@ export function DataTable<TData, TValue>({
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+
+  useEffect(() => {
+    if (!orientation)
+      table
+        .getAllColumns()
+        .find((a) => a.id === "orientation_attendance")
+        ?.toggleVisibility(false);
+  }, [orientation, table]);
+
+  if (!table.getRowModel().rows?.length) {
+    return (
+      <div className="rounded-md border bg-background p-5">
+        <h2>No results.</h2>
+      </div>
+    );
+  }
 
   return (
     <div className="rounded-md border">
@@ -39,7 +57,10 @@ export function DataTable<TData, TValue>({
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead key={header.id}>
+                  <TableHead
+                    key={header.id}
+                    className="text-primary-foreground"
+                  >
                     {header.isPlaceholder
                       ? null
                       : flexRender(
