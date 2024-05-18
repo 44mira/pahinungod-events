@@ -53,7 +53,7 @@ export default function Volunteers() {
               <CardTitle className="text-sm">Account Details</CardTitle>
             </CardHeader>
             <CardContent>
-              {Object.entries(accountDetails).map(([key, value], index) => (
+              {accountDetails.map((value, index) => (
                 <div key={index} className="flex justify-between">
                   <p className="py-1">{value.name}</p>
                   <p>{value.value}</p>
@@ -66,7 +66,7 @@ export default function Volunteers() {
               <CardTitle className="text-sm">Account Details</CardTitle>
             </CardHeader>
             <CardContent>
-              {Object.entries(currentAddress).map(([key, value], index) => (
+              {currentAddress.map((value, index) => (
                 <div key={index} className="flex justify-between">
                   <p className="py-1">{value.name}</p>
                   <p>{value.value}</p>
@@ -82,7 +82,7 @@ export default function Volunteers() {
               <CardTitle className="text-sm">Account Details</CardTitle>
             </CardHeader>
             <CardContent>
-              {Object.entries(contactDetails).map(([key, value], index) => (
+              {contactDetails.map((value, index) => (
                 <div key={index} className="flex justify-between">
                   <p className="py-1">{value.name}</p>
                   <p>{value.value}</p>
@@ -95,7 +95,7 @@ export default function Volunteers() {
               <CardTitle className="text-sm">Account Details</CardTitle>
             </CardHeader>
             <CardContent>
-              {Object.entries(occupationDetails).map(([key, value], index) => (
+              {occupationDetails.map((value, index) => (
                 <div key={index} className="flex justify-between">
                   <p className="py-1">{value.name}</p>
                   <p>{value.value}</p>
