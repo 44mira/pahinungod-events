@@ -42,8 +42,8 @@ export default function DashboardPage() {
           {status === "success" ? <EventCalendar data={data} /> : <></>}
           <Separator />
           <CardFooter className="flex flex-col mt-2 gap-3 items-start rounded-md p-2">
-            {data?.toReversed().map(({ name, event_start }) => (
-              <span className="flex gap-3 items-center">
+            {data?.toReversed().map(({ name, event_start, event_id }) => (
+              <span className="flex gap-3 items-center" key={event_id}>
                 <span
                   className="bg-primary rounded-[99px] h-9 w-8
                   text-primary-foreground flex justify-center items-center"
