@@ -178,7 +178,7 @@ function Searchbar({
   return (
     <div className="flex gap-2">
       <Select onValueChange={setEventFilter} defaultValue="none">
-        <SelectTrigger className="min-w-fit max-w-fit">
+        <SelectTrigger className="min-w-fit max-w-fit bg-white">
           <SelectValue>
             <div className="flex gap-2">
               <span>Add a filter ({eventFilter})</span>
@@ -186,7 +186,7 @@ function Searchbar({
             </div>
           </SelectValue>
         </SelectTrigger>
-        <SelectContent className="min-w-fit">
+        <SelectContent className="min-w-fit bg-white">
           <SelectItem value="none">None</SelectItem>
           <SelectItem value="upcoming">Upcoming</SelectItem>
           <SelectItem value="active">Active</SelectItem>
@@ -194,7 +194,7 @@ function Searchbar({
         </SelectContent>
       </Select>
       <div
-        className="border border-input flex grow rounded-md pl-3
+        className="flex grow rounded-md pl-3 drop-shadow-md
         focus-within:ring-ring focus-within:ring-2 ring-0 bg-muted"
       >
         <Image src={search_icon} alt="search icon" />
