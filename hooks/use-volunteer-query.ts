@@ -3,7 +3,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 export default function useVolunteerQuery() {
   const supabase = useSupabase();
-  const queryKey = ["events"];
+  const queryKey = ["volunteers"];
 
   const queryFn = async () => {
     const { data, error } = await supabase
@@ -11,7 +11,7 @@ export default function useVolunteerQuery() {
       .select("name, occupation, email, age, sex");
 
     if (error) {
-      console.log("An error has occurred in fetching events.");
+      console.log("An error has occurred in fetching volunteers.");
       throw error;
     }
 
