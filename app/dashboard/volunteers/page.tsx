@@ -32,10 +32,12 @@ import {
 } from "@/components/ui/table";
 import useVolunteerQuery from "@/hooks/use-volunteer-query";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { useRouter } from "next/navigation";
 
 export default function DemoPage() {
   const { data, status } = useVolunteerQuery();
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const router = useRouter();
 
   const table = useReactTable({
     data: data ?? [],
@@ -92,21 +94,25 @@ export default function DemoPage() {
               <TableHeader>
                 {table.getHeaderGroups().map((headerGroup) => (
                   <TableRow key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => {
-                      return (
-                        <TableHead
-                          key={header.id}
-                          className="text-primary-foreground"
-                        >
-                          {header.isPlaceholder
-                            ? null
-                            : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext(),
-                              )}
-                        </TableHead>
-                      );
-                    })}
+                    {headerGroup.headers
+                      .filter(
+                        (header) => header.column.columnDef.header !== "ID"
+                      )
+                      .map((header) => {
+                        return (
+                          <TableHead
+                            key={header.id}
+                            className="text-primary-foreground"
+                          >
+                            {header.isPlaceholder
+                              ? null
+                              : flexRender(
+                                  header.column.columnDef.header,
+                                  header.getContext()
+                                )}
+                          </TableHead>
+                        );
+                      })}
                   </TableRow>
                 ))}
               </TableHeader>
@@ -116,15 +122,24 @@ export default function DemoPage() {
                     <TableRow
                       key={row.id}
                       data-state={row.getIsSelected() && "selected"}
+                      onClick={() =>
+                        router.push(
+                          "volunteers/" + row.getValue("volunteer_id")
+                        )
+                      }
+                      className="hover:cursor-pointer"
                     >
-                      {row.getVisibleCells().map((cell) => (
-                        <TableCell key={cell.id}>
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext(),
-                          )}
-                        </TableCell>
-                      ))}
+                      {row
+                        .getVisibleCells()
+                        .filter((cell) => cell.column.columnDef.header !== "ID")
+                        .map((cell) => (
+                          <TableCell key={cell.id}>
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext()
+                            )}
+                          </TableCell>
+                        ))}
                     </TableRow>
                   ))
                 ) : (
