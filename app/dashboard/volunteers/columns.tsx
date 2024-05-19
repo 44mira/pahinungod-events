@@ -7,7 +7,7 @@ import { ColumnDef } from "@tanstack/react-table";
 export type Volunteer = {
   id: string;
   name: string;
-  occupation: "Student" | "Faculty" | "UP|REPS" | "Admin Staff" | "NGS";
+  occupation: "Student" | "Faculty" | "Retiree" | "Admin Staff";
   email: string;
   sex: string;
   age: number;
