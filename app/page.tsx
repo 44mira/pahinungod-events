@@ -5,7 +5,6 @@ import {
   FormItem,
   FormLabel,
   FormControl,
-  FormDescription,
   FormMessage,
   FormField,
 } from "@/components/ui/form";
@@ -24,13 +23,6 @@ const formSchema = z.object({
     message: "Password must contain at least 6 characters.",
   }),
 });
-import lock_icon from "@public/lock_icon.svg";
-import person_icon from "@/public/person_icon.svg";
-
-export function ProfileForm() {
-  // 1. Define your form.
-  // 2. Define a submit handler.
-}
 
 export default function Home() {
   const form = useForm<z.infer<typeof formSchema>>({
