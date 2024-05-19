@@ -15,7 +15,7 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex w-full min-h-screen">
-      <div className="md:flex flex-col min-w-[290px] bg-muted p-5 gap-5 border rounded-r-2xl hidden">
+      <div className="md:flex flex-col min-w-[290px] bg-muted p-5 gap-5 border rounded-r-2xl hidden fixed bottom-0 top-0">
         <div className="flex mb-5 justify-center items-center">
           <Image
             src={logo}
@@ -39,7 +39,7 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
           ))}
         </ul>
       </div>
-      <div className="w-full p-10 lg:pl-16">{children}</div>
+      <div className="w-full p-10 lg:pl-16 md:ml-[290px]">{children}</div>
     </div>
   );
 }
