@@ -5,12 +5,17 @@ import { ColumnDef } from "@tanstack/react-table";
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 export type Volunteer = {
-  id: string;
   name: string;
-  occupation: "Student" | "Faculty" | "Retiree" | "Admin Staff";
+  occupation:
+    | "Student"
+    | "Faculty"
+    | "Retiree"
+    | "Admin Staff"
+    | "Alumni"
+    | null;
   email: string;
-  sex: string;
-  age: number;
+  sex: string | null;
+  age: number | null;
 };
 
 export const columns: ColumnDef<Volunteer>[] = [
