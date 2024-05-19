@@ -11,7 +11,7 @@ export default function useVolunteerQuery() {
       .select("name, occupation, email, age, sex");
 
     if (error) {
-      console.log("An error has occurred in fetching events.");
+      console.log("An error has occurred in fetching volunteers.");
       throw error;
     }
 
