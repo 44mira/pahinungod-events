@@ -13,13 +13,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
-  // ColumnDef,
   ColumnFiltersState,
-  // SortingState,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
-  // getSortedRowModel,
   useReactTable,
   flexRender,
 } from "@tanstack/react-table";
@@ -38,8 +35,6 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export default function DemoPage() {
   const { data, status } = useVolunteerQuery();
-
-  // const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
   const table = useReactTable({
