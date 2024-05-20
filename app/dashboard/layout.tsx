@@ -10,7 +10,7 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
     ["Dashboard", ""],
     ["Events", "/events"],
     ["Volunteers", "/volunteers"],
-    ["Profile and Settings", "/profile"],
+    ["Edit Profile", "/profile"],
   ];
 
   return (
