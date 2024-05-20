@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -10,6 +12,7 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import person_icon from "@/public/person_icon.svg";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 import {
   accountDetails,
@@ -19,7 +22,63 @@ import {
   event1,
 } from "./volunteer-dummyData";
 
+import { UUID } from "crypto";
+import useVolunteeridQuery from "@/hooks/use-volunteerid-query";
+import { useParams } from "next/navigation";
+import { VolumeIcon } from "lucide-react";
+
 export default function Volunteers() {
+  const { volunteer_id } = useParams();
+  const { data: volunteer, status } = useVolunteeridQuery(volunteer_id as UUID);
+
+  if (status === "pending") return <p>Loading...</p>;
+  if (status === "error") return <ErrorResponse />;
+
+  const accountDetails = [
+    {
+      name: "Name",
+      value: volunteer.name,
+    },
+    { name: "Sex", value: volunteer.sex },
+    { name: "Date of Birth", value: volunteer.birth_date },
+    { name: "Email Address", value: volunteer.email },
+    { name: "Age", value: volunteer.age },
+  ];
+
+  const addressDetails = [
+    {
+      name: "Address",
+      value: volunteer.address,
+    },
+    { name: "City", value: volunteer.city },
+    { name: "Province", value: volunteer.province },
+    { name: "Postal Code", value: volunteer.postal_code },
+  ];
+
+  const contactDetails = [
+    {
+      name: "Phone Number",
+      value: volunteer.phone_number,
+    },
+    { name: "Emergency Contact", value: volunteer.emergency_contact },
+    { name: "Facebook Link", value: volunteer.email }, //to be changed
+  ];
+
+  const schoolDetails = [
+    {
+      name: "Phone Number",
+      value: volunteer.phone_number,
+    },
+    { name: "Emergency Contact", value: volunteer.emergency_contact },
+    { name: "Facebook Link", value: volunteer.email }, //to be changed
+  ];
+
+  const hoursRendered = [
+    {
+      name: "Hours Rendered",
+      value: volunteer.rendered_hours,
+    },
+  ];
   return (
     <>
       {/* Profile */}
@@ -52,6 +111,7 @@ export default function Volunteers() {
             <CardHeader className="p-1 ps-3">
               <CardTitle className="text-sm">Account Details</CardTitle>
             </CardHeader>
+
             <CardContent>
               {accountDetails.map((value, index) => (
                 <div key={index} className="flex justify-between">
@@ -63,10 +123,10 @@ export default function Volunteers() {
           </Card>
           <Card>
             <CardHeader className="p-1 ps-3">
-              <CardTitle className="text-sm">Account Details</CardTitle>
+              <CardTitle className="text-sm">Address Details</CardTitle>
             </CardHeader>
             <CardContent>
-              {currentAddress.map((value, index) => (
+              {addressDetails.map((value, index) => (
                 <div key={index} className="flex justify-between">
                   <p className="py-1">{value.name}</p>
                   <p>{value.value}</p>
@@ -79,7 +139,7 @@ export default function Volunteers() {
         <div className="col-span-2 space-y-3">
           <Card>
             <CardHeader className="p-1 ps-3">
-              <CardTitle className="text-sm">Account Details</CardTitle>
+              <CardTitle className="text-sm">Contact Details</CardTitle>
             </CardHeader>
             <CardContent>
               {contactDetails.map((value, index) => (
@@ -92,7 +152,7 @@ export default function Volunteers() {
           </Card>
           <Card>
             <CardHeader className="p-1 ps-3">
-              <CardTitle className="text-sm">Account Details</CardTitle>
+              <CardTitle className="text-sm">School Details</CardTitle>
             </CardHeader>
             <CardContent>
               {occupationDetails.map((value, index) => (
@@ -105,10 +165,9 @@ export default function Volunteers() {
           </Card>
         </div>
       </div>
-
       <p className="pt-12 text-lg font-bold">Participated Events</p>
       {/* Participated Events */}
-      <div className="text-xs grid grid-cols-4 gap-5">
+      <div className="text-xs grid grid-cols-4 gap-5 ">
         {event1.map((event, index) => (
           <Card key={index}>
             <CardHeader className="p-3 pt-4">
@@ -134,6 +193,27 @@ export default function Volunteers() {
           </Card>
         ))}
       </div>
+      <p className="pt-12 text-lg font-bold inline-flex">Hours Participated</p>
+      <div className="grid gap-4 grid-cols-5 text-xsm">
+        <CardContent>
+          {hoursRendered.map((value, index) => (
+            <div key={index} className="flex justify-between">
+              <p className="py-1 font-bold">{value.name}</p>
+              <p>{value.value}</p>
+            </div>
+          ))}
+        </CardContent>
+      </div>
     </>
+  );
+}
+function ErrorResponse() {
+  return (
+    <Alert variant="destructive">
+      <AlertTitle>An error has occurred!</AlertTitle>
+      <AlertDescription>
+        There was an error in fetching Volunteers data.
+      </AlertDescription>
+    </Alert>
   );
 }
