@@ -1,6 +1,14 @@
 "use client";
 
+import useUpdateVolunteerMutation from "@/hooks/use-update-attendance-mutation";
 import { ColumnDef } from "@tanstack/react-table";
+import {
+  Select,
+  SelectItem,
+  SelectContent,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export type EventVolunteerList = {
   volunteer: { name: string };
@@ -10,6 +18,8 @@ export type EventVolunteerList = {
 };
 
 export const EventVolunteerColumns: ColumnDef<EventVolunteerList>[] = [
+  { accessorKey: "volunteer_id" },
+  { accessorKey: "event_id" },
   {
     accessorKey: "volunteer",
     header: "Name",
@@ -28,9 +38,45 @@ export const EventVolunteerColumns: ColumnDef<EventVolunteerList>[] = [
   {
     accessorKey: "orientation_attendance",
     header: "Orientation Attendance",
+    cell: ({ row }) => {
+      const { mutate } = useUpdateVolunteerMutation(
+        "orientation_attendance",
+        row.getValue("event_id"),
+        row.getValue("volunteer_id"),
+      );
+
+      const attendance: string = row.getValue("orientation_attendance");
+
+      return <SelectAttendance mutate={mutate} attendance={attendance} />;
+    },
   },
   {
     accessorKey: "final_attendance",
     header: "Final Attendance",
+    cell: ({ row }) => {
+      const { mutate } = useUpdateVolunteerMutation(
+        "final_attendance",
+        row.getValue("event_id"),
+        row.getValue("volunteer_id"),
+      );
+
+      const attendance: string = row.getValue("final_attendance");
+
+      return <SelectAttendance mutate={mutate} attendance={attendance} />;
+    },
   },
 ];
+
+function SelectAttendance({ mutate, attendance }: any) {
+  return (
+    <Select onValueChange={mutate} defaultValue={attendance}>
+      <SelectTrigger className="max-w-fit">
+        <SelectValue placeholder={attendance} />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="attended">attended</SelectItem>
+        <SelectItem value="missed">missed</SelectItem>
+      </SelectContent>
+    </Select>
+  );
+}

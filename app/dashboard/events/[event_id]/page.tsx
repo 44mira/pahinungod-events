@@ -45,9 +45,6 @@ export default function EventInformation() {
   );
 
   const { mutate: deleteEvent } = useDeleteEventMutaion();
-  const [volunteerStatus, setVolunteerStatus] = useState<
-    "accepted" | "rejected"
-  >("accepted");
   const router = useRouter();
   const READABLE_FORMAT = "MMM D YYYY, hh:mm a";
   const { data: eventInfo, status: eventStatus } = eventInfoData;

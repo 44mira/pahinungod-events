@@ -34,6 +34,8 @@ export function DataTable<TData, TValue>({
   });
 
   useEffect(() => {
+    table.getColumn("volunteer_id")?.toggleVisibility(false);
+    table.getColumn("event_id")?.toggleVisibility(false);
     if (!orientation)
       table
         .getAllColumns()
