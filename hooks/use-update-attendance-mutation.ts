@@ -28,6 +28,15 @@ export default function useUpdateVolunteerMutation(
       .eq("event_id", event_id)
       .select();
 
+    if (new_value === "missed") {
+      await supabase
+        .from("event_volunteer")
+        .update({ status: "rejected" })
+        .eq("volunteer_id", volunteer_id)
+        .eq("event_id", event_id)
+        .select();
+    }
+
     if (error) {
       console.log("An error has occurred in updating the volunteer");
       throw error;
@@ -40,7 +49,9 @@ export default function useUpdateVolunteerMutation(
     mutationFn: (new_value: "attended" | "missed") =>
       updateVolunteer(new_value),
     onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: ["volunteerListQuery"] });
+      queryClient.refetchQueries({
+        queryKey: ["volunteer_list", event_id],
+      });
     },
   });
 }
