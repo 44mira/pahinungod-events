@@ -19,12 +19,14 @@ import {
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   orientation: boolean;
+  rejected: boolean;
   data: TData[];
 }
 
 export function DataTable<TData, TValue>({
   columns,
   orientation,
+  rejected,
   data,
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
@@ -36,12 +38,15 @@ export function DataTable<TData, TValue>({
   useEffect(() => {
     table.getColumn("volunteer_id")?.toggleVisibility(false);
     table.getColumn("event_id")?.toggleVisibility(false);
-    if (!orientation)
-      table
-        .getAllColumns()
-        .find((a) => a.id === "orientation_attendance")
-        ?.toggleVisibility(false);
-  }, [orientation, table]);
+    if (!orientation) {
+      table.getColumn("orientation_attendance")?.toggleVisibility(false);
+    }
+
+    if (rejected) {
+      table.getColumn("orientation_attendance")?.toggleVisibility(false);
+      table.getColumn("time_logged")?.toggleVisibility(false);
+    }
+  }, [orientation, rejected, table]);
 
   if (!table.getRowModel().rows?.length) {
     return (

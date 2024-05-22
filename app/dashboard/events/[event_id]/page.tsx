@@ -34,7 +34,6 @@ import delete_icon from "@/public/delete_icon.svg";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import UpdateEvent from "./UpdateEvent";
 import { AddEventFields } from "../_types/schemas";
-import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function EventInformation() {
@@ -152,6 +151,7 @@ export default function EventInformation() {
                 <DataTable
                   columns={EventVolunteerColumns}
                   orientation={!!eventInfo?.orientation_date}
+                  rejected={false}
                   data={
                     volunteerList
                       .filter(({ status }) => status === "accepted")
@@ -165,6 +165,7 @@ export default function EventInformation() {
                 <DataTable
                   columns={EventVolunteerColumns}
                   orientation={!!eventInfo?.orientation_date}
+                  rejected={true}
                   data={
                     volunteerList
                       .filter(({ status }) => status === "rejected")

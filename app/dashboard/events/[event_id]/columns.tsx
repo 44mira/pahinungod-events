@@ -38,7 +38,7 @@ export const EventVolunteerColumns: ColumnDef<EventVolunteerList>[] = [
   {
     accessorKey: "orientation_attendance",
     header: "Orientation Attendance",
-    cell: ({ row }) => {
+    cell: ({ row, table }) => {
       const { mutate } = useUpdateVolunteerMutation(
         "orientation_attendance",
         row.getValue("event_id"),
@@ -46,14 +46,21 @@ export const EventVolunteerColumns: ColumnDef<EventVolunteerList>[] = [
       );
 
       const attendance: string = row.getValue("orientation_attendance");
+      const rejected = !table.getColumn("time_logged")?.getIsVisible();
 
-      return <SelectAttendance mutate={mutate} attendance={attendance} />;
+      return (
+        <SelectAttendance
+          mutate={mutate}
+          attendance={attendance}
+          rejected={rejected}
+        />
+      );
     },
   },
   {
     accessorKey: "final_attendance",
     header: "Final Attendance",
-    cell: ({ row }) => {
+    cell: ({ row, table }) => {
       const { mutate } = useUpdateVolunteerMutation(
         "final_attendance",
         row.getValue("event_id"),
@@ -61,13 +68,24 @@ export const EventVolunteerColumns: ColumnDef<EventVolunteerList>[] = [
       );
 
       const attendance: string = row.getValue("final_attendance");
+      const rejected = !table.getColumn("time_logged")?.getIsVisible();
 
-      return <SelectAttendance mutate={mutate} attendance={attendance} />;
+      return (
+        <SelectAttendance
+          mutate={mutate}
+          attendance={attendance}
+          rejected={rejected}
+        />
+      );
     },
   },
 ];
 
-function SelectAttendance({ mutate, attendance }: any) {
+function SelectAttendance({ mutate, attendance, rejected }: any) {
+  if (rejected) {
+    return <span>{attendance}</span>;
+  }
+
   return (
     <Select onValueChange={mutate} defaultValue={attendance}>
       <SelectTrigger className="max-w-fit">
