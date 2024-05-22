@@ -39,6 +39,7 @@ export const EventVolunteerColumns: ColumnDef<EventVolunteerList>[] = [
     accessorKey: "orientation_attendance",
     header: "Orientation Attendance",
     cell: ({ row, table }) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       const { mutate } = useUpdateVolunteerMutation(
         "orientation_attendance",
         row.getValue("event_id"),
@@ -61,6 +62,7 @@ export const EventVolunteerColumns: ColumnDef<EventVolunteerList>[] = [
     accessorKey: "final_attendance",
     header: "Final Attendance",
     cell: ({ row, table }) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       const { mutate } = useUpdateVolunteerMutation(
         "final_attendance",
         row.getValue("event_id"),
