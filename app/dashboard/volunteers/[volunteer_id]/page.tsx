@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import person_icon from "@/public/person_icon.svg";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { useRouter } from "next/navigation";
 
 import {
   accountDetails,
@@ -25,7 +26,7 @@ import {
 import { UUID } from "crypto";
 import useVolunteeridQuery from "@/hooks/use-volunteerid-query";
 import { useParams } from "next/navigation";
-import { VolumeIcon } from "lucide-react";
+import left_arrow_icon from "@/public/left_arrow_icon.svg";
 
 export default function Volunteers() {
   const { volunteer_id } = useParams();
@@ -79,8 +80,18 @@ export default function Volunteers() {
       value: volunteer.rendered_hours,
     },
   ];
+
+  const router = useRouter();
+
   return (
     <>
+      <Button
+        className="border-primary w-full max-w-fit"
+        onClick={() => router.back()}
+      >
+        <Image src={left_arrow_icon} alt="left arrow icon" />
+        Back
+      </Button>
       {/* Profile */}
       <div className="grid gap-4 grid-cols-5 text-xsm">
         {/* Account Details */}
