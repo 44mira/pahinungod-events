@@ -19,11 +19,12 @@ const config = {
     },
     extend: {
       fontSize: {
-        xsm: "0.812rem",
-        sm: "1rem",
+        xsm: "10px",
+        sm: "14px",
         body: "1.250rem",
-        md: "1.562rem",
-        lg: "1.938rem",
+        md: "16px",
+        xmd: "18px",
+        lg: "20px",
         xl: "2.438rem",
         "2xl": "3.062rem",
         "3xl": "3.812rem",
@@ -32,11 +33,13 @@ const config = {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
+        background: "#E8E8E8",
         foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          dawn: "#F9BA15",
+          dawn2:"#DA2626",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
