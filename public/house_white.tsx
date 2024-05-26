@@ -1,28 +1,40 @@
-import { twMerge } from "tailwind-merge";
-
-interface houseWhiteProps {
-  className?: string;
-}
-
-const HouseWhite = ({ className }: houseWhiteProps) => {
+const HouseWhite = () => {
   return (
     <svg
-      version="1.0"
-      id="Layer_1"
+      width="50"
+      height="50"
+      viewBox="50 50 412 412"
       xmlns="http://www.w3.org/2000/svg"
-      width="30"
-      height="30px"
-      viewBox="0 0 64 64"
-      enableBackground="new 0 0 64 64"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-      className={twMerge(className)}
     >
-      <path
-        fill={className}
-        d="M62.79,29.172l-28-28C34.009,0.391,32.985,0,31.962,0s-2.047,0.391-2.828,1.172l-28,28
-	c-1.562,1.566-1.484,4.016,0.078,5.578c1.566,1.57,3.855,1.801,5.422,0.234L8,33.617V60c0,2.211,1.789,4,4,4h16V48h8v16h16
-	c2.211,0,4-1.789,4-4V33.695l1.195,1.195c1.562,1.562,3.949,1.422,5.516-0.141C64.274,33.188,64.356,30.734,62.79,29.172z"
-      />
+      <rect
+        width="412"
+        height="412"
+        x="0"
+        y="0"
+        rx="30"
+        fill="transparent"
+        stroke="transparent"
+        stroke-width="0"
+        stroke-opacity="100%"
+        paint-order="stroke"
+      ></rect>
+      <svg
+        width="256px"
+        height="256px"
+        viewBox="0 0 1024 1024"
+        fill="currentColor"
+        x="128"
+        y="128"
+        role="img"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g fill="currentColor">
+          <path
+            fill="currentColor"
+            d="M946.5 505L534.6 93.4a31.93 31.93 0 0 0-45.2 0L77.5 505c-12 12-18.8 28.3-18.8 45.3c0 35.3 28.7 64 64 64h43.4V908c0 17.7 14.3 32 32 32H448V716h112v224h265.9c17.7 0 32-14.3 32-32V614.3h43.4c17 0 33.3-6.7 45.3-18.8c24.9-25 24.9-65.5-.1-90.5z"
+          />
+        </g>
+      </svg>
     </svg>
   );
 };

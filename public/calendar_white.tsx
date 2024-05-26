@@ -7,31 +7,41 @@ interface calendarWhiteProps {
 const CalendarWhite = ({ className }: calendarWhiteProps) => {
   return (
     <svg
-      width="30px"
-      height="30px"
-      viewBox="0 0 24 24"
-      fill="none"
+      width="50px"
+      height="50px"
+      viewBox="0 0 512 512"
       xmlns="http://www.w3.org/2000/svg"
-      className={twMerge(className)}
+      className="h-7 w-7"
     >
-      <g id="SVGRepo_bgCarrier" stroke-width="0" />
-
-      <g
-        id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-
-      <g id="SVGRepo_iconCarrier">
-        {" "}
-        <path
-          d="M3 9H21M7 3V5M17 3V5M6 12H10V16H6V12ZM6.2 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4802 21 18.9201 21 17.8V8.2C21 7.07989 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V17.8C3 18.9201 3 19.4802 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.07989 21 6.2 21Z"
-          stroke={className}
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />{" "}
-      </g>
+      <rect
+        width="30px"
+        height="30px"
+        x="0"
+        y="0"
+        rx="30"
+        fill="transparent"
+        stroke="transparent"
+        stroke-width="0"
+        stroke-opacity="100%"
+        paint-order="stroke"
+      ></rect>
+      <svg
+        width="230px"
+        height="250px"
+        viewBox="0 0 16 16"
+        fill="currentColor"
+        x="128"
+        y="128"
+        role="img"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g fill="currentColor">
+          <path
+            fill="currentColor"
+            d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zm9.954 3H2.545c-.3 0-.545.224-.545.5v1c0 .276.244.5.545.5h10.91c.3 0 .545-.224.545-.5v-1c0-.276-.244-.5-.546-.5zM11.5 7a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1z"
+          />
+        </g>
+      </svg>
     </svg>
   );
 };
