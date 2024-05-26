@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import logo from "@/public/logo.png";
 import { usePathname } from "next/navigation";
-import UsersWhite from "@/public/usersWhite";
 import HouseWhite from "@/public/house_white";
 import CalendarWhite from "@/public/calendar_white";
 import SettingsWhite from "@/public/settings_white";
@@ -18,7 +17,6 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
   const NavbarItems: NavbarItem[] = [
     ["Dashboard", "", <HouseWhite />],
     ["Events", "events", <CalendarWhite />],
-    ["Volunteers", "volunteers", <UsersWhite />],
     ["Edit Profile", "profile", <SettingsWhite />],
   ];
 
@@ -44,14 +42,14 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
           {NavbarItems.map(([item, url, icon], idx) => (
             <li key={idx}>
               <Link
-                href={{ pathname: `/dashboard/${url}` }}
+                href={{ pathname: `` }}
                 className={
                   /* Sets dashboard style to be selected by default. */
-                  item === "Dashboard" && currentPath === "/dashboard"
+                  item === "Dashboard" && currentPath === "volunteers/dashboard"
                     ? "font-bold text-xmd text-accent bg-white px-3 rounded-xl flex gap-1 items-center transition ease-in-out duration-300"
                     : /* Style selected except for dashboard */
                     item !== "Dashboard" &&
-                      currentPath.includes(`/dashboard/${url}`)
+                      currentPath.includes(`/volunteers/${url}`)
                     ? "font-bold text-xmd text-accent bg-white px-3 rounded-xl flex gap-1 items-center transition ease-in-out duration-300"
                     : "font-bold text-xmd text-white px-3 rounded-xl flex gap-1 items-center transition ease-in-out duration-300"
                 }
