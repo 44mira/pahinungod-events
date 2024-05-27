@@ -1,16 +1,14 @@
 "use client";
 
-import { Separator } from "@/components/ui/separator";
+import IconClose from "@/public/close";
+import IconMenu from "@/public/menu";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import Link from "next/link";
 import logo from "@/public/logo.png";
-import { usePathname } from "next/navigation";
-import HouseWhite from "@/public/house_white";
-import CalendarWhite from "@/public/calendar_white";
-import SettingsWhite from "@/public/settings_white";
 
 export default function Navbar({ children }: { children: React.ReactNode }) {
-  const currentPath = usePathname();
+  /* const currentPath = usePathname();
 
   type NavbarItem = [string, string, JSX.Element?];
   const logoDimensions = 80;
@@ -19,49 +17,40 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
     ["Events", "events", <CalendarWhite />],
     ["Edit Profile", "profile", <SettingsWhite />],
   ];
+ */
 
-  //console.log(currentPath);
+  const [menuState, setMenuState] = useState(false);
 
   return (
-    <div className="flex w-full min-h-screen">
-      <div className="md:flex flex-col w-[250px] bg-gradient-to-t from-accent-light to-accent-strong py-5 gap-5 rounded-r-2xl hidden fixed bottom-0 top-0">
-        <div className="text-center mb-3 space-y-3">
-          <Image
-            src={logo}
-            alt="pahinungod logo"
-            height={logoDimensions}
-            width={logoDimensions}
-            className="mx-auto"
-          />
-          <p className=" text-white font-semibold">
-            UGNAYAN NG PAHINUNGOD <span className="text-lg">MINDANAO</span>
-          </p>
-        </div>
-        <Separator className="border-white border-2" />
-        <ul className="flex flex-col gap-5 px-5">
-          {NavbarItems.map(([item, url, icon], idx) => (
-            <li key={idx}>
-              <Link
-                href={{ pathname: `` }}
-                className={
-                  /* Sets dashboard style to be selected by default. */
-                  item === "Dashboard" && currentPath === "volunteers/dashboard"
-                    ? "font-bold text-xmd text-accent bg-white px-3 rounded-xl flex gap-1 items-center transition ease-in-out duration-300"
-                    : /* Style selected except for dashboard */
-                    item !== "Dashboard" &&
-                      currentPath.includes(`/volunteers/${url}`)
-                    ? "font-bold text-xmd text-accent bg-white px-3 rounded-xl flex gap-1 items-center transition ease-in-out duration-300"
-                    : "font-bold text-xmd text-white px-3 rounded-xl flex gap-1 items-center transition ease-in-out duration-300"
-                }
-              >
-                {icon}
-                {item}
-              </Link>
-            </li>
-          ))}
-        </ul>
+    <>
+      <div
+        className={
+          menuState
+            ? "fixed bg-red-300 top-0 left-0 right-0 bottom-0 origin-left scale-x-100 transition duration-200"
+            : "fixed bg-red-300 top-0 left-0 right-0 bottom-0 origin-left scale-x-0 transition duration-200"
+        }
+      >
+        <IconClose
+          className="absolute top-2 right-2"
+          onClick={() => setMenuState(false)}
+        />
+        <p>test</p>
       </div>
-      <div className="w-full p-10 lg:pl-16 md:ml-[230px]">{children}</div>
-    </div>
+      <div className="flex justify-between p-5 bg-gradient-to-l shadow-lg from-accent-strong to-accent-light">
+        <IconMenu
+          onClick={() => setMenuState(true)}
+          className="stroke-neutral-100 text-neutral-100"
+        />
+        <Image
+          src={logo}
+          alt="logo"
+          className="w-10 rounded-full bg-gray-300"
+        />
+        {/* <Button className="text-xsm text-white" variant={"accent"}>
+          Log out
+        </Button> */}
+      </div>
+      {children}
+    </>
   );
 }
