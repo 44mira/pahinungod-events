@@ -26,8 +26,8 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
       <div
         className={
           menuState
-            ? "fixed bg-red-300 top-0 left-0 right-0 bottom-0 origin-left scale-x-100 transition duration-200"
-            : "fixed bg-red-300 top-0 left-0 right-0 bottom-0 origin-left scale-x-0 transition duration-200"
+            ? "fixed bg-red-300 top-0 left-0 right-0 bottom-0 origin-left scale-x-100 transition duration-200 z-10"
+            : "fixed bg-red-300 top-0 left-0 right-0 bottom-0 origin-left scale-x-0 transition duration-200 z-10"
         }
       >
         <IconClose
@@ -36,7 +36,7 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
         />
         <p>test</p>
       </div>
-      <div className="flex justify-between p-5 bg-gradient-to-l shadow-lg from-accent-strong to-accent-light">
+      <div className="flex justify-between p-5 bg-gradient-to-l shadow-lg from-accent-strong to-accent-light sticky top-0 z-0">
         <IconMenu
           onClick={() => setMenuState(true)}
           className="stroke-neutral-100 text-neutral-100"
