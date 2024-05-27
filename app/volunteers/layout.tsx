@@ -3,22 +3,11 @@
 import IconClose from "@/public/close";
 import IconMenu from "@/public/menu";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import logo from "@/public/logo.png";
 
 export default function Navbar({ children }: { children: React.ReactNode }) {
-  /* const currentPath = usePathname();
-
-  type NavbarItem = [string, string, JSX.Element?];
-  const logoDimensions = 80;
-  const NavbarItems: NavbarItem[] = [
-    ["Dashboard", "", <HouseWhite />],
-    ["Events", "events", <CalendarWhite />],
-    ["Edit Profile", "profile", <SettingsWhite />],
-  ];
- */
-
+  // Show and Hide hamburger menu
   const [menuState, setMenuState] = useState(false);
 
   return (
