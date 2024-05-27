@@ -29,7 +29,7 @@ import { VolumeIcon } from "lucide-react";
 
 export default function Volunteers() {
   const { volunteer_id } = useParams();
-  const { data: volunteer, status } = useVolunteeridQuery(volunteer_id as UUID);
+  const { data: student, status } = useVolunteeridQuery(volunteer_id as UUID);
 
   if (status === "pending") return <p>Loading...</p>;
   if (status === "error") return <ErrorResponse />;
@@ -37,46 +37,46 @@ export default function Volunteers() {
   const accountDetails = [
     {
       name: "Name",
-      value: volunteer.name,
+      value: student.volunteer?.name,
     },
-    { name: "Sex", value: volunteer.sex },
-    { name: "Date of Birth", value: volunteer.birth_date },
-    { name: "Email Address", value: volunteer.email },
-    { name: "Age", value: volunteer.age },
+    { name: "Sex", value: student.volunteer?.sex },
+    { name: "Date of Birth", value: student.volunteer?.birth_date },
+    { name: "Email Address", value: student.volunteer?.email },
+    { name: "Age", value: student.volunteer?.age },
   ];
 
   const addressDetails = [
     {
       name: "Address",
-      value: volunteer.address,
+      value: student.volunteer?.address,
     },
-    { name: "City", value: volunteer.city },
-    { name: "Province", value: volunteer.province },
-    { name: "Postal Code", value: volunteer.postal_code },
+    { name: "City", value: student.volunteer?.city },
+    { name: "Province", value: student.volunteer?.province },
+    { name: "Postal Code", value: student.volunteer?.postal_code },
   ];
 
   const contactDetails = [
     {
       name: "Phone Number",
-      value: volunteer.phone_number,
+      value: student.volunteer?.phone_number,
     },
-    { name: "Emergency Contact", value: volunteer.emergency_contact },
-    { name: "Facebook Link", value: volunteer.email }, //to be changed
+    { name: "Emergency Contact", value: student.volunteer?.emergency_contact },
+    { name: "Facebook Link", value: student.volunteer?.email }, //to be changed
   ];
 
   const schoolDetails = [
     {
       name: "Phone Number",
-      value: volunteer.phone_number,
+      value: student.volunteer?.phone_number,
     },
-    { name: "Emergency Contact", value: volunteer.emergency_contact },
-    { name: "Facebook Link", value: volunteer.email }, //to be changed
+    { name: "Emergency Contact", value: student.volunteer?.emergency_contact },
+    { name: "Facebook Link", value: student.volunteer?.email }, //to be changed
   ];
 
   const hoursRendered = [
     {
       name: "Hours Rendered",
-      value: volunteer.rendered_hours,
+      value: student.volunteer?.rendered_hours,
     },
   ];
   return (
@@ -88,7 +88,7 @@ export default function Volunteers() {
           <Card className="">
             <CardHeader className="p-0 py-7 text-xsm">
               <Avatar className="w-44 h-44 mx-auto">
-                <AvatarImage src="https://scontent.fdvo2-2.fna.fbcdn.net/v/t39.30808-6/436305359_8344398655586804_6083018213478162079_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeF7IQx45DVl4wc5LIw0sAl325QHmBflQ6bblAeYF-VDpqBf_8Qya_fEawuepFl_R8Yx35xImwIHkqcagcSM4dmL&_nc_ohc=FTbTgIkUvYcQ7kNvgG-exgV&_nc_zt=23&_nc_ht=scontent.fdvo2-2.fna&oh=00_AYB7D_3gk2rltq6EYOJxAT77xYO1Dh7Au_yX71vO0A-_Gg&oe=664BDE25" />
+                <AvatarImage src="https:scontent.fdvo2-2.fna.fbcdn.net/v/t39.30808-6/436305359_8344398655586804_6083018213478162079_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeF7IQx45DVl4wc5LIw0sAl325QHmBflQ6bblAeYF-VDpqBf_8Qya_fEawuepFl_R8Yx35xImwIHkqcagcSM4dmL&_nc_ohc=FTbTgIkUvYcQ7kNvgG-exgV&_nc_zt=23&_nc_ht=scontent.fdvo2-2.fna&oh=00_AYB7D_3gk2rltq6EYOJxAT77xYO1Dh7Au_yX71vO0A-_Gg&oe=664BDE25" />
               </Avatar>
               <CardTitle className="text-md mx-auto pt-5 pb-1">
                 Legolas Lada
