@@ -44,7 +44,9 @@ export default function Home() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-9 fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-gradient-to-br from-slate-50 to-neutral-200 shadow-lg p-10 w-96 rounded-lg drop-shadow-lg"
+        className="space-y-9 fixed top-1/2 left-1/2 -translate-y-1/2
+        -translate-x-1/2 bg-gradient-to-br from-slate-50 to-neutral-200
+        shadow-lg p-10 w-96 rounded-lg drop-shadow-lg"
       >
         <FormField
           control={form.control}
@@ -63,7 +65,8 @@ export default function Home() {
                 <Input
                   placeholder="Enter username"
                   {...field}
-                  className=" border-slate-200 outline-none focus-visible:outline-blue-400 focus-visible:ring-0 bg-white"
+                  className=" border-slate-200 outline-none
+                  focus-visible:outline-blue-400 focus-visible:ring-0 bg-white"
                 />
               </FormControl>
               <FormMessage />
@@ -80,7 +83,8 @@ export default function Home() {
                 <Input
                   placeholder="Enter password"
                   {...field}
-                  className="border-slate-200 outline-none focus-visible:outline-blue-400 focus-visible:ring-0 bg-white"
+                  className="border-slate-200 outline-none
+                  focus-visible:outline-blue-400 focus-visible:ring-0 bg-white"
                 />
               </FormControl>
               <FormMessage />
