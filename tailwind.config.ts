@@ -25,6 +25,7 @@ const config = {
         md: "16px",
         xmd: "18px",
         lg: "20px",
+        "2lg": "28px",
         xl: "2.438rem",
         "2xl": "3.062rem",
         "3xl": "3.812rem",
@@ -33,7 +34,7 @@ const config = {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        background: "#E8E8E8",
+        background: "#FAFBFB",
         foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
