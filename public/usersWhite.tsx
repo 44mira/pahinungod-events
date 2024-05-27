@@ -1,6 +1,9 @@
-const UsersWhite = () => {
+import { SVGProps } from "react";
+
+const UsersWhite = (props: SVGProps<SVGSVGElement>) => {
   return (
     <svg
+      {...props}
       width="50"
       height="50"
       viewBox="50 50 512 512"

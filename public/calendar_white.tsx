@@ -1,12 +1,9 @@
-import { twMerge } from "tailwind-merge";
+import { SVGProps } from "react";
 
-interface calendarWhiteProps {
-  className?: string;
-}
-
-const CalendarWhite = ({ className }: calendarWhiteProps) => {
+const CalendarWhite = (props: SVGProps<SVGSVGElement>) => {
   return (
     <svg
+      {...props}
       width="50px"
       height="50px"
       viewBox="0 0 512 512"
