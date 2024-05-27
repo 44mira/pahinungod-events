@@ -45,8 +45,8 @@ export default function DashboardPage() {
             {data?.toReversed().map(({ name, event_start, event_id }) => (
               <span className="flex gap-3 items-center" key={event_id}>
                 <span
-                  className="bg-primary rounded-[99px] h-9 w-8
-                  text-primary-foreground flex justify-center items-center"
+                  className="bg-accent rounded-[99px] h-9 w-8
+                  text-accent-foreground flex justify-center items-center"
                 >
                   {moment(event_start).format("DD")}
                 </span>

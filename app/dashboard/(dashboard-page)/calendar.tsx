@@ -33,7 +33,7 @@ function Calendar({
         row: "flex w-full mt-2",
         cell: "h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
         day: "h-9 w-8 p-0 font-normal aria-selected:opacity-100",
-        day_selected: "bg-primary text-primary-foreground rounded-[99px]",
+        day_selected: "bg-accent text-primary-foreground rounded-[99px]",
         day_disabled: "text-foreground opacity-70",
         ...classNames,
       }}

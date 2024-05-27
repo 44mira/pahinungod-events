@@ -79,7 +79,7 @@ export default function Events() {
               (props) =>
                 eventFilter === "none" ||
                 calculateStatus(props.event_start, props.event_end) ===
-                  eventFilter,
+                  eventFilter
             )
             .map(({ event_id, ...props }: Event) => (
               <Card
@@ -94,16 +94,16 @@ export default function Events() {
                   />*/}
                   </CardTitle>
 
-                  <CardDescription className="flex flex-col gap-2 w-full text-primary">
+                  <CardDescription className="flex flex-col gap-2 w-full text-accent">
                     <span className="flex gap-3 items-center">
                       <Image src={location_icon} alt="location icon" />
                       {props.location}
                     </span>
                     <span className="flex min-w-full">
-                      <span className="flex items-center gap-3 p-5 border border-primary">
+                      <span className="flex items-center gap-3 p-5 border border-accent">
                         <Image src={person_icon} alt="person icon" />0
                       </span>
-                      <span className="flex items-center gap-3 p-5 border border-primary grow">
+                      <span className="flex items-center gap-3 p-5 border border-accent grow">
                         <Image src={calendar_icon} alt="calendar icon" />
                         {deltaDate(props.event_start, props.event_end)}
                       </span>
@@ -114,7 +114,7 @@ export default function Events() {
                 <CardFooter className="flex flex-col gap-2 justify-self-end">
                   <Button
                     variant="outline"
-                    className="border-primary w-full"
+                    className="border-accent w-full"
                     onClick={() => router.push("events/" + event_id)}
                   >
                     VIEW EVENT
@@ -195,11 +195,11 @@ function Searchbar({
       </Select>
       <div
         className="flex grow rounded-md pl-3 drop-shadow-md
-        focus-within:ring-ring focus-within:ring-2 ring-0 bg-muted"
+        focus-within:ring-ring focus-within:ring-2 ring-0 bg-neutral-100"
       >
         <Image src={search_icon} alt="search icon" />
         <Input
-          className="border-0 focus-visible:ring-2/0 bg-inherit"
+          className="border-0 focus-visible:ring-2/0 bg-neutral-100"
           placeholder="Search for events by title"
           onChange={(e) => handleSearch(e.target.value)}
         />

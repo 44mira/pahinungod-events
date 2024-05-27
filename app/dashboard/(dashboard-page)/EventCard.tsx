@@ -22,10 +22,10 @@ export default function EventCard({ event_id }: { event_id: UUID }) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="flex text-md font-bold">
+        <CardTitle className="flex text-2lg font-bold">
           <span>{event?.name}</span>
           <span className="grow" />
-          <span className="text-primary">
+          <span className="text-md text-accent">
             {moment(event?.event_end).format("MMM D")}
           </span>
         </CardTitle>
