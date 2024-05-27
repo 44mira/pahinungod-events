@@ -16,10 +16,10 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
   type NavbarItem = [string, string, JSX.Element?];
   const logoDimensions = 80;
   const NavbarItems: NavbarItem[] = [
-    ["Dashboard", "", <HouseWhite />],
-    ["Events", "events", <CalendarWhite />],
-    ["Volunteers", "volunteers", <UsersWhite />],
-    ["Edit Profile", "profile", <SettingsWhite />],
+    ["Dashboard", "", <HouseWhite key="house" />],
+    ["Events", "events", <CalendarWhite key="calendar" />],
+    ["Volunteers", "volunteers", <UsersWhite key="user" />],
+    ["Edit Profile", "profile", <SettingsWhite key="settings" />],
   ];
 
   return (
@@ -39,8 +39,8 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
         </div>
         <Separator className="border-white border-2" />
         <ul className="flex flex-col gap-5 px-5">
-          {NavbarItems.map(([item, url, icon]) => (
-            <li key={url}>
+          {NavbarItems.map(([item, url, icon], idx) => (
+            <li key={idx}>
               <Link
                 href={{ pathname: `/dashboard/${url}` }}
                 className={
