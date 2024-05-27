@@ -20,8 +20,9 @@ export default function AddEvent() {
       <Dialog>
         <DialogTrigger asChild>
           <Button
-            className="text-xsm text-primary-foreground lg:ml-5"
+            className="text-xsm text-accent-foreground lg:ml-5"
             size="sm"
+            variant={"accent"}
           >
             <Image src={add_icon} alt="add icon" />
             Add Event

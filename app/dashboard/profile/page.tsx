@@ -84,6 +84,7 @@ export default function ProfileForm() {
           size={"xs"}
           className=""
           onClick={() => setEditProfileState(!editProfileState)}
+          variant={"accent"}
         >
           <Image src={pencil_icon} alt="pencil_icon" className="me-2" />
           Edit Profile
@@ -93,7 +94,7 @@ export default function ProfileForm() {
       {/* Profile View */}
       {!editProfileState && (
         <div className="grid grid-cols-2">
-          <div className="bg-neutral-300 rounded-md py-3 px-5 space-y-8">
+          <div className="bg-neutral-100 rounded-md py-3 px-5 space-y-8 drop-shadow-lg shadow-lg">
             <div className="flex justify-between">
               <p className="font-semibold">Name</p>
               <p className="text-end">Owen Young Cariño</p>
@@ -109,7 +110,7 @@ export default function ProfileForm() {
                   type={pwVisibility ? "text" : "password"}
                   readOnly
                   value={"admin123"}
-                  className="border-0 outline-none bg-neutral-300 w-auto text-end"
+                  className="border-0 outline-none bg-neutral-100 w-auto text-end"
                 />
                 <Image
                   src={pwVisibility ? eye_open : eye_close}
@@ -125,7 +126,7 @@ export default function ProfileForm() {
 
       {/* Edit Profile */}
       {editProfileState && (
-        <div className="grid grid-cols-3">
+        <div className="grid grid-cols-3 ">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               <FormField
@@ -192,7 +193,9 @@ export default function ProfileForm() {
                   </FormItem>
                 )}
               />
-              <Button type="submit">Save</Button>
+              <Button type="submit" variant={"accent"}>
+                Save
+              </Button>
             </form>
           </Form>
         </div>

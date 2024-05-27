@@ -29,8 +29,6 @@ export default function Volunteers() {
   if (status === "pending") return <p>Loading...</p>;
   if (status === "error") return <ErrorResponse />;
 
-  const studentData = volunteer.student;
-
   const accountDetails = [
     {
       name: "Name",

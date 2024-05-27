@@ -86,12 +86,12 @@ export default function DemoPage() {
               onChange={(event) =>
                 table.getColumn("name")?.setFilterValue(event.target.value)
               }
-              className="w-full drop-shadow-md border-0 bg-muted"
+              className="w-full drop-shadow-md border-0 bg-neutral-100"
             />
           </div>
           <div className="rounded-md border">
             <Table>
-              <TableHeader>
+              <TableHeader className="bg-accent">
                 {table.getHeaderGroups().map((headerGroup) => (
                   <TableRow key={headerGroup.id}>
                     {headerGroup.headers
