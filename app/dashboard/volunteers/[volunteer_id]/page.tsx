@@ -13,22 +13,16 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import person_icon from "@/public/person_icon.svg";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 
-import {
-  accountDetails,
-  contactDetails,
-  currentAddress,
-  occupationDetails,
-  event1,
-} from "./volunteer-dummyData";
+import { event1 } from "./volunteer-dummyData";
 
 import { UUID } from "crypto";
 import useVolunteeridQuery from "@/hooks/use-volunteerid-query";
-import { useParams } from "next/navigation";
 import left_arrow_icon from "@/public/left_arrow_icon.svg";
 
 export default function Volunteers() {
+  const router = useRouter();
   const { volunteer_id } = useParams();
   const { data: volunteer, status } = useVolunteeridQuery(volunteer_id as UUID);
 
@@ -67,11 +61,11 @@ export default function Volunteers() {
 
   const schoolDetails = [
     {
-      name: "Phone Number",
-      value: volunteer.phone_number,
+      name: "School",
+      value: "placeholder",
     },
-    { name: "Emergency Contact", value: volunteer.emergency_contact },
-    { name: "Facebook Link", value: volunteer.email }, //to be changed
+    { name: "Major", value: "placeholder" },
+    { name: "Year", value: "placeholder" },
   ];
 
   const hoursRendered = [
@@ -80,8 +74,6 @@ export default function Volunteers() {
       value: volunteer.rendered_hours,
     },
   ];
-
-  const router = useRouter();
 
   return (
     <>
@@ -166,7 +158,7 @@ export default function Volunteers() {
               <CardTitle className="text-sm">School Details</CardTitle>
             </CardHeader>
             <CardContent>
-              {occupationDetails.map((value, index) => (
+              {schoolDetails.map((value, index) => (
                 <div key={index} className="flex justify-between">
                   <p className="py-1">{value.name}</p>
                   <p>{value.value}</p>
@@ -218,6 +210,7 @@ export default function Volunteers() {
     </>
   );
 }
+
 function ErrorResponse() {
   return (
     <Alert variant="destructive">
