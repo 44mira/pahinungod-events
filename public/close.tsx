@@ -37,7 +37,7 @@ export default function IconClose(props: SVGProps<SVGSVGElement>) {
             stroke="currentColor"
             stroke-linecap="round"
             stroke-linejoin="round"
-            stroke-width="2"
+            stroke-width="4"
             d="M2 30L30 2m0 28L2 2"
           />
         </g>
