@@ -8,6 +8,7 @@ import {
   FormMessage,
   FormField,
 } from "@/components/ui/form";
+import { login } from "@/actions/auth/actions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -16,9 +17,12 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import logo from "@/public/logo.png";
 const formSchema = z.object({
-  username: z.string().min(6, {
-    message: "Username must be at least 6 characters.",
-  }),
+  email: z
+    .string()
+    .min(6, {
+      message: "Username must be at least 6 characters.",
+    })
+    .email(),
   password: z.string().min(6, {
     message: "Password must contain at least 6 characters.",
   }),
@@ -28,15 +32,14 @@ export default function Home() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      email: "",
       password: "",
     },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     console.log(values);
+    login(JSON.stringify(values));
   }
 
   const logoDimensions = 150;
@@ -44,11 +47,13 @@ export default function Home() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-9 fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-gradient-to-br from-slate-50 to-neutral-200 shadow-lg p-10 w-96 rounded-lg drop-shadow-lg"
+        className="space-y-9 fixed top-1/2 left-1/2 -translate-y-1/2
+        -translate-x-1/2 bg-gradient-to-br from-slate-50 to-neutral-200
+        shadow-lg p-10 w-96 rounded-lg drop-shadow-lg"
       >
         <FormField
           control={form.control}
-          name="username"
+          name="email"
           render={({ field }) => (
             <FormItem className="">
               <Image
@@ -63,7 +68,8 @@ export default function Home() {
                 <Input
                   placeholder="Enter username"
                   {...field}
-                  className=" border-slate-200 outline-none focus-visible:outline-blue-400 focus-visible:ring-0 bg-white"
+                  className=" border-slate-200 outline-none
+                  focus-visible:outline-blue-400 focus-visible:ring-0 bg-white"
                 />
               </FormControl>
               <FormMessage />
@@ -79,8 +85,10 @@ export default function Home() {
               <FormControl>
                 <Input
                   placeholder="Enter password"
+                  type="password"
                   {...field}
-                  className="border-slate-200 outline-none focus-visible:outline-blue-400 focus-visible:ring-0 bg-white"
+                  className="border-slate-200 outline-none
+                  focus-visible:outline-blue-400 focus-visible:ring-0 bg-white"
                 />
               </FormControl>
               <FormMessage />
