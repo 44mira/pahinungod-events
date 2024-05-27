@@ -8,9 +8,9 @@ export default function useVolunteeridQuery(volunteer_id: UUID) {
 
   const queryFn = async () => {
     const { data, error } = await supabase
-      .from("volunteer")
-      .select()
-      .eq("volunteer_id", volunteer_id); //Filter
+      .from("student")
+      .select(`*, volunteer ( * )`)
+      .eq("student_id", volunteer_id); //Filter
 
     if (error) {
       console.log("An error has occurred in fetching volunteer data.");
