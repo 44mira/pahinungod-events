@@ -22,8 +22,6 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
     ["Edit Profile", "profile", <SettingsWhite />],
   ];
 
-  //console.log(currentPath);
-
   return (
     <div className="flex w-full min-h-screen">
       <div className="md:flex flex-col w-[250px] bg-gradient-to-t from-accent-light to-accent-strong py-5 gap-5 rounded-r-2xl hidden fixed bottom-0 top-0">
@@ -41,17 +39,16 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
         </div>
         <Separator className="border-white border-2" />
         <ul className="flex flex-col gap-5 px-5">
-          {NavbarItems.map(([item, url, icon], idx) => (
-            <li key={idx}>
+          {NavbarItems.map(([item, url, icon]) => (
+            <li key={url}>
               <Link
                 href={{ pathname: `/dashboard/${url}` }}
                 className={
                   /* Sets dashboard style to be selected by default. */
-                  item === "Dashboard" && currentPath === "/dashboard"
+                  url === "" && currentPath === "/dashboard"
                     ? "font-bold text-xmd text-accent bg-white px-3 rounded-xl flex gap-1 items-center transition ease-in-out duration-300"
                     : /* Style selected except for dashboard */
-                    item !== "Dashboard" &&
-                      currentPath.includes(`/dashboard/${url}`)
+                    url !== "" && currentPath.includes(`/dashboard/${url}`)
                     ? "font-bold text-xmd text-accent bg-white px-3 rounded-xl flex gap-1 items-center transition ease-in-out duration-300"
                     : "font-bold text-xmd text-white px-3 rounded-xl flex gap-1 items-center transition ease-in-out duration-300"
                 }
