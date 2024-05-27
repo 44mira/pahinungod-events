@@ -23,22 +23,19 @@ import { createClient } from "@/utils/supabase/server";
 //   redirect("/signin");
 // }
 
-export async function signin(formData: FormData) {
+export async function login(formData: string) {
   const supabase = createClient();
 
-  const data = {
-    email: formData.get("email") as string,
-    password: formData.get("password") as string,
-  };
+  const data = JSON.parse(formData);
 
   const { error } = await supabase.auth.signInWithPassword(data);
 
   if (error) {
-    throw new Error(error.message);
+    redirect("/error");
   }
 
   revalidatePath("/", "layout");
-  redirect("/");
+  redirect("/dashboard");
 }
 
 export async function signout() {
@@ -50,5 +47,5 @@ export async function signout() {
     throw new Error(error.message);
   }
 
-  redirect("/signin");
+  redirect("/login");
 }

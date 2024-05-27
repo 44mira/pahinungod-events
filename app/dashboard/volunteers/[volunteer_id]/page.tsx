@@ -29,6 +29,8 @@ export default function Volunteers() {
   if (status === "pending") return <p>Loading...</p>;
   if (status === "error") return <ErrorResponse />;
 
+  const studentData = volunteer.student;
+
   const accountDetails = [
     {
       name: "Name",
@@ -168,44 +170,63 @@ export default function Volunteers() {
           </Card>
         </div>
       </div>
-      <p className="pt-12 text-lg font-bold">Participated Events</p>
-      {/* Participated Events */}
-      <div className="text-xs grid grid-cols-4 gap-5 ">
-        {event1.map((event, index) => (
-          <Card key={index}>
-            <CardHeader className="p-3 pt-4">
-              <CardTitle className="text-md leading-8">{event.Title}</CardTitle>
-              <CardDescription className="text-sm">
-                {event.Date}
-              </CardDescription>
-            </CardHeader>
-            <CardContent></CardContent>
-            <CardFooter className="p-3 flex justify-between text-white">
-              <div>
-                <Image
-                  className="inline-block"
-                  src={person_icon}
-                  alt="person icon"
-                />
-                <span className="ps-2 align-middle text-black font-semibold">
-                  {event.VolunteerCount}
-                </span>
-              </div>
-              <Button className="text-xsm ">View Event</Button>
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
-      <p className="pt-12 text-lg font-bold inline-flex">Hours Participated</p>
-      <div className="grid gap-4 grid-cols-5 text-xsm">
-        <CardContent>
-          {hoursRendered.map((value, index) => (
-            <div key={index} className="flex justify-between">
-              <p className="py-1 font-bold">{value.name}</p>
-              <p>{value.value}</p>
+
+      <div className="flex">
+        <div className="">
+          <p className="pt-12 text-lg font-bold">Participated Events</p>
+          {/* Participated Events */}
+          <div className="text-xs grid grid-cols-3 gap-5 col-span-4 mr-10">
+            {event1.map((event, index) => (
+              <Card key={index}>
+                <CardHeader className="p-3 pt-4">
+                  <CardTitle className="text-md leading-8">
+                    {event.Title}
+                  </CardTitle>
+                  <CardDescription className="text-sm">
+                    {event.Date}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent></CardContent>
+                <CardFooter className="p-3 flex justify-between text-white">
+                  <div>
+                    <Image
+                      className="inline-block"
+                      src={person_icon}
+                      alt="person icon"
+                    />
+                    <span className="ps-2 align-middle text-black font-semibold">
+                      {event.VolunteerCount}
+                    </span>
+                  </div>
+                  <Button className="text-xsm ">View Event</Button>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        </div>
+        <div className="flex-1">
+          <div className=" p-6 md:p-8">
+            <div className="flex items-center justify-center mb-6">
+              <h1 className="text-lg font-bold text-center">Total Hours</h1>
             </div>
-          ))}
-        </CardContent>
+            <div className="flex flex-col items-center justify-center gap-8">
+              <div className="flex flex-col items-center justify-center">
+                <CardContent>
+                  {hoursRendered.map((value, index) => (
+                    <div
+                      key={index}
+                      className="flex justify-between text-5xl font-bold"
+                    >
+                      {value.value}
+                    </div>
+                  ))}
+                </CardContent>
+                {/* <div className="text-4xl font-bold">160</div> */}
+                <p className="text-gray-500 dark:text-gray-400">Hours</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
