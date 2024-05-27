@@ -34,8 +34,6 @@ export default function Volunteers() {
   if (status === "pending") return <p>Loading...</p>;
   if (status === "error") return <ErrorResponse />;
 
-  const studentData = volunteer.student;
-
   const accountDetails = [
     {
       name: "Name",
@@ -157,7 +155,7 @@ export default function Volunteers() {
               <CardTitle className="text-sm">School Details</CardTitle>
             </CardHeader>
             <CardContent>
-              {occupationDetails.map((value, index) => (
+              {schoolDetails.map((value, index) => (
                 <div key={index} className="flex justify-between">
                   <p className="py-1">{value.name}</p>
                   <p>{value.value}</p>
