@@ -16,6 +16,9 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import logo from "@/public/logo.png";
+import google from "@/public/google.svg";
+import { Separator } from "@/components/ui/separator";
+
 const formSchema = z.object({
   email: z
     .string()
@@ -47,7 +50,7 @@ export default function Home() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-9 fixed top-1/2 left-1/2 -translate-y-1/2
+        className="space-y-4 fixed top-1/2 left-1/2 -translate-y-1/2
         -translate-x-1/2 bg-gradient-to-br from-slate-50 to-neutral-200
         shadow-lg p-10 w-96 rounded-lg drop-shadow-lg"
       >
@@ -95,9 +98,19 @@ export default function Home() {
             </FormItem>
           )}
         />
-        <Button variant={"destructive"} type="submit" className="bg-accent">
-          Login
-        </Button>
+        <div className="space-y-1 pt-4">
+          <Button variant={"accent"} type="submit" className="w-full">
+            Login
+          </Button>
+          <div className="text-center">or</div>
+          <Button
+            className="w-full bg-white varia text-black hover:opacity-70"
+            variant={"none"}
+          >
+            <Image src={google} alt="google_icon" className="w-6 mr-3" />
+            Sign up with Google
+          </Button>
+        </div>
       </form>
     </Form>
   );
