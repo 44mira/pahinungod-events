@@ -35,7 +35,7 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
         className={
           menuState
             ? "fixed  bg-gradient-to-br  from-accent-strong to-accent-light from-20%% to-80%  top-0 left-0 right-0 bottom-0 origin-left scale-x-100 transition duration-200 z-10"
-            : "fixed  bg-gradient-to-br  from-accent-strong to-accent-light from-20% to-80% top-0 left-0 right-0 bottom-0 origin-left scale-x-0 transition duration-200 z-10"
+            : "fixed  bg-gradient-to-br  from-accent-strong to-accent-light from-20% to-80% top-0 left-0 right-0 bottom-0 origin-left scale-x-0 z-10"
         }
       >
         <IconClose
@@ -88,7 +88,7 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
           className="stroke-neutral-100 text-neutral-100"
         />
         <UserSingle
-          className="text-white"
+          className="text-white cursor-pointer"
           onClick={() => router.push("/volunteers/dashboard/profile")}
         />
         {/* <Button className="text-xsm text-white" variant={"accent"}>
