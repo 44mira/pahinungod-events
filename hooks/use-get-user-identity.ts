@@ -1,21 +1,25 @@
+import { TypedSupabaseClient } from "@/utils/supabase";
 import useSupabase from "./useSupabase";
-import { useState, useEffect } from "react";
-import { User } from "@supabase/supabase-js"; // Adjust the import according to your Supabase setup
+import { User } from "@supabase/supabase-js"; 
+import { useQuery } from "@tanstack/react-query";
+
+
+const fetchUserData = async (supabase: TypedSupabaseClient): Promise<User | null> => {
+  const { data, error } = await supabase.auth.getUser(); // Fetch current user data
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data.user;
+};
 
 export default function useGetUserIdentity() {
-    const supabase = useSupabase();
-    // Handle user
-    const [user, setUser] = useState<User | null>(null); // Initialized to null until user data is fetched.
+  const supabase = useSupabase();
 
-    // If the user data is fetched, update the value of user variable. 
-    useEffect(() => {
-        const fetchUser = async () => {
-            const { data: { user } } = await supabase.auth.getUser();
-            setUser(user);
-        };
-
-        fetchUser();
-    }, [supabase]);
-
-    return user;
+  // Use the useQuery hook to manage the user data fetching
+  return useQuery<User | null, Error>({
+    queryKey: ['user'],
+    queryFn: () => fetchUserData(supabase),
+  });
 }

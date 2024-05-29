@@ -8,6 +8,7 @@ interface ProfileDataItem {
   valueKey: string;
 }
 
+// valuekey is the name of the column in the database.
 const ProfileDataTemplate: ProfileDataItem[] = [
   { label: "Full name", valueKey: "full_name" },
   { label: "Nickname", valueKey: "nickname" },
@@ -19,24 +20,26 @@ const ProfileDataTemplate: ProfileDataItem[] = [
 ];
 
 export default function Profile() {
-  const user = useGetUserIdentity(); // Get the user data.
+  const { data: user, isLoading, isError } = useGetUserIdentity(); // Fetch data of the user.
 
-  const ProfileData = ProfileDataTemplate.map((item) => ({
-    ...item, // include all properties of item
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
-    // If user is available, dynamically access the corresponding key value.
-    value: user ? (user as any)[item.valueKey] : "Loading...", // 'as any' bypass type cheking to handle dynamic keys
-  }));
+  if (isError) {
+    return <div>Error loading user data.</div>;
+  }
 
   return (
     <>
       <div className="w-32 h-32 bg-gray-500 rounded-full mx-auto"></div>
       <div className="pt-10 space-y-7">
-        {ProfileData.map(({ label, value }) => (
+        {ProfileDataTemplate.map(({ label, valueKey }) => (
           <div key={label}>
             <Label className="text-gray-500">{label}</Label>
             <div className="border-b-[3px] border-gray-300 font-semibold text-lg drop-shadow-md">
-              {value && "No data available"}
+              {/* Fetch data in the user_metadata object.*/}
+              {user?.user_metadata?.[valueKey] || "No data available"}
             </div>
           </div>
         ))}
