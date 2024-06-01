@@ -31,7 +31,6 @@ export default function Home() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
     login(JSON.stringify(values));
   }
 
