@@ -4,24 +4,12 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import logo from "@/public/logo.png";
 import google from "@/public/google.svg";
-import { createClient } from "@/utils/supabase/client";
-
-const signInWithGoogle = () => {
-  const supabase = createClient();
-  supabase.auth.signInWithOAuth({
-    provider: "google",
-    options: {
-      queryParams: {
-        access_type: "offline",
-        prompt: "consent",
-      },
-      redirectTo: location.origin + "/auth/callback",
-    },
-  });
-};
+import useSigninGoogleMutation from "@/hooks/use-signin-google-mutation";
 
 const logoDimensions = 100;
 export default function UserLogin() {
+  const { mutate } = useSigninGoogleMutation();
+
   return (
     <div className="mx-auto my-auto translate-y-52 bg-gradient-to-br  from-accent-strong to-accent-light from-20%% to-80% w-96 rounded-lg p-5">
       <Image
@@ -34,7 +22,7 @@ export default function UserLogin() {
       <Button
         variant={"none"}
         className="bg-white w-full space-x-3"
-        onClick={signInWithGoogle}
+        onClick={() => mutate()}
       >
         <Image src={google} alt="google_icon" className="w-7" />
         <span className="font-semibold">Sign in with Google</span>
