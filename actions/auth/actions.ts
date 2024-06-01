@@ -47,5 +47,5 @@ export async function signout() {
     throw new Error(error.message);
   }
 
-  redirect("/login");
+  redirect("/login_admin");
 }
