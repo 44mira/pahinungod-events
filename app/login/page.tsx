@@ -17,15 +17,8 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import logo from "@/public/logo.png";
 const formSchema = z.object({
-  email: z
-    .string()
-    .min(6, {
-      message: "Username must be at least 6 characters.",
-    })
-    .email(),
-  password: z.string().min(6, {
-    message: "Password must contain at least 6 characters.",
-  }),
+  email: z.string().email(),
+  password: z.string(),
 });
 
 export default function Home() {

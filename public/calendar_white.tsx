@@ -18,9 +18,9 @@ const CalendarWhite = (props: SVGProps<SVGSVGElement>) => {
         rx="30"
         fill="transparent"
         stroke="transparent"
-        stroke-width="0"
-        stroke-opacity="100%"
-        paint-order="stroke"
+        strokeWidth="0"
+        strokeOpacity="100%"
+        paintOrder="stroke"
       ></rect>
       <svg
         width="230px"

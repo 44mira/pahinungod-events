@@ -17,9 +17,9 @@ export default function IconClose(props: SVGProps<SVGSVGElement>) {
         rx="30"
         fill="transparent"
         stroke="transparent"
-        stroke-width="0"
-        stroke-opacity="100%"
-        paint-order="stroke"
+        strokeWidth="0"
+        strokeOpacity="100%"
+        paintOrder="stroke"
       ></rect>
       <svg
         width="256px"
@@ -35,9 +35,9 @@ export default function IconClose(props: SVGProps<SVGSVGElement>) {
           <path
             fill="none"
             stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="4"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="4"
             d="M2 30L30 2m0 28L2 2"
           />
         </g>

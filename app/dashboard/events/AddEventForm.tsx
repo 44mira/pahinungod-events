@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/form";
 import { AddEventSchema, type AddEventFields } from "./_types/schemas";
 import useAddEventMutation from "@/hooks/use-add-event-mutation";
+import useAdminQuery from "@/hooks/use-admin-query";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { DialogClose } from "@radix-ui/react-dialog";
@@ -21,6 +22,7 @@ import { Textarea } from "@/components/ui/textarea";
 
 export default function AddEventForm() {
   const { mutate } = useAddEventMutation();
+  const { data } = useAdminQuery();
   const form = useForm<AddEventFields>({
     resolver: zodResolver(AddEventSchema),
     defaultValues: {
@@ -39,7 +41,8 @@ export default function AddEventForm() {
 
   useEffect(() => {
     form.setValue("event_id", crypto.randomUUID());
-  }, [form]);
+    form.setValue("admin_id", data?.user.id!);
+  }, [form, data]);
 
   return (
     <Form {...form}>
@@ -50,32 +53,6 @@ export default function AddEventForm() {
         })}
         className="grid grid-cols-2 gap-2"
       >
-        <FormField
-          control={form.control}
-          name="event_id"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Event ID</FormLabel>
-              <FormControl>
-                <Input {...field} disabled />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="admin_id"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Admin ID</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
         <FormField
           control={form.control}
           name="name"
