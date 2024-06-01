@@ -4,6 +4,21 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import logo from "@/public/logo.png";
 import google from "@/public/google.svg";
+import { createClient } from "@/utils/supabase/client";
+
+const signInWithGoogle = () => {
+  const supabase = createClient();
+  supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      queryParams: {
+        access_type: "offline",
+        prompt: "consent",
+      },
+      redirectTo: location.origin + "/auth/callback",
+    },
+  });
+};
 
 const logoDimensions = 100;
 export default function UserLogin() {
@@ -16,7 +31,11 @@ export default function UserLogin() {
         width={logoDimensions}
         className="mx-auto mb-10"
       />
-      <Button variant={"none"} className="bg-white w-full space-x-3">
+      <Button
+        variant={"none"}
+        className="bg-white w-full space-x-3"
+        onClick={signInWithGoogle}
+      >
         <Image src={google} alt="google_icon" className="w-7" />
         <span className="font-semibold">Sign in with Google</span>
       </Button>
