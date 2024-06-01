@@ -2,26 +2,24 @@
 
 import { Label } from "@/components/ui/label";
 import useGetUserIdentity from "@/hooks/use-get-user-identity";
-
-interface ProfileDataItem {
-  label: string;
-  valueKey: string;
-}
-
-// valuekey is the name of the column in the database.
-const ProfileDataTemplate: ProfileDataItem[] = [
-  { label: "Full name", valueKey: "full_name" },
-  { label: "Nickname", valueKey: "nickname" },
-  { label: "E-mail", valueKey: "email" },
-  { label: "Occupation", valueKey: "occupation" },
-  { label: "Phone No.", valueKey: "phone" },
-  { label: "Sex", valueKey: "sex" },
-  { label: "Age", valueKey: "age" },
-];
+import useVolunteeridQuery from "@/hooks/use-volunteerid-query";
+import { UUID } from "crypto";
 
 export default function Profile() {
   const { data: user, isLoading, isError } = useGetUserIdentity(); // Fetch data of the user.
+  const userSessionId = user?.id;
+  // Fetch the data from the volunteer table that matches the userSessionId.
+  const { data: volunteer } = useVolunteeridQuery(userSessionId as UUID);
 
+  const ProfileDataTemplate = [
+    { label: "Full name", valueKey: volunteer?.name },
+    { label: "Nickname", valueKey: volunteer?.nickname },
+    { label: "E-mail", valueKey: volunteer?.email },
+    { label: "Occupation", valueKey: volunteer?.occupation },
+    { label: "Phone No.", valueKey: volunteer?.phone_number },
+    { label: "Sex", valueKey: volunteer?.sex },
+    { label: "Age", valueKey: volunteer?.age },
+  ];
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -39,7 +37,7 @@ export default function Profile() {
             <Label className="text-gray-500">{label}</Label>
             <div className="border-b-[3px] border-gray-300 font-semibold text-lg drop-shadow-md">
               {/* Fetch data in the user_metadata object.*/}
-              {user?.user_metadata?.[valueKey] || "No data available"}
+              {valueKey || "No data available"}
             </div>
           </div>
         ))}
