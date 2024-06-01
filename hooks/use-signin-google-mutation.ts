@@ -15,7 +15,6 @@ export default function useSigninGoogleMutation() {
         redirectTo: location.origin + "/auth/callback",
       },
     });
-    console.log(data.url);
 
     if (error) {
       throw "An error occurred while logging in with Google.";
