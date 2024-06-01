@@ -31,11 +31,10 @@ export default function Home() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
     login(JSON.stringify(values));
   }
 
-  const logoDimensions = 150;
+  const logoDimensions = 100;
   return (
     <Form {...form}>
       <form
@@ -88,7 +87,6 @@ export default function Home() {
             </FormItem>
           )}
         />
-
         <Button variant={"destructive"} type="submit" className="bg-accent">
           Login
         </Button>
