@@ -8,7 +8,8 @@ export default function Events({ children }: { children: React.ReactNode }) {
   return (
     <div className="p-5">
       <Button
-        className=" bg-gradient-to-l from-accent-strong to-accent-light from-5% to-95%"
+        variant={"accent_gradient"}
+        className=" text-white"
         onClick={() => router.back()}
       >
         Back

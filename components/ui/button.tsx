@@ -17,6 +17,8 @@ disabled:pointer-events-none disabled:opacity-50`,
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         accent:
           "bg-accent text-accent-foreground hover:bg-accent/90 from-accent-strong to-accent-light from-10% to-90%",
+        accent_gradient:
+          "bg-gradient-to-l from-accent-strong to-accent-light from-5% to-95% text-accent-foreground hover:opacity-80 transition duration-150",
         outline:
           "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
         secondary:

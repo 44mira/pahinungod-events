@@ -1,6 +1,5 @@
 import useSupabase from "./useSupabase";
 import { useMutation } from "@tanstack/react-query";
-import { redirect } from "next/navigation";
 
 export default function useSigninGoogleMutation() {
   const supabase = useSupabase();
@@ -17,14 +16,8 @@ export default function useSigninGoogleMutation() {
       },
     });
 
-    console.log(data.url);
-
     if (error) {
       throw "An error occurred while logging in with Google.";
-    }
-
-    if (data.url) {
-      redirect("/volunteers/dashboard");
     }
   };
 
