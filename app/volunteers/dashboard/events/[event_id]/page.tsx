@@ -28,12 +28,12 @@ export default function SingleEvent() {
   //  Nullish coalescing operator if there is potential undefined values.
 
   useEffect(() => {
-    // Close if the volunteer count exceeds the maximum count.
+    // Close if the volunteer count exceeds or is equal to the maximum count.
     if (
       (volunteerListData!.data?.length ?? 0) >=
       (eventInfoData.data?.volunteer_cap ?? 0)
     ) {
-      setStatus(isOpen);
+      setStatus(false);
     }
 
     // Checks if the event has description or not
