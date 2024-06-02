@@ -9,9 +9,28 @@ import UsersWhite from "@/public/usersWhite";
 import HouseWhite from "@/public/house_white";
 import CalendarWhite from "@/public/calendar_white";
 import SettingsWhite from "@/public/settings_white";
+import useAdminQuery from "@/hooks/use-admin-query";
+import { useRouter } from "next/navigation";
 
 export default function Navbar({ children }: { children: React.ReactNode }) {
   const currentPath = usePathname();
+  const route = useRouter();
+  const { data, status } = useAdminQuery();
+
+  if (status === "error") {
+    return (
+      <p className="text-destructive">
+        Error occurred while getting admin role
+      </p>
+    );
+  }
+  if (status === "pending") {
+    return <></>;
+  }
+
+  if (!data.user.user_metadata.admin) {
+    route.replace("/volunteers/dashboard");
+  }
 
   type NavbarItem = [string, string, JSX.Element?];
   const logoDimensions = 80;
@@ -48,9 +67,9 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
                   url === "" && currentPath === "/dashboard"
                     ? "font-bold text-xmd text-accent bg-white px-3 rounded-xl flex gap-1 items-center transition ease-in-out duration-300"
                     : /* Style selected except for dashboard */
-                    url !== "" && currentPath.includes(`/dashboard/${url}`)
-                    ? "font-bold text-xmd text-accent bg-white px-3 rounded-xl flex gap-1 items-center transition ease-in-out duration-300"
-                    : "font-bold text-xmd text-white px-3 rounded-xl flex gap-1 items-center transition ease-in-out duration-300"
+                      url !== "" && currentPath.includes(`/dashboard/${url}`)
+                      ? "font-bold text-xmd text-accent bg-white px-3 rounded-xl flex gap-1 items-center transition ease-in-out duration-300"
+                      : "font-bold text-xmd text-white px-3 rounded-xl flex gap-1 items-center transition ease-in-out duration-300"
                 }
               >
                 {icon}
