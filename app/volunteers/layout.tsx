@@ -17,6 +17,7 @@ import useAdminQuery from "@/hooks/use-admin-query";
 
 export default function Navbar({ children }: { children: React.ReactNode }) {
   // Show and Hide hamburger menu
+  const currentPath = usePathname();
   const [menuState, setMenuState] = useState(false);
   const { data, status } = useAdminQuery();
   const router = useRouter();
@@ -33,7 +34,6 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
     router.replace("/dashboard");
   }
 
-  const currentPath = usePathname();
   const logoDimensions = 80;
 
   type NavbarItem = [string, string, JSX.Element?];
