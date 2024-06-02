@@ -11,6 +11,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import useInsertVntrToEvent from "@/hooks/use-insert-volunteer-to-event-mutation";
 import useGetUserIdentity from "@/hooks/use-get-user-identity";
+import useEventVolunteerQuery from "@/hooks/use-event-volunteer-query";
 
 import {
   Dialog,
@@ -31,6 +32,10 @@ export default function SingleEvent() {
 
   // User ID
   const user_id = user?.id;
+
+  // Row from the event_volunteer table.
+  const { data: eventData } = useEventVolunteerQuery(user_id as UUID);
+
   // Fetch the row from database with corresponding ID in the URL.
   const [eventInfoData, volunteerListData] = useSingleEventQuery(
     event_id as UUID
@@ -72,6 +77,7 @@ export default function SingleEvent() {
 
   const formatedDate = formatDate(eventInfoData.data?.event_start ?? "");
 
+  // For handling form submits.
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     applyEvent();
@@ -106,40 +112,52 @@ export default function SingleEvent() {
           : "No available description."}
       </div>
 
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button
-            className="w-full text-lg rounded-full"
-            variant={"default"}
-            size={"lg"}
-            type="submit"
-          >
-            Apply
-          </Button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>Confirmation</DialogTitle>
-            <DialogDescription>
-              Are you sure you want to volunteer on this event?
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter className="sm:gap-x-0 flex-row justify-end md: gap-x-3">
-            <DialogClose>
-              <Button type="button" variant="outline">
-                Close
-              </Button>
-            </DialogClose>
-            <form onSubmit={handleSubmit}>
+      {eventData?.status === "accepted" ? (
+        <Button
+          className="w-full text-lg rounded-full"
+          variant={"outline"}
+          size={"lg"}
+          type="button"
+          disabled
+        >
+          You are accepted
+        </Button>
+      ) : (
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button
+              className="w-full text-lg rounded-full"
+              variant={"default"}
+              size={"lg"}
+              type="button"
+            >
+              Apply
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle>Confirmation</DialogTitle>
+              <DialogDescription>
+                Are you sure you want to volunteer on this event?
+              </DialogDescription>
+            </DialogHeader>
+            <DialogFooter className="sm:gap-x-0 flex-row justify-end md: gap-x-3">
               <DialogClose>
-                <Button variant="outline" type="submit">
-                  Confirm
+                <Button type="button" variant="outline">
+                  Close
                 </Button>
               </DialogClose>
-            </form>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+              <form onSubmit={handleSubmit}>
+                <DialogClose>
+                  <Button variant="outline" type="submit">
+                    Confirm
+                  </Button>
+                </DialogClose>
+              </form>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      )}
     </>
   );
 }
