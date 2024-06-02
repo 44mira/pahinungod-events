@@ -45,7 +45,7 @@ export default function useCreateUser() {
   return useMutation({
     mutationFn,
     onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: ["volunteer"] });
+      queryClient.refetchQueries({ queryKey: ["user"] });
     },
   });
 }
