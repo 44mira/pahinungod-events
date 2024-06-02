@@ -21,9 +21,17 @@ export default function useCreateUser() {
   const queryClient = useQueryClient();
 
   const mutationFn = async (registrationData: User) => {
+    const { data: userData, error: userError } = await supabase.auth.getUser();
+
+    if (userError) {
+      console.log("An error has occurred in getting the user info");
+      throw userError;
+    }
+
     const { data, error } = await supabase
       .from("volunteer")
-      .insert(registrationData)
+      .update(registrationData)
+      .eq("volunteer_id", userData.user.id)
       .select();
 
     if (error) {
