@@ -13,14 +13,28 @@ import { usePathname } from "next/navigation";
 import { Separator } from "@/components/ui/separator";
 import UserSingle from "@/public/single_user";
 import { useRouter } from "next/navigation";
+import useAdminQuery from "@/hooks/use-admin-query";
 
 export default function Navbar({ children }: { children: React.ReactNode }) {
   // Show and Hide hamburger menu
-  const [menuState, setMenuState] = useState(false);
-
   const currentPath = usePathname();
-  const logoDimensions = 80;
+  const [menuState, setMenuState] = useState(false);
+  const { data, status } = useAdminQuery();
   const router = useRouter();
+
+  if (status === "error") {
+    return <p className="text-destructive">Error in fetching user data.</p>;
+  }
+
+  if (status === "pending") {
+    return <></>;
+  }
+
+  if (data.user.user_metadata.admin) {
+    router.replace("/dashboard");
+  }
+
+  const logoDimensions = 80;
 
   type NavbarItem = [string, string, JSX.Element?];
   const NavbarItems: NavbarItem[] = [
@@ -69,10 +83,10 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
                   idx === 0 && currentPath === "/volunteers/dashboard"
                     ? "font-bold text-xmd text-accent bg-white px-3 rounded-xl flex gap-1 items-center transition ease-in-out duration-300"
                     : /* Style selected except for dashboard */
-                    idx !== 0 &&
-                      currentPath.includes(`/volunteers/dashboard/${url}`)
-                    ? "font-bold text-xmd text-accent bg-white px-3 rounded-xl flex gap-1 items-center transition ease-in-out duration-300"
-                    : "font-bold text-xmd text-white px-3 rounded-xl flex gap-1 items-center transition ease-in-out duration-300"
+                      idx !== 0 &&
+                        currentPath.includes(`/volunteers/dashboard/${url}`)
+                      ? "font-bold text-xmd text-accent bg-white px-3 rounded-xl flex gap-1 items-center transition ease-in-out duration-300"
+                      : "font-bold text-xmd text-white px-3 rounded-xl flex gap-1 items-center transition ease-in-out duration-300"
                 }
               >
                 {icon}
