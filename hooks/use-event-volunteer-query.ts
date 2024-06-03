@@ -2,7 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import useSupabase from "./useSupabase";
 import { UUID } from "crypto";
 
-export default function useEventVolunteerQuery(event_id: UUID) {
+export default function useEventVolunteerQuery(
+  event_id: UUID,
+  volunteer_id: UUID
+) {
   const supabase = useSupabase();
   const queryKey = ["event_volunteer_data"];
 
