@@ -10,7 +10,8 @@ export default function useEventVolunteerQuery(volunteer_id: UUID) {
     const { data, error } = await supabase
       .from("event_volunteer")
       .select()
-      .eq("volunteer_id", volunteer_id);
+      .eq("volunteer_id", volunteer_id)
+      .single();
 
     if (error) {
       console.log("An error has occurred in fetching event_volunteer data.");
@@ -18,7 +19,7 @@ export default function useEventVolunteerQuery(volunteer_id: UUID) {
     }
 
     // Returns the object data not in array form.
-    return data[0];
+    return data;
   };
 
   return useQuery({ queryKey, queryFn });
