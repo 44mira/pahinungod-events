@@ -19,7 +19,7 @@ import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
-import useUpdateEventMutation from "@/hooks/use_update_event_mutation";
+import useUpdateEventMutation from "@/hooks/use-update-event-mutation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
