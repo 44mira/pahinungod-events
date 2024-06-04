@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import AddEvent from "./addEvent";
+import AddEvent from "./AddEvent";
 import { Suspense } from "react";
 import { signout } from "@/actions/auth/actions";
 
