@@ -1,8 +1,7 @@
 "use client";
 
-import useGetUserIdentity from "@/hooks/use-get-user-identity";
+import useSingleUserQuery from "@/hooks/use-single-user-query";
 import useCreateUser from "@/hooks/use-create_user-mutation";
-import useVolunteeridQuery from "@/hooks/use-volunteerid-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
@@ -31,13 +30,9 @@ import {
   FormControl,
   FormMessage,
 } from "@/components/ui/form";
-import { error } from "console";
 
 export default function RegisterForm() {
-  const { data: user, isLoading, isError } = useGetUserIdentity(); // Fetch data of the user.
-  const userSessionId = user?.id;
-  // Fetch the data from the volunteer table that matches the userSessionId.
-  const { data: volunteer } = useVolunteeridQuery(userSessionId as UUID);
+  const { data: volunteer, isLoading, isError } = useSingleUserQuery();
 
   const { mutate: updateUser } = useCreateUser();
   const form = useForm<CreateUserFields>({
