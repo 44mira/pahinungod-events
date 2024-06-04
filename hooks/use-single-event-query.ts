@@ -9,14 +9,15 @@ export default function useSingleEventQuery(event_id: UUID) {
     const { data, error } = await supabase
       .from("events")
       .select()
-      .eq("event_id", event_id);
+      .eq("event_id", event_id)
+      .single();
 
     if (error || !data) {
       console.log("An error has occurred in fetching event information.");
       throw error;
     }
 
-    return data[0];
+    return data;
   };
 
   const volunteerListQuery = async () => {
