@@ -64,8 +64,8 @@ export default function Dashboard() {
               <span>{event.date}</span>
             </CardDescription>
           </CardContent>
-          {eventStatus?.map((status) => (
-            <CardDescription>{status.status}</CardDescription>
+          {eventStatus?.map((status, index) => (
+            <CardDescription key={index}>{status.status}</CardDescription>
           ))}
           <CardFooter>
             <Link
