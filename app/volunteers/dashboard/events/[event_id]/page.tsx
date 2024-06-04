@@ -112,7 +112,7 @@ export default function SingleEvent() {
           : "No available description."}
       </div>
 
-      {eventData?.data.status === "accepted" ? (
+      {eventData?.status === "accepted" ? (
         <Button
           className="w-full text-lg rounded-full"
           variant={"outline"}
