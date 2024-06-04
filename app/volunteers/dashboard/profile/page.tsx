@@ -1,15 +1,10 @@
 "use client";
 
 import { Label } from "@/components/ui/label";
-import useGetUserIdentity from "@/hooks/use-get-user-identity";
-import useVolunteeridQuery from "@/hooks/use-volunteerid-query";
-import { UUID } from "crypto";
+import useSingleUserQuery from "@/hooks/use-single-user-query";
 
 export default function Profile() {
-  const { data: user, isLoading, isError } = useGetUserIdentity(); // Fetch data of the user.
-  const userSessionId = user?.id;
-  // Fetch the data from the volunteer table that matches the userSessionId.
-  const { data: volunteer } = useVolunteeridQuery(userSessionId as UUID);
+  const { data: volunteer, isLoading, isError } = useSingleUserQuery();
 
   const ProfileDataTemplate = [
     { label: "Full name", valueKey: volunteer?.name },

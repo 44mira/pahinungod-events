@@ -10,14 +10,15 @@ export default function useVolunteeridQuery(volunteer_id: UUID) {
     const { data, error } = await supabase
       .from("volunteer")
       .select()
-      .eq("volunteer_id", volunteer_id); //Filter
+      .eq("volunteer_id", volunteer_id)
+      .single(); //Filter
 
     if (error) {
       console.log("An error has occurred in fetching volunteer data.");
       throw error;
     }
 
-    return data[0];
+    return data;
   };
 
   return useQuery({ queryKey, queryFn });
