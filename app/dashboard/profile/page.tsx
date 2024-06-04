@@ -64,7 +64,7 @@ export default function ProfileForm() {
   useEffect(() => {
     form.setValue("email", admin?.user.email!);
     form.setValue("name", admin?.user.user_metadata.name);
-  }, [admin]);
+  }, [admin, form]);
 
   return (
     <>
