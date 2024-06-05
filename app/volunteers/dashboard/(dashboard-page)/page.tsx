@@ -51,7 +51,7 @@ export default function Dashboard() {
       );
       setPastStatus(isPast); // Sets to true if there is past event within a week
     }
-  }, [events]);
+  }, [events, currentDate, oneWeekInMilliseconds]);
 
   // If fetching is successful
   if (status === "pending")

@@ -51,7 +51,6 @@ export default function UpdateEvent({
       event_end: "",
       orientation_date: undefined,
     },
-    values: eventInfo,
   });
 
   return (
