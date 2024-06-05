@@ -19,25 +19,25 @@ export type User = {
   emergency_contact_affiliation: string;
   emergency_contact_address: string;
 
-  college: string;
-  degree: string;
-  fam_first_college: string;
-  fam_first_up: string;
+  college: string | null;
+  degree: string | null;
+  fam_first_college: string | null;
+  fam_first_up: string | null;
 
-  alumni_constituent: string;
-  alumni_college: string;
-  alumni_course: string;
-  alumni_graduatedYr: string;
-  alumni_occupation: string;
-  alumni_office: string;
+  alumni_constituent: string | null;
+  alumni_college: string | null;
+  alumni_course: string | null;
+  alumni_graduatedYr: string | null;
+  alumni_occupation: string | null;
+  alumni_office: string | null;
 
-  faculty_collegeDep: string;
+  faculty_collegeDep: string | null;
 
-  adminStaff_office: string;
-  adminStaff_position: string;
+  adminStaff_office: string | null;
+  adminStaff_position: string | null;
 
-  retiree_designation: string;
-  retiree_office: string;
+  retiree_designation: string | null;
+  retiree_office: string | null;
 };
 
 export default function useCreateUser() {
