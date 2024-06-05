@@ -207,7 +207,7 @@ export default function RegisterForm() {
                         name="sex"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Gender</FormLabel>
+                            <FormLabel>Assigned Sex on Birth</FormLabel>
                             <FormControl>
                               <Select
                                 onValueChange={field.onChange}
@@ -215,12 +215,15 @@ export default function RegisterForm() {
                               >
                                 <FormControl>
                                   <SelectTrigger>
-                                    <SelectValue placeholder="Select Gender" />
+                                    <SelectValue placeholder="Select option" />
                                   </SelectTrigger>
                                 </FormControl>
                                 <SelectContent>
                                   <SelectItem value="M"> Male </SelectItem>
                                   <SelectItem value="F">Female</SelectItem>
+                                  <SelectItem value="Prefer Not to Say">
+                                    Prefer Not to Say
+                                  </SelectItem>
                                 </SelectContent>
                               </Select>
                             </FormControl>
