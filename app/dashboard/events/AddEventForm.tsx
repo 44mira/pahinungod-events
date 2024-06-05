@@ -10,7 +10,7 @@ import {
   FormControl,
   FormMessage,
 } from "@/components/ui/form";
-import { AddEventSchema, type AddEventFields } from "./_types/schemas";
+import { AddEventSchema } from "./_types/schemas";
 import useAddEventMutation from "@/hooks/use-add-event-mutation";
 import useAdminQuery from "@/hooks/use-admin-query";
 import { Input } from "@/components/ui/input";
@@ -19,11 +19,12 @@ import { DialogClose } from "@radix-ui/react-dialog";
 import { Switch } from "@/components/ui/switch";
 import { useEffect, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
+import { type Event } from "./_types/types";
 
 export default function AddEventForm() {
   const { mutate } = useAddEventMutation();
   const { data } = useAdminQuery();
-  const form = useForm<AddEventFields>({
+  const form = useForm<Event>({
     resolver: zodResolver(AddEventSchema),
     defaultValues: {
       event_id: "",
@@ -97,10 +98,28 @@ export default function AddEventForm() {
           control={form.control}
           name="location"
           render={({ field }) => (
-            <FormItem className="col-span-2">
+            <FormItem>
               <FormLabel>Location</FormLabel>
               <FormControl>
                 <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="volunteer_cap"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Volunteer Cap</FormLabel>
+              <FormControl>
+                <Input
+                  {...field}
+                  onChange={(e) => field.onChange(+e.target.value)}
+                  value={field.value!}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -131,7 +150,7 @@ export default function AddEventForm() {
             <Switch
               onCheckedChange={() => {
                 setOrientation((state) => !state);
-                form.setValue("orientation_date", undefined);
+                form.setValue("orientation_date", null);
               }}
             />
             Does this event have an orientation?
@@ -150,6 +169,7 @@ export default function AddEventForm() {
                       onChange={(e) => {
                         field.onChange(e.target.value.toString());
                       }}
+                      value={field.value ?? undefined}
                     />
                   </FormControl>
                   <FormMessage />
