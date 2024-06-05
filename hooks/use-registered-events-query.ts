@@ -1,17 +1,24 @@
 import { useQuery } from "@tanstack/react-query";
 import useSupabase from "./useSupabase";
-import { UUID } from "crypto";
 
-export default function useRegisteredEventsQuery(volunteer_id: UUID) {
+export default function useRegisteredEventsQuery() {
   const supabase = useSupabase();
-  const queryKey = ["event_volunteer_data", volunteer_id];
+  const queryKey = ["event_volunteer_data"];
 
   const queryFn = async () => {
+    // Fetch raw_user_meta_data
+    const { data: userData, error: userError } = await supabase.auth.getUser();
+
+    if (userError) {
+      console.log("There was an error in fetching user data");
+      throw userError;
+    }
+
     // Retrieve the events from event_volunteer table where it matches the user_id.
     const { data: eventVolunteer, error } = await supabase
       .from("event_volunteer")
       .select()
-      .eq("volunteer_id", volunteer_id);
+      .eq("volunteer_id", userData.user.id);
 
     if (error) {
       console.log("An error has occurred in fetching event_volunteer data.");
