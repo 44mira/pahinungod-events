@@ -2,13 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useSupabase from "./useSupabase";
 import { Database } from "@/utils/database.types";
 
-type ProfileDataKey =
-  | "name"
-  | "nickname"
-  | "occupation"
-  | "phone_number"
-  | "sex"
-  | "age";
+type ProfileDataKey = "name" | "nickname" | "phone_number" | "sex" | "age";
 
 type Volunteer = Pick<
   Database["public"]["Tables"]["volunteer"]["Row"],

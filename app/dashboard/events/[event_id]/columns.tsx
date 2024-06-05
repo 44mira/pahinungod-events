@@ -63,14 +63,16 @@ export const EventVolunteerColumns: ColumnDef<EventVolunteerList>[] = [
 
 function SelectAttendance({ mutate, attendance }: any) {
   return (
-    <Select onValueChange={mutate} defaultValue={attendance}>
-      <SelectTrigger className="max-w-fit">
-        <SelectValue placeholder={attendance} />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="attended">attended</SelectItem>
-        <SelectItem value="missed">missed</SelectItem>
-      </SelectContent>
-    </Select>
+    <div className="flex flex-col items-center min-w-full">
+      <Select onValueChange={mutate} defaultValue={attendance}>
+        <SelectTrigger className="max-w-fit">
+          <SelectValue placeholder={attendance} />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="attended">attended</SelectItem>
+          <SelectItem value="missed">missed</SelectItem>
+        </SelectContent>
+      </Select>
+    </div>
   );
 }
