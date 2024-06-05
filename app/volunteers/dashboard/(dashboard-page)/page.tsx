@@ -115,7 +115,7 @@ export default function Dashboard() {
             </p>
           )}
         </div>
-        <Separator />
+        <Separator className=" border-[1.5px] border-slate-300 " />
         <div>
           <p className="text-2lg font-semibold mb-5">Upcoming Events</p>
           <div className="space-y-5 sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
@@ -164,7 +164,7 @@ export default function Dashboard() {
             </p>
           )}
         </div>
-        <Separator />
+        <Separator className=" border-[1.5px] border-slate-300 " />
         <div>
           <p className="text-2lg font-semibold mb-5">Past Events</p>
           <div className="space-y-5 sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
