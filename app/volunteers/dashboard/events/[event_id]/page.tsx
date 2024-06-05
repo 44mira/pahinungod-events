@@ -29,12 +29,12 @@ export default function SingleEvent() {
 
   // Row from the event_volunteer table.
   const { data: eventData, refetch } = useEventVolunteerSingleQuery(
-    event_id as UUID,
+    event_id as UUID
   );
 
   // Fetch the row from database with corresponding ID in the URL.
   const [eventInfoData, volunteerListData] = useSingleEventQuery(
-    event_id as UUID,
+    event_id as UUID
   );
 
   // Apply Event Mutation

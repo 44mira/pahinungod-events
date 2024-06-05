@@ -24,7 +24,7 @@ export default function useSingleUserQuery() {
       throw error;
     }
 
-    return data;
+    return { ...data, userData };
   };
 
   return useQuery({ queryKey, queryFn });
