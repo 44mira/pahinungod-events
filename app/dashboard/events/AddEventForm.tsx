@@ -118,7 +118,7 @@ export default function AddEventForm() {
                 <Input
                   {...field}
                   onChange={(e) => field.onChange(+e.target.value)}
-                  value={field.value!}
+                  value={field.value ?? undefined}
                 />
               </FormControl>
               <FormMessage />
