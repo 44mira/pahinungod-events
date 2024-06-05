@@ -24,11 +24,8 @@ export function VolunteerCount({
   return (
     <span className="flex items-center gap-3 p-5 border border-accent">
       <Image src={person_icon} alt="person icon" />
-      {status === "pending"
-        ? "..."
-        : volunteer_cap
-          ? `${data}/${volunteer_cap}`
-          : "N/A"}
+      {status === "pending" ? "..." : data}
+      {volunteer_cap ? "/" + volunteer_cap : ""}
     </span>
   );
 }
