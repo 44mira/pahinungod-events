@@ -77,25 +77,25 @@ export const CreateUserSchema = z.object({
   emergency_contact_affiliation: z.string(),
   emergency_contact_address: z.string(),
 
-  college: z.string(),
-  degree: z.string(),
-  fam_first_college: z.string(),
-  fam_first_up: z.string(),
+  college: z.string().nullable(),
+  degree: z.string().nullable(),
+  fam_first_college: z.string().nullable(),
+  fam_first_up: z.string().nullable(),
 
-  alumni_constituent: z.string(),
-  alumni_college: z.string(),
-  alumni_course: z.string(),
-  alumni_graduatedYr: z.string(),
-  alumni_occupation: z.string(),
-  alumni_office: z.string(),
+  alumni_constituent: z.string().nullable(),
+  alumni_college: z.string().nullable(),
+  alumni_course: z.string().nullable(),
+  alumni_graduatedYr: z.string().nullable(),
+  alumni_occupation: z.string().nullable(),
+  alumni_office: z.string().nullable(),
 
-  faculty_collegeDep: z.string(),
+  faculty_collegeDep: z.string().nullable(),
 
-  adminStaff_office: z.string(),
-  adminStaff_position: z.string(),
+  adminStaff_office: z.string().nullable(),
+  adminStaff_position: z.string().nullable(),
 
-  retiree_designation: z.string(),
-  retiree_office: z.string(),
+  retiree_designation: z.string().nullable(),
+  retiree_office: z.string().nullable(),
 });
 
 export type CreateUserFields = z.infer<typeof CreateUserSchema>;
