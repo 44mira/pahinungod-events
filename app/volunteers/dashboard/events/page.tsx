@@ -1,5 +1,6 @@
 "use client";
 
+import moment from "moment";
 import {
   Card,
   CardContent,
@@ -52,7 +53,6 @@ export default function RegisteredEvents() {
               <div className=" text-accent-strong">
                 <CalendarWhite />
               </div>
-              <span>{event.date}</span>
             </CardDescription>
           </CardContent>
           {eventStatus?.map((status) => (
@@ -72,12 +72,7 @@ export default function RegisteredEvents() {
           </CardFooter>
         </Card>
       ))}
+                <span>{moment(event_start).format("MMM D YYY")}</span>
     </div>
   );
 }
-
-// Change date format into <weekday name> <month> <day> <year>
-const formatDate = (inputDate: string) => {
-  const formatedDate = new Date(inputDate);
-  return formatedDate.toDateString(); // <weekday name> <month> <day> <year>
-};
