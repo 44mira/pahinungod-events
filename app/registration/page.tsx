@@ -94,6 +94,38 @@ export default function RegisterForm() {
     return <div>Error loading user data.</div>;
   }
 
+  const regions = [
+    { value: "NCR", label: "National Capital Region (NCR)" },
+    { value: "CAR", label: "Cordillera Administrative Region (CAR)" },
+    { value: "Region 1", label: "Ilocos Region (Region I)" },
+    { value: "Region 2", label: "Cagayan Valley (Region II)" },
+    { value: "Region 3", label: "Central Luzon (Region III)" },
+    {
+      value: "Region 4",
+      label: "Calabarzon (Region IV-A/Southern Tagalog Mainland)",
+    },
+    { value: "Region 5", label: "Bicol Region (Region V)" },
+    { value: "Region 6", label: "Western Visayas (Region VI)" },
+    { value: "Region 7", label: "Central Visayas (Region VII)" },
+    { value: "Region 8", label: "Eastern Visayas (Region VIII)" },
+    { value: "Region 9", label: "Zamboanga Peninsula (Region IX)" },
+    { value: "Region 10", label: "Northern Mindanao (Region X)" },
+    { value: "Region 11", label: "Davao Region (Region XI)" },
+    { value: "Region 12", label: "Soccsksargen (Region XII)" },
+    { value: "Region 13", label: "Caraga Region (Region XIII)" },
+    {
+      value: "BARMM",
+      label: "Bangsamoro Autonomous Region in Muslim Mindanao (BARMM)",
+    },
+  ];
+
+  const occupation = [
+    { value: "Student", label: "Student" },
+    { value: "Alumni", label: "Alumni" },
+    { value: "Faculty ", label: "Faculty" },
+    { value: "Admin Staff", label: "Admin Staff" },
+    { value: "Retiree", label: "Retiree" },
+  ];
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -266,26 +298,11 @@ export default function RegisterForm() {
                                   </SelectTrigger>
                                 </FormControl>
                                 <SelectContent>
-                                  <SelectItem value="Student">
-                                    {" "}
-                                    Student{" "}
-                                  </SelectItem>
-                                  <SelectItem value="Alumni">
-                                    {" "}
-                                    Alumni{" "}
-                                  </SelectItem>
-                                  <SelectItem value="Faculty">
-                                    {" "}
-                                    Faculty{" "}
-                                  </SelectItem>
-                                  <SelectItem value="Admin Staff">
-                                    {" "}
-                                    Admin Staff
-                                  </SelectItem>
-                                  <SelectItem value="Retiree">
-                                    {" "}
-                                    Retiree{" "}
-                                  </SelectItem>
+                                  {occupation.map((value, index) => (
+                                    <SelectItem key={index} value={value.value}>
+                                      {value.label}
+                                    </SelectItem>
+                                  ))}
                                 </SelectContent>
                               </Select>
                             </FormControl>
@@ -369,56 +386,11 @@ export default function RegisterForm() {
                                   </SelectTrigger>
                                 </FormControl>
                                 <SelectContent>
-                                  <SelectItem value="NCR">
-                                    National Capital Region (NCR)
-                                  </SelectItem>
-                                  <SelectItem value="CAR">
-                                    Cordillera Administrative Region (CAR)
-                                  </SelectItem>
-                                  <SelectItem value="Region 1">
-                                    Ilocos Region (Region I)
-                                  </SelectItem>
-                                  <SelectItem value="Region 2">
-                                    Cagayan Valley (Region II)
-                                  </SelectItem>
-                                  <SelectItem value="Region 3">
-                                    Central Luzon (Region III)
-                                  </SelectItem>
-                                  <SelectItem value="Region 4">
-                                    Calabarzon (Region IV-A/Southern Tagalog
-                                    Mainland)
-                                  </SelectItem>
-                                  <SelectItem value="Region 5">
-                                    Bicol Region (Region V)
-                                  </SelectItem>
-                                  <SelectItem value="Region 6">
-                                    Western Visayas (Region VI)
-                                  </SelectItem>
-                                  <SelectItem value="Region 7">
-                                    Central Visayas (Region VII)
-                                  </SelectItem>
-                                  <SelectItem value="Region 8">
-                                    Eastern Visayas (Region VIII)
-                                  </SelectItem>
-                                  <SelectItem value="Region 9">
-                                    Zamboanga Peninsula (Region IX)
-                                  </SelectItem>
-                                  <SelectItem value="Region 10">
-                                    Northern Mindanao (Region X)
-                                  </SelectItem>
-                                  <SelectItem value="Region 11">
-                                    Davao Region (Region XI)
-                                  </SelectItem>
-                                  <SelectItem value="Region 12">
-                                    Soccsksargen (Region XII)
-                                  </SelectItem>
-                                  <SelectItem value="Region 13">
-                                    Caraga Region (Region XIII)
-                                  </SelectItem>
-                                  <SelectItem value="BARMM">
-                                    Bangsamoro Autonomous Region in Muslim
-                                    Mindanao (BARMM)
-                                  </SelectItem>
+                                  {regions.map((value, index) => (
+                                    <SelectItem key={index} value={value.value}>
+                                      {value.label}
+                                    </SelectItem>
+                                  ))}
                                 </SelectContent>
                               </Select>
                             </FormControl>
