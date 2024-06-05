@@ -113,7 +113,6 @@ export default function RegisterForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <pre>{JSON.stringify(volunteer, null, 2)}</pre>
         <div className="flex justify-center items-center min-h-screen">
           <Tabs defaultValue="basic" className="w-full max-w-2xl">
             <TabsList className="grid grid-cols-3 border-b border-gray-200 dark:border-gray-800">
