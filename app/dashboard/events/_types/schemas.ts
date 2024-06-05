@@ -72,6 +72,10 @@ export const CreateUserSchema = z.object({
     "Alumni",
     "Admin Staff",
   ]),
+  emergency_contact: z.string(),
+  emergency_contact_name: z.string(),
+  emergency_contact_affiliation: z.string(),
+  emergency_contact_address: z.string(),
 });
 
 export type CreateUserFields = z.infer<typeof CreateUserSchema>;
