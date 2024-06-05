@@ -41,13 +41,7 @@ const formSchema = z.object({
   age: z.number(),
 });
 
-type ProfileDataKey =
-  | "name"
-  | "nickname"
-  | "occupation"
-  | "phone_number"
-  | "sex"
-  | "age";
+type ProfileDataKey = "name" | "nickname" | "phone_number" | "sex" | "age";
 
 type Volunteer = Pick<
   Database["public"]["Tables"]["volunteer"]["Row"],
@@ -64,7 +58,6 @@ export default function Profile() {
     defaultValues: {
       name: "",
       nickname: "",
-      occupation: "Student",
       phone_number: "",
       sex: "M",
       age: 0,
@@ -74,7 +67,6 @@ export default function Profile() {
   useEffect(() => {
     form.setValue("name", volunteer?.name ?? "No name provided");
     form.setValue("nickname", volunteer?.nickname ?? "No nickname provided");
-    form.setValue("occupation", volunteer?.occupation ?? "Student");
     form.setValue("phone_number", volunteer?.phone_number ?? "");
     form.setValue("sex", volunteer?.sex ?? "M");
     form.setValue("age", volunteer?.age ?? 0);
@@ -163,35 +155,10 @@ export default function Profile() {
               <Label>Email</Label>
               <Input disabled value={volunteer.email} />
             </div>
-            <FormField
-              control={form.control}
-              name="occupation"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Occupation</FormLabel>
-                  <FormControl>
-                    <Select
-                      onValueChange={field.onChange}
-                      disabled={editProfileState}
-                    >
-                      <FormControl>
-                        <SelectTrigger className="bg-background disabled:bg-slate-200">
-                          <SelectValue placeholder={field.value} />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {occupation.map((value, index) => (
-                          <SelectItem key={index} value={value}>
-                            {value}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="flex flex-col gap-2">
+              <Label>Occupation</Label>
+              <Input disabled value={volunteer.occupation as string} />
+            </div>
             <FormField
               control={form.control}
               name="phone_number"
