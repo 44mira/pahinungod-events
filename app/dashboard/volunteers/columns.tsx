@@ -23,10 +23,6 @@ export const columns: ColumnDef<Volunteer>[] = [
     header: "ID",
   },
   {
-    accessorKey: "hours_rendered",
-    header: "Hours Rendered",
-  },
-  {
     accessorKey: "name",
     header: "Name",
   },
@@ -37,5 +33,9 @@ export const columns: ColumnDef<Volunteer>[] = [
   {
     accessorKey: "occupation",
     header: "Occupation",
+  },
+  {
+    accessorKey: "hours_rendered",
+    header: "Hours Rendered",
   },
 ];
