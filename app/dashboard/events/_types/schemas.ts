@@ -64,6 +64,14 @@ export const CreateUserSchema = z.object({
   city: z.string(),
   province: z.string(),
   postal_code: z.union([z.number(), z.null()]),
+  region: z.string(),
+  occupation: z.enum([
+    "Student",
+    "Faculty",
+    "Retiree",
+    "Alumni",
+    "Admin Staff",
+  ]),
 });
 
 export type CreateUserFields = z.infer<typeof CreateUserSchema>;
