@@ -43,9 +43,14 @@ export default function RegisteredEvents() {
                 <span>{moment(event_start).format("MMM D YYY")}</span>
               </CardDescription>
             </CardContent>
-            {registeredEvents?.eventVolunteer.map(({ event_id, status }) => (
-              <CardDescription key={event_id}>{status}</CardDescription>
-            ))}
+            {registeredEvents?.eventVolunteer.map(
+              ({ event_id: singleEventID, status }) =>
+                singleEventID == event_id ? (
+                  <CardDescription key={event_id}>{status}</CardDescription>
+                ) : (
+                  ""
+                )
+            )}
             <CardFooter>
               <Link
                 href={{ pathname: `/volunteers/dashboard/events/${event_id}` }}
@@ -57,7 +62,7 @@ export default function RegisteredEvents() {
               </Link>
             </CardFooter>
           </Card>
-        ),
+        )
       )}
     </div>
   );
