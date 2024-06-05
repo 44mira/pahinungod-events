@@ -24,7 +24,7 @@ export default function RegisteredEvents() {
     return <p className="text-accent text-2lg font-bold">Loading...</p>; // Will replace with skeleton
 
   return (
-    <div className="space-y-9">
+    <div className="space-y-5 sm:grid sm:space-y-0 sm:grid-cols-2  lg:grid-cols-4 gap-5">
       {registeredEvents?.events!.map(
         ({ event_id, name, event_start, volunteer_cap }) => (
           <Card key={event_id}>

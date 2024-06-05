@@ -96,7 +96,7 @@ export default function DemoPage() {
                   <TableRow key={headerGroup.id}>
                     {headerGroup.headers
                       .filter(
-                        (header) => header.column.columnDef.header !== "ID"
+                        (header) => header.column.columnDef.header !== "ID",
                       )
                       .map((header) => {
                         return (
@@ -108,7 +108,7 @@ export default function DemoPage() {
                               ? null
                               : flexRender(
                                   header.column.columnDef.header,
-                                  header.getContext()
+                                  header.getContext(),
                                 )}
                           </TableHead>
                         );
@@ -124,7 +124,7 @@ export default function DemoPage() {
                       data-state={row.getIsSelected() && "selected"}
                       onClick={() =>
                         router.push(
-                          "volunteers/" + row.getValue("volunteer_id")
+                          "volunteers/" + row.getValue("volunteer_id"),
                         )
                       }
                       className="hover:cursor-pointer"
@@ -136,7 +136,7 @@ export default function DemoPage() {
                           <TableCell key={cell.id}>
                             {flexRender(
                               cell.column.columnDef.cell,
-                              cell.getContext()
+                              cell.getContext(),
                             )}
                           </TableCell>
                         ))}

@@ -14,8 +14,7 @@ export type Volunteer = {
     | "Alumni"
     | null;
   email: string;
-  sex: string | null;
-  age: number | null;
+  hours_rendered: number | null;
 };
 
 export const columns: ColumnDef<Volunteer>[] = [
@@ -36,11 +35,7 @@ export const columns: ColumnDef<Volunteer>[] = [
     header: "Occupation",
   },
   {
-    accessorKey: "sex",
-    header: "Sex",
-  },
-  {
-    accessorKey: "age",
-    header: "Age",
+    accessorKey: "hours_rendered",
+    header: "Hours Rendered",
   },
 ];

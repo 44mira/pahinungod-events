@@ -8,8 +8,9 @@ export default function useDashboardQuery() {
   const queryFn = async () => {
     const { data, error } = await supabase
       .from("events")
-      .select("name, event_id, volunteer_cap, location, event_start, event_end")
-      .order("event_end", { ascending: false });
+      .select(
+        "name, event_id, volunteer_cap, location, event_start, event_end, event_active",
+      );
 
     if (error) {
       console.log("An error has occurred in fetching events.");

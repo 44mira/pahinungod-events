@@ -15,7 +15,8 @@ export const AddEventSchema = z
     }),
     location: z.string(),
     description: z.string().nullable(),
-    orientation_date: z.string().date().optional(),
+    orientation_date: z.string().date().optional().nullable(),
+    volunteer_cap: z.number().min(0).optional(),
   })
   .refine(
     ({ event_start, event_end }) =>
@@ -23,7 +24,7 @@ export const AddEventSchema = z
     {
       message: "Event start must be before event end.",
       path: ["event_start"],
-    }
+    },
   );
 
 export type AddEventFields = z.infer<typeof AddEventSchema>;
@@ -47,7 +48,7 @@ export const UpdateEventSchema = z
     {
       message: "Event start must be before event end.",
       path: ["event_start"],
-    }
+    },
   );
 
 export type UpdateEventFields = z.infer<typeof UpdateEventSchema>;
@@ -55,7 +56,9 @@ export type UpdateEventFields = z.infer<typeof UpdateEventSchema>;
 export const CreateUserSchema = z.object({
   name: z.string(),
   nickname: z.string(),
-  phone_number: z.string(),
+  phone_number: z
+    .string()
+    .regex(/^(0|63)9\d{9}$/, { message: "Invalid phone number" }),
   birth_date: z.string().date(),
   age: z.union([z.number(), z.null()]),
   sex: z.string(),

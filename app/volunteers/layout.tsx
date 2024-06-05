@@ -83,10 +83,10 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
                   idx === 0 && currentPath === "/volunteers/dashboard"
                     ? "font-bold text-xmd text-accent bg-white px-3 rounded-xl flex gap-1 items-center transition ease-in-out duration-300"
                     : /* Style selected except for dashboard */
-                      idx !== 0 &&
-                        currentPath.includes(`/volunteers/dashboard/${url}`)
-                      ? "font-bold text-xmd text-accent bg-white px-3 rounded-xl flex gap-1 items-center transition ease-in-out duration-300"
-                      : "font-bold text-xmd text-white px-3 rounded-xl flex gap-1 items-center transition ease-in-out duration-300"
+                    idx !== 0 &&
+                      currentPath.includes(`/volunteers/dashboard/${url}`)
+                    ? "font-bold text-xmd text-accent bg-white px-3 rounded-xl flex gap-1 items-center transition ease-in-out duration-300"
+                    : "font-bold text-xmd text-white px-3 rounded-xl flex gap-1 items-center transition ease-in-out duration-300"
                 }
               >
                 {icon}
@@ -96,7 +96,7 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
           ))}
         </ul>
       </div>
-      <div className="flex justify-between px-5 pt-4 pb-1 shadow-lg bg-gradient-to-l  from-accent-strong to-accent-light sticky top-0 z-0">
+      <div className="flex justify-between px-5 pt-4 pb-1 shadow-lg bg-gradient-to-l  from-accent-strong to-accent-light sticky top-0 z-0 md:hidden">
         <IconMenu
           onClick={() => setMenuState(true)}
           className="stroke-neutral-100 text-neutral-100"
@@ -109,6 +109,41 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
           Log out
         </Button> */}
       </div>
+      <div className="max-md:hidden fixed left-0 top-0 bottom-0 w-32 bg-gradient-to-br  from-accent-strong to-accent-light from-20%% to-80% ">
+        <Image
+          src={logo}
+          alt="pahinungod logo"
+          height={logoDimensions}
+          width={logoDimensions}
+          className="mx-auto m-5"
+        />
+
+        <Separator className="border-white border-2" />
+
+        <ul className="flex flex-col gap-5  pt-5">
+          {NavbarItems.map(([item, url, icon], idx) => (
+            <li key={idx}>
+              <Link
+                href={{ pathname: `/volunteers/dashboard/${url}` }}
+                className={
+                  /* Sets dashboard style to be selected by default. */
+                  idx === 0 && currentPath === "/volunteers/dashboard"
+                    ? "font-bold text-xmd text-accent bg-white   flex flex-col gap-1 items-center text-center transition ease-in-out duration-300"
+                    : /* Style selected except for dashboard */
+                    idx !== 0 &&
+                      currentPath.includes(`/volunteers/dashboard/${url}`)
+                    ? "font-bold text-xmd text-accent bg-white   flex flex-col  gap-1 items-center text-center transition ease-in-out duration-300"
+                    : "font-bold text-xmd text-white   flex flex-col gap-1 items-center text-center transition ease-in-out duration-300"
+                }
+              >
+                {icon}
+                {item}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+
       {children}
     </>
   );
