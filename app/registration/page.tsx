@@ -3,7 +3,6 @@
 import useSingleUserQuery from "@/hooks/use-single-user-query";
 import useCreateUser from "@/hooks/use-create_user-mutation";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
@@ -42,7 +41,6 @@ export default function RegisterForm() {
   const { data: volunteer, isLoading, isError } = useSingleUserQuery();
   const { mutate: updateUser } = useCreateUser();
   const router = useRouter();
-  // const isNewUser = !volunteer;
 
   const form = useForm<CreateUserFields>({
     resolver: zodResolver(CreateUserSchema),
@@ -77,14 +75,6 @@ export default function RegisterForm() {
       },
     });
   };
-
-  // useEffect(() => {
-  //   if (!isLoading && !isError && !isNewUser) {
-  //     router.push("/volunteers/dashboard");
-
-  //     return;
-  //   }
-  // }, [isLoading, isError, isNewUser, router]);
 
   if (isLoading) {
     return <div>Loading...</div>;
