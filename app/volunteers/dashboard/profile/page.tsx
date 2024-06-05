@@ -61,7 +61,6 @@ export default function Profile() {
     defaultValues: {
       name: "",
       nickname: "",
-      email: "",
       occupation: "Student",
       phone_number: "",
       sex: "M",
