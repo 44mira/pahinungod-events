@@ -1,7 +1,7 @@
 "use client";
 
 import useSingleUserQuery from "@/hooks/use-single-user-query";
-import useCreateUser from "@/hooks/use-create_user-mutation";
+import useCreateUser from "@/hooks/use-create-user-mutation";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -68,7 +68,7 @@ export default function RegisterForm() {
   const onSubmit = (formData: CreateUserFields) => {
     updateUser(formData, {
       onSuccess: () => {
-        router.push("/volunteers/dashboard"); // Change this to your desired success redirect URL
+        router.push("/volunteers/dashboard");
       },
       onError: () => {
         alert("Error updating user. Please try again.");
