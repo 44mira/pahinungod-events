@@ -23,7 +23,7 @@ export const AddEventSchema = z
     {
       message: "Event start must be before event end.",
       path: ["event_start"],
-    },
+    }
   );
 
 export type AddEventFields = z.infer<typeof AddEventSchema>;
@@ -47,7 +47,35 @@ export const UpdateEventSchema = z
     {
       message: "Event start must be before event end.",
       path: ["event_start"],
-    },
+    }
   );
 
 export type UpdateEventFields = z.infer<typeof UpdateEventSchema>;
+
+export const CreateUserSchema = z.object({
+  name: z.string(),
+  nickname: z.string(),
+  phone_number: z.string(),
+  birth_date: z.string().date(),
+  age: z.union([z.number(), z.null()]),
+  sex: z.string(),
+  indigenous_affiliation: z.string(),
+  address: z.string(),
+  city: z.string(),
+  province: z.string(),
+  postal_code: z.union([z.number(), z.null()]),
+  region: z.string(),
+  occupation: z.enum([
+    "Student",
+    "Faculty",
+    "Retiree",
+    "Alumni",
+    "Admin Staff",
+  ]),
+  emergency_contact: z.string(),
+  emergency_contact_name: z.string(),
+  emergency_contact_affiliation: z.string(),
+  emergency_contact_address: z.string(),
+});
+
+export type CreateUserFields = z.infer<typeof CreateUserSchema>;
