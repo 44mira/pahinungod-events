@@ -1,20 +1,15 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
+import { Separator } from "@/components/ui/separator";
 
 export default function Events({ children }: { children: React.ReactNode }) {
-  const router = useRouter();
-
   return (
-    <div className="p-5">
-      <Button
-        variant={"accent_gradient"}
-        className=" text-white"
-        onClick={() => router.back()}
-      >
-        Back
-      </Button>
-      <div className="pt-5">{children}</div>
+    <div className="p-5 md:p-5 md:ps-40 ">
+      <div className="text-xl font-bold pb-5">
+        Registered Events
+        <Separator className="max-md:hidden border-[1.5px] border-slate-300 " />
+      </div>
+
+      <div className="p-5">{children}</div>
     </div>
   );
 }

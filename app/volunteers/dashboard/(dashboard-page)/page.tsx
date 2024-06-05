@@ -32,13 +32,13 @@ export default function Dashboard() {
     if (events) {
       // Check if there is active event
       const isActive = events.some(
-        (event) => formatDate(event.event_start) === currentDate,
+        (event) => formatDate(event.event_start) === currentDate
       );
       setActiveStatus(isActive); // Sets to true if there is active
 
       // Check if there is upcoming event
       const isUpcoming = events.some(
-        (event) => event.event_start > new Date().toISOString(),
+        (event) => event.event_start > new Date().toISOString()
       );
       setUpcomingStatus(isUpcoming); // Sets to true if there is upcoming
 
@@ -47,7 +47,7 @@ export default function Dashboard() {
           new Date().getTime() - new Date(event.event_start).getTime() <
             oneWeekInMilliseconds &&
           new Date(event.event_start).getTime() < new Date().getTime() &&
-          new Date().toISOString() !== event.event_start,
+          new Date().toISOString() !== event.event_start
       );
       setPastStatus(isPast); // Sets to true if there is past event within a week
     }
@@ -70,7 +70,7 @@ export default function Dashboard() {
       <div className="space-y-14">
         <div>
           <p className="text-2lg font-semibold mb-5">Active Events</p>
-          <div className="space-y-9">
+          <div className="space-y-5 sm:grid sm:space-y-0 sm:grid-cols-2  lg:grid-cols-4 gap-5">
             {eventInfo?.map((event, index) =>
               currentDate === event.date ? (
                 <Card key={index}>
@@ -104,21 +104,21 @@ export default function Dashboard() {
                 </Card>
               ) : (
                 ""
-              ),
-            )}
-            {activeEvent ? (
-              ""
-            ) : (
-              <p className="p-5 text-center text-xl font-semibold text-primary">
-                No Active Events
-              </p>
+              )
             )}
           </div>
+          {activeEvent ? (
+            ""
+          ) : (
+            <p className="p-5 text-center text-xl font-semibold text-primary">
+              No Active Events
+            </p>
+          )}
         </div>
-        <Separator />
+        <Separator className=" border-[1.5px] border-slate-300 " />
         <div>
           <p className="text-2lg font-semibold mb-5">Upcoming Events</p>
-          <div className="space-y-9">
+          <div className="space-y-5 sm:grid sm:space-y-0 sm:grid-cols-2  lg:grid-cols-4 gap-5">
             {eventInfo?.map((event, index) =>
               new Date(event.date).getTime() > new Date().getTime() &&
               currentDate !== event.date ? (
@@ -153,21 +153,21 @@ export default function Dashboard() {
                 </Card>
               ) : (
                 ""
-              ),
-            )}
-            {upcomingEvent ? (
-              ""
-            ) : (
-              <p className="p-5 text-center text-xl font-semibold text-primary">
-                No Upcoming Events
-              </p>
+              )
             )}
           </div>
+          {upcomingEvent ? (
+            ""
+          ) : (
+            <p className="p-5 text-center text-xl font-semibold text-primary">
+              No Upcoming Events
+            </p>
+          )}
         </div>
-        <Separator />
+        <Separator className=" border-[1.5px] border-slate-300 " />
         <div>
           <p className="text-2lg font-semibold mb-5">Past Events</p>
-          <div className="space-y-9">
+          <div className="space-y-5 sm:grid sm:space-y-0 sm:grid-cols-2  lg:grid-cols-4 gap-5">
             {eventInfo?.map((event, index) =>
               new Date().getTime() - new Date(event.date).getTime() <
                 oneWeekInMilliseconds &&
@@ -204,16 +204,16 @@ export default function Dashboard() {
                 </Card>
               ) : (
                 ""
-              ),
-            )}
-            {pastEvent ? (
-              ""
-            ) : (
-              <p className="p-5 text-center text-xl font-semibold text-primary">
-                Events from last week will show here
-              </p>
+              )
             )}
           </div>
+          {pastEvent ? (
+            ""
+          ) : (
+            <p className="p-5 text-center text-xl font-semibold text-primary">
+              Events from last week will show here
+            </p>
+          )}
         </div>
       </div>
     </>

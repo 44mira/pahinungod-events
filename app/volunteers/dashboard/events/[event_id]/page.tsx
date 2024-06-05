@@ -11,7 +11,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import useInsertVntrToEvent from "@/hooks/use-insert-volunteer-to-event-mutation";
 import useEventVolunteerSingleQuery from "@/hooks/use-event-volunteer-single-query";
-
+import { useRouter } from "next/navigation";
 import {
   Dialog,
   DialogClose,
@@ -33,7 +33,7 @@ export default function SingleEvent() {
 
   // Fetch the row from database with corresponding ID in the URL.
   const [eventInfoData, volunteerListData] = useSingleEventQuery(
-    event_id as UUID,
+    event_id as UUID
   );
 
   // Apply Event Mutation
@@ -45,7 +45,7 @@ export default function SingleEvent() {
   // Checks if the the row has description.
   const [hasDescription, setDescription] = useState(true);
 
-  //  Nullish coalescing operator if there is potential undefined values.
+  const router = useRouter();
 
   useEffect(() => {
     // Close if the volunteer count exceeds or is equal to the maximum count.
@@ -85,17 +85,24 @@ export default function SingleEvent() {
   };
 
   return (
-    <div className="flex flex-col gap-3">
-      <div className="flex justify-end items-center gap-5 text-accent-strong ">
+    <>
+      <Button
+        variant={"accent_gradient"}
+        className=" text-white"
+        onClick={() => router.back()}
+      >
+        Back
+      </Button>
+      <div className="flex justify-end items-center gap-3 text-accent-strong ">
+        <span className=" bg-accent-strong text-white px-3 space-x-1 py-1 rounded-2xl">
+          <span>&#x2022;</span>
+          <span>{isOpen ? "open" : "close"}</span>
+        </span>
         <UsersWhite />
         <span>
           {/* Volunteer Count / Maximum Volunteer*/}
           {volunteerListData!.data?.length}/
           {eventInfoData.data?.volunteer_cap || "No max participants"}
-        </span>
-        <span className=" bg-accent-strong text-white px-3 space-x-1 py-1 rounded-2xl">
-          <span>&#x2022;</span>
-          <span>{isOpen ? "open" : "closed"}</span>
         </span>
       </div>
       <div className="font-bold text-xl mt-2">{eventInfoData.data?.name}</div>
@@ -133,14 +140,14 @@ export default function SingleEvent() {
               type="button"
               disabled={!isOpen}
             >
-              Apply
+              Register
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-md">
             <DialogHeader>
               <DialogTitle>Confirmation</DialogTitle>
               <DialogDescription>
-                Are you sure you want to volunteer on this event?
+                Are you sure you want to register on this event?
               </DialogDescription>
             </DialogHeader>
             <DialogFooter className="sm:gap-x-0 flex-row justify-end md: gap-x-3">
@@ -160,7 +167,7 @@ export default function SingleEvent() {
           </DialogContent>
         </Dialog>
       )}
-    </div>
+    </>
   );
 }
 
