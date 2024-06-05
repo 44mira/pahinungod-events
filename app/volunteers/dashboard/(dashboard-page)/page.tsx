@@ -43,8 +43,10 @@ export default function Dashboard() {
 
       const isPast = events.some(
         (event) =>
-          new Date().getTime() - new Date(event.event_start).getTime() <=
-          oneWeekInMilliseconds
+          new Date().getTime() - new Date(event.event_start).getTime() <
+            oneWeekInMilliseconds &&
+          new Date(event.event_start).getTime() < new Date().getTime() &&
+          new Date().toISOString() !== event.event_start
       );
       setPastStatus(isPast); // Sets to true if there is past event within a week
     }
@@ -166,8 +168,10 @@ export default function Dashboard() {
           <p className="text-2lg font-semibold mb-5">Past Events</p>
           <div className="space-y-9">
             {eventInfo?.map((event, index) =>
-              new Date().getTime() - new Date(event.date).getTime() <=
-                oneWeekInMilliseconds && currentDate !== event.date ? (
+              new Date().getTime() - new Date(event.date).getTime() <
+                oneWeekInMilliseconds &&
+              new Date(event.date).getTime() < new Date().getTime() &&
+              currentDate !== event.date ? (
                 <Card key={index}>
                   <CardHeader>
                     <CardTitle className="text-2lg">{event.title}</CardTitle>
@@ -202,11 +206,11 @@ export default function Dashboard() {
               )
             )}
             {pastEvent ? (
+              ""
+            ) : (
               <p className="p-5 text-center text-xl font-semibold text-primary">
                 Events from last week will show here
               </p>
-            ) : (
-              ""
             )}
           </div>
         </div>
