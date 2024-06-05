@@ -18,6 +18,26 @@ export type User = {
   emergency_contact_name: string;
   emergency_contact_affiliation: string;
   emergency_contact_address: string;
+
+  college: string;
+  degree: string;
+  fam_first_college: string;
+  fam_first_up: string;
+
+  alumni_constituent: string;
+  alumni_college: string;
+  alumni_course: string;
+  alumni_graduatedYr: string;
+  alumni_occupation: string;
+  alumni_office: string;
+
+  faculty_collegeDep: string;
+
+  adminStaff_office: string;
+  adminStaff_position: string;
+
+  retiree_designation: string;
+  retiree_office: string;
 };
 
 export default function useCreateUser() {
