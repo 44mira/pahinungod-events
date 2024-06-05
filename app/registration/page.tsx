@@ -221,6 +221,9 @@ export default function RegisterForm() {
                                 <SelectContent>
                                   <SelectItem value="M"> Male </SelectItem>
                                   <SelectItem value="F">Female</SelectItem>
+                                  <SelectItem value="Prefer Not to Say">
+                                    Prefer Not to Say
+                                  </SelectItem>
                                 </SelectContent>
                               </Select>
                             </FormControl>
