@@ -33,7 +33,10 @@ const formSchema = z.object({
   name: z.string(),
   nickname: z.string().optional(),
   occupation: z.string().optional(),
-  phone_number: z.string().optional(),
+  phone_number: z
+    .string()
+    .regex(/^(0|63)9\d{9}$/, { message: "Invalid phone number" })
+    .optional(),
   sex: z.string().optional(),
   age: z.number(),
 });

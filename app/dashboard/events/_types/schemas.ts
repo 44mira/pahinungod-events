@@ -56,7 +56,9 @@ export type UpdateEventFields = z.infer<typeof UpdateEventSchema>;
 export const CreateUserSchema = z.object({
   name: z.string(),
   nickname: z.string(),
-  phone_number: z.string(),
+  phone_number: z
+    .string()
+    .regex(/^(0|63)9\d{9}$/, { message: "Invalid phone number" }),
   birth_date: z.string().date(),
   age: z.union([z.number(), z.null()]),
   sex: z.string(),
