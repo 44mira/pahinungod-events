@@ -35,6 +35,7 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 import UpdateEvent from "./UpdateEvent";
 import { AddEventFields } from "../_types/schemas";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import useEventEndMutation from "@/hooks/use-event-end-mutation";
 
 export default function EventInformation() {
   // get information of the viewed event
@@ -42,6 +43,7 @@ export default function EventInformation() {
   const [eventInfoData, volunteerListData] = useSingleEventQuery(
     event_id as UUID,
   );
+  const { mutate: eventEndMutate } = useEventEndMutation(event_id as UUID);
 
   const { mutate: deleteEvent } = useDeleteEventMutaion();
   const router = useRouter();
@@ -137,6 +139,14 @@ export default function EventInformation() {
                     <span>{eventInfo.description}</span>
                   </span>
                 </span>
+                <span className="self-end">
+                  <Button
+                    onClick={() => eventEndMutate()}
+                    disabled={!eventInfo.event_active}
+                  >
+                    End Event
+                  </Button>
+                </span>
               </CardDescription>
             </CardContent>
           </Card>
@@ -159,11 +169,9 @@ export default function EventInformation() {
                   orientation={!!eventInfo?.orientation_date}
                   rejected={false}
                   data={
-                    volunteerList
-                      .filter(({ status }) => status === "accepted")
-                      .sort(
-                        (a, b) => b.time_logged - a.time_logged,
-                      ) as EventVolunteerList[]
+                    volunteerList.filter(
+                      ({ status }) => status === "accepted",
+                    ) as EventVolunteerList[]
                   }
                 />
               </TabsContent>
@@ -173,11 +181,9 @@ export default function EventInformation() {
                   orientation={!!eventInfo?.orientation_date}
                   rejected={true}
                   data={
-                    volunteerList
-                      .filter(({ status }) => status === "rejected")
-                      .sort(
-                        (a, b) => b.time_logged - a.time_logged,
-                      ) as EventVolunteerList[]
+                    volunteerList.filter(
+                      ({ status }) => status === "rejected",
+                    ) as EventVolunteerList[]
                   }
                 />
               </TabsContent>
