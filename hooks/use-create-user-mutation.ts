@@ -32,6 +32,17 @@ export default function useCreateUser() {
       throw userError;
     }
 
+    const { error: metaError } = await supabase.auth.updateUser({
+      data: {
+        registered: true,
+      },
+    });
+
+    if (metaError) {
+      console.log("An error has occurred in updating the user metadata");
+      throw metaError;
+    }
+
     const { data, error } = await supabase
       .from("volunteer")
       .update(registrationData)

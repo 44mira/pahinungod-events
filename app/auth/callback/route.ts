@@ -25,11 +25,18 @@ export async function GET(request: Request) {
             cookieStore.delete({ name, ...options });
           },
         },
-      }
+      },
     );
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
-      return NextResponse.redirect(`${origin}${next}`);
+      const { data } = await supabase.auth.getUser();
+
+      // if null or not registered
+      if (!data.user?.user_metadata.registered) {
+        return NextResponse.redirect(`${origin}${next}`);
+      }
+
+      return NextResponse.redirect(`${origin}/volunteers/dashboard`);
     }
   }
 
