@@ -22,19 +22,18 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import moment from "moment";
 
 export default function SingleEvent() {
   // Get the ID from the URL
   const { event_id } = useParams();
 
   // Row from the event_volunteer table.
-  const { data: eventData, refetch } = useEventVolunteerSingleQuery(
-    event_id as UUID
-  );
+  const { data: eventData } = useEventVolunteerSingleQuery(event_id as UUID);
 
   // Fetch the row from database with corresponding ID in the URL.
   const [eventInfoData, volunteerListData] = useSingleEventQuery(
-    event_id as UUID
+    event_id as UUID,
   );
 
   // Apply Event Mutation
@@ -62,8 +61,15 @@ export default function SingleEvent() {
       setStatus(true);
     }
 
-    // Checks if the event has description or not
+    if (
+      !eventInfoData.data?.event_active ||
+      moment(eventInfoData.data.event_end).valueOf() - moment().valueOf() < 0
+    ) {
+      setStatus(false);
+    }
+
     if (eventInfoData.data?.description === "") {
+      // Checks if the event has description or not
       setDescription(false);
     }
 
@@ -79,22 +85,21 @@ export default function SingleEvent() {
   };
 
   return (
-    <>
-      {() => refetch()}
-      <div className="flex justify-end items-center gap-3 text-accent-strong ">
-        <span className=" bg-accent-strong text-white px-3 space-x-1 py-1 rounded-2xl">
-          <span>&#x2022;</span>
-          <span>{isOpen ? "open" : "close"}</span>
-        </span>
+    <div className="flex flex-col gap-3">
+      <div className="flex justify-end items-center gap-5 text-accent-strong ">
         <UsersWhite />
         <span>
           {/* Volunteer Count / Maximum Volunteer*/}
           {volunteerListData!.data?.length}/
           {eventInfoData.data?.volunteer_cap || "No max participants"}
         </span>
+        <span className=" bg-accent-strong text-white px-3 space-x-1 py-1 rounded-2xl">
+          <span>&#x2022;</span>
+          <span>{isOpen ? "open" : "closed"}</span>
+        </span>
       </div>
-      <div className="font-bold text-xl">{eventInfoData.data?.name}</div>
-      <div className="flex pt-5 items-center gap-3 ps-1 text-lg font-semibold  text-accent-strong">
+      <div className="font-bold text-xl mt-2">{eventInfoData.data?.name}</div>
+      <div className="flex items-center gap-3 ps-1 text-lg font-semibold  text-accent-strong">
         <CalendarWhite />
         <span>{formatedDate}</span>
       </div>
@@ -126,6 +131,7 @@ export default function SingleEvent() {
               variant={"default"}
               size={"lg"}
               type="button"
+              disabled={!isOpen}
             >
               Apply
             </Button>
@@ -154,7 +160,7 @@ export default function SingleEvent() {
           </DialogContent>
         </Dialog>
       )}
-    </>
+    </div>
   );
 }
 

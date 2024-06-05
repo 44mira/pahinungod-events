@@ -96,7 +96,7 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
           ))}
         </ul>
       </div>
-      <div className="flex justify-between px-5 pt-4 pb-1 shadow-lg bg-gradient-to-l  from-accent-strong to-accent-light sticky top-0 z-0">
+      <div className="flex justify-between px-5 pt-4 pb-1 shadow-lg bg-gradient-to-l from-accent-strong to-accent-light sticky top-0 z-10">
         <IconMenu
           onClick={() => setMenuState(true)}
           className="stroke-neutral-100 text-neutral-100"

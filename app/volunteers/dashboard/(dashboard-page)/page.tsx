@@ -47,7 +47,7 @@ export default function Dashboard() {
           new Date().getTime() - new Date(event.event_start).getTime() <
             oneWeekInMilliseconds &&
           new Date(event.event_start).getTime() < new Date().getTime() &&
-          new Date().toISOString() !== event.event_start
+          new Date().toISOString() !== event.event_start,
       );
       setPastStatus(isPast); // Sets to true if there is past event within a week
     }
@@ -64,8 +64,6 @@ export default function Dashboard() {
     date: formatDate(event.event_start), //  'event_start' column in a single row iterated.
     volunteerCap: event.volunteer_cap, // 'volunteer_cap' column in a single row iterated.
   }));
-
-  console.log(pastEvent);
 
   return (
     <>
