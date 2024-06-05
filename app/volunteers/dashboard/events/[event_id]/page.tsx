@@ -10,8 +10,7 @@ import { useParams } from "next/navigation";
 import { useState } from "react";
 import { useEffect } from "react";
 import useInsertVntrToEvent from "@/hooks/use-insert-volunteer-to-event-mutation";
-import useGetUserIdentity from "@/hooks/use-get-user-identity";
-import useEventVolunteerQuery from "@/hooks/use-event-volunteer-query";
+import useEventVolunteerSingleQuery from "@/hooks/use-event-volunteer-single-query";
 
 import {
   Dialog,
@@ -25,16 +24,13 @@ import {
 } from "@/components/ui/dialog";
 
 export default function SingleEvent() {
-  // Get user meta_data
-  const { data: user } = useGetUserIdentity();
   // Get the ID from the URL
   const { event_id } = useParams();
 
-  // User ID
-  const user_id = user?.id;
-
   // Row from the event_volunteer table.
-  const { data: eventData } = useEventVolunteerQuery(user_id as UUID);
+  const { data: eventData, refetch } = useEventVolunteerSingleQuery(
+    event_id as UUID,
+  );
 
   // Fetch the row from database with corresponding ID in the URL.
   const [eventInfoData, volunteerListData] = useSingleEventQuery(
@@ -42,10 +38,7 @@ export default function SingleEvent() {
   );
 
   // Apply Event Mutation
-  const { mutate: applyEvent } = useInsertVntrToEvent(
-    event_id as UUID,
-    user_id as UUID,
-  );
+  const { mutate: applyEvent } = useInsertVntrToEvent(event_id as UUID);
 
   // Checks if the state of the event is still open or close.
   const [isOpen, setStatus] = useState(true);
@@ -73,6 +66,8 @@ export default function SingleEvent() {
     if (eventInfoData.data?.description === "") {
       setDescription(false);
     }
+
+    volunteerListData.refetch();
   }, [volunteerListData, eventInfoData, isOpen, hasDescription]);
 
   const formatedDate = formatDate(eventInfoData.data?.event_start ?? "");
@@ -85,6 +80,7 @@ export default function SingleEvent() {
 
   return (
     <>
+      {() => refetch()}
       <div className="flex justify-end items-center gap-3 text-accent-strong ">
         <span className=" bg-accent-strong text-white px-3 space-x-1 py-1 rounded-2xl">
           <span>&#x2022;</span>
@@ -112,7 +108,7 @@ export default function SingleEvent() {
           : "No available description."}
       </div>
 
-      {eventData?.status === "accepted" ? (
+      {eventData ? (
         <Button
           className="w-full text-lg rounded-full"
           variant={"outline"}
@@ -120,7 +116,7 @@ export default function SingleEvent() {
           type="button"
           disabled
         >
-          You are accepted
+          You already registered on this event
         </Button>
       ) : (
         <Dialog>
