@@ -11,7 +11,6 @@ import {
 import UsersWhite from "@/public/usersWhite";
 import CalendarWhite from "@/public/calendar_white";
 import { Button } from "@/components/ui/button";
-import useDashboardQuery from "@/hooks/use-dashboard-query";
 import Link from "next/link";
 import useRegisteredEventsQuery from "@/hooks/use-registered-events-query";
 
