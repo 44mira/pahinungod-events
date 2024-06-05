@@ -86,7 +86,7 @@ export default function Profile() {
   const profilePicDimesnsion = 250;
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="py-5 flex flex-col gap-5">
       <div className="w-32 h-32 bg-gray-500 rounded-full mx-auto">
         <Image
           src={userMetaData?.picture}
