@@ -292,9 +292,9 @@ export default function RegisterForm() {
                                   </SelectTrigger>
                                 </FormControl>
                                 <SelectContent>
-                                  {occupation.map((index) => (
-                                    <SelectItem key={index} value={index}>
-                                      {index}
+                                  {occupation.map((value, index) => (
+                                    <SelectItem key={index} value={value}>
+                                      {value}
                                     </SelectItem>
                                   ))}
                                 </SelectContent>
@@ -380,9 +380,9 @@ export default function RegisterForm() {
                                   </SelectTrigger>
                                 </FormControl>
                                 <SelectContent>
-                                  {regions.map((value, index) => (
-                                    <SelectItem key={index} value={value.value}>
-                                      {value.label}
+                                  {regions.map(({ value, label }, index) => (
+                                    <SelectItem key={index} value={value}>
+                                      {label}
                                     </SelectItem>
                                   ))}
                                 </SelectContent>
