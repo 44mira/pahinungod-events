@@ -13,27 +13,17 @@ import CalendarWhite from "@/public/calendar_white";
 import { Button } from "@/components/ui/button";
 import useDashboardQuery from "@/hooks/use-dashboard-query";
 import Link from "next/link";
-import useSingleUserQuery from "@/hooks/use-single-user-query";
-import { UUID } from "crypto";
 import useRegisteredEventsQuery from "@/hooks/use-registered-events-query";
 
-export default function Dashboard() {
-  // Fetch data from database
-  const { data: events, status } = useDashboardQuery();
-
-  // Get user_data
-  const { data: user } = useSingleUserQuery();
-
-  const user_id = user?.volunteer_id;
-
+export default function RegisteredEvents() {
   // Fetch only the events that the user registered.
-  const { data: registeredEvents } = useRegisteredEventsQuery(user_id as UUID);
+  const { data: registeredEvents, status } = useRegisteredEventsQuery();
 
   // If fetching is successful
   if (status === "pending")
     return <p className="text-accent text-2lg font-bold">Loading...</p>; // Will replace with skeleton
 
-  // Iterate all the row in the database = 'events' object.
+  // Iterate all the row in the events that the user registered.
   const eventInfo = registeredEvents?.events?.map((event) => ({
     id: event.event_id, // 'event_id' column in a single row iterated.
     title: event.name, // 'name' column in a single row iterated.
@@ -41,6 +31,7 @@ export default function Dashboard() {
     volunteerCap: event.volunteer_cap, // 'volunteer_cap' column in a single row iterated.
   }));
 
+  // Iterate all the row in the event_volunteer table that matches the user id.
   const eventStatus = registeredEvents?.eventVolunteer.map((event) => ({
     eventId: event.event_id,
     status: event.status,
