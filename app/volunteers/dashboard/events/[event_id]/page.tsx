@@ -85,21 +85,21 @@ export default function SingleEvent() {
   };
 
   return (
-    <>
-      <div className="flex justify-end items-center gap-3 text-accent-strong ">
-        <span className=" bg-accent-strong text-white px-3 space-x-1 py-1 rounded-2xl">
-          <span>&#x2022;</span>
-          <span>{isOpen ? "open" : "closed"}</span>
-        </span>
+    <div className="flex flex-col gap-3">
+      <div className="flex justify-end items-center gap-5 text-accent-strong ">
         <UsersWhite />
         <span>
           {/* Volunteer Count / Maximum Volunteer*/}
           {volunteerListData!.data?.length}/
           {eventInfoData.data?.volunteer_cap || "No max participants"}
         </span>
+        <span className=" bg-accent-strong text-white px-3 space-x-1 py-1 rounded-2xl">
+          <span>&#x2022;</span>
+          <span>{isOpen ? "open" : "closed"}</span>
+        </span>
       </div>
-      <div className="font-bold text-xl">{eventInfoData.data?.name}</div>
-      <div className="flex pt-5 items-center gap-3 ps-1 text-lg font-semibold  text-accent-strong">
+      <div className="font-bold text-xl mt-2">{eventInfoData.data?.name}</div>
+      <div className="flex items-center gap-3 ps-1 text-lg font-semibold  text-accent-strong">
         <CalendarWhite />
         <span>{formatedDate}</span>
       </div>
@@ -160,7 +160,7 @@ export default function SingleEvent() {
           </DialogContent>
         </Dialog>
       )}
-    </>
+    </div>
   );
 }
 
