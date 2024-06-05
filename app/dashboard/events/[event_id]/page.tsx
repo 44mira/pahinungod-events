@@ -91,7 +91,13 @@ export default function EventInformation() {
                 ) : (
                   <div className="flex gap-3 justify-center items-center shrink-0">
                     <Image src={person_icon} alt="person icon" />
-                    <span>{`${volunteerList!.length} volunteer${volunteerList!.length === 1 ? "" : "s"}`}</span>
+                    <span>
+                      {`${volunteerList!.length} volunteer${volunteerList!.length === 1 ? "" : "s"} ${
+                        eventInfo.volunteer_cap
+                          ? `out of ${eventInfo.volunteer_cap}`
+                          : ""
+                      }`}
+                    </span>
                   </div>
                 )}
                 <div className="flex gap-3 justify-center items-center grow">

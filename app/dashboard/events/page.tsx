@@ -100,7 +100,10 @@ export default function Events() {
                       {props.location}
                     </span>
                     <span className="flex min-w-full">
-                      <VolunteerCount event_id={event_id} />
+                      <VolunteerCount
+                        event_id={event_id}
+                        volunteer_cap={props.volunteer_cap}
+                      />
                       <span className="flex items-center gap-3 p-5 border border-accent grow">
                         <Image src={calendar_icon} alt="calendar icon" />
                         {deltaDate(props.event_start, props.event_end)}
