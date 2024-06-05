@@ -333,7 +333,10 @@ export default function RegisterForm() {
                               <FormItem>
                                 <FormLabel>College</FormLabel>
                                 <FormControl>
-                                  <Input {...field} />
+                                  <Input
+                                    {...field}
+                                    value={field.value ?? undefined}
+                                  />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -348,7 +351,10 @@ export default function RegisterForm() {
                               <FormItem>
                                 <FormLabel>Year & Degree</FormLabel>
                                 <FormControl>
-                                  <Input {...field} />
+                                  <Input
+                                    {...field}
+                                    value={field.value ?? undefined}
+                                  />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -370,7 +376,7 @@ export default function RegisterForm() {
                                 <FormControl>
                                   <RadioGroup
                                     onValueChange={field.onChange}
-                                    defaultValue={field.value}
+                                    defaultValue={field.value ?? undefined}
                                   >
                                     <FormItem className="flex items-center space-x-3 space-y-0">
                                       <FormControl>
@@ -408,7 +414,7 @@ export default function RegisterForm() {
                                 <FormControl>
                                   <RadioGroup
                                     onValueChange={field.onChange}
-                                    defaultValue={field.value}
+                                    defaultValue={field.value ?? undefined}
                                   >
                                     <FormItem className="flex items-center space-x-3 space-y-0">
                                       <FormControl>
@@ -447,7 +453,10 @@ export default function RegisterForm() {
                               <FormItem>
                                 <FormLabel>UP Constituent Unit</FormLabel>
                                 <FormControl>
-                                  <Input {...field} />
+                                  <Input
+                                    {...field}
+                                    value={field.value ?? undefined}
+                                  />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -462,7 +471,10 @@ export default function RegisterForm() {
                               <FormItem>
                                 <FormLabel>College</FormLabel>
                                 <FormControl>
-                                  <Input {...field} />
+                                  <Input
+                                    {...field}
+                                    value={field.value ?? undefined}
+                                  />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -479,7 +491,10 @@ export default function RegisterForm() {
                               <FormItem>
                                 <FormLabel>Course</FormLabel>
                                 <FormControl>
-                                  <Input {...field} />
+                                  <Input
+                                    {...field}
+                                    value={field.value ?? undefined}
+                                  />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -494,7 +509,10 @@ export default function RegisterForm() {
                               <FormItem>
                                 <FormLabel>Year Graduated</FormLabel>
                                 <FormControl>
-                                  <Input {...field} />
+                                  <Input
+                                    {...field}
+                                    value={field.value ?? undefined}
+                                  />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -511,7 +529,10 @@ export default function RegisterForm() {
                               <FormItem>
                                 <FormLabel>UP Constituent Unit</FormLabel>
                                 <FormControl>
-                                  <Input {...field} />
+                                  <Input
+                                    {...field}
+                                    value={field.value ?? undefined}
+                                  />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -526,7 +547,10 @@ export default function RegisterForm() {
                               <FormItem>
                                 <FormLabel>Office/Department/Unit</FormLabel>
                                 <FormControl>
-                                  <Input {...field} />
+                                  <Input
+                                    {...field}
+                                    value={field.value ?? undefined}
+                                  />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -548,7 +572,10 @@ export default function RegisterForm() {
                               <FormItem>
                                 <FormLabel>College Department</FormLabel>
                                 <FormControl>
-                                  <Input {...field} />
+                                  <Input
+                                    {...field}
+                                    value={field.value ?? undefined}
+                                  />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -570,7 +597,10 @@ export default function RegisterForm() {
                               <FormItem>
                                 <FormLabel>Office/Department/Unit</FormLabel>
                                 <FormControl>
-                                  <Input {...field} />
+                                  <Input
+                                    {...field}
+                                    value={field.value ?? undefined}
+                                  />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -585,7 +615,10 @@ export default function RegisterForm() {
                               <FormItem>
                                 <FormLabel>Position/Designation</FormLabel>
                                 <FormControl>
-                                  <Input {...field} />
+                                  <Input
+                                    {...field}
+                                    value={field.value ?? undefined}
+                                  />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -606,7 +639,10 @@ export default function RegisterForm() {
                               <FormItem>
                                 <FormLabel>Designation while in UP</FormLabel>
                                 <FormControl>
-                                  <Input {...field} />
+                                  <Input
+                                    {...field}
+                                    value={field.value ?? undefined}
+                                  />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -621,7 +657,10 @@ export default function RegisterForm() {
                               <FormItem>
                                 <FormLabel>Office/Department/Unit</FormLabel>
                                 <FormControl>
-                                  <Input {...field} />
+                                  <Input
+                                    {...field}
+                                    value={field.value ?? undefined}
+                                  />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
