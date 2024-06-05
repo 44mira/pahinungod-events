@@ -60,6 +60,10 @@ export default function RegisterForm() {
       postal_code: null,
       region: "",
       occupation: undefined,
+      emergency_contact: "",
+      emergency_contact_name: "",
+      emergency_contact_affiliation: "",
+      emergency_contact_address: "",
     },
   });
 
@@ -96,9 +100,12 @@ export default function RegisterForm() {
         <pre>{JSON.stringify(volunteer, null, 2)}</pre>
         <div className="flex justify-center items-center min-h-screen">
           <Tabs defaultValue="basic" className="w-full max-w-2xl">
-            <TabsList className="grid grid-cols-2 border-b border-gray-200 dark:border-gray-800">
+            <TabsList className="grid grid-cols-3 border-b border-gray-200 dark:border-gray-800">
               <TabsTrigger value="basic">Basic Information</TabsTrigger>
               <TabsTrigger value="address">Address</TabsTrigger>
+              <TabsTrigger value="emergencyContact">
+                Emergency Contact
+              </TabsTrigger>
             </TabsList>
             <TabsContent value="basic">
               <Card>
@@ -448,6 +455,84 @@ export default function RegisterForm() {
                           )}
                         />
                       </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+            <TabsContent value="emergencyContact">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Emergency Contact</CardTitle>
+                  <CardDescription>
+                    Person to Contact in Case of Emergency
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-1 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="emergency_contact_name"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Name</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <FormField
+                        control={form.control}
+                        name="emergency_contact_affiliation"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Relationship</FormLabel>
+                            <FormControl>
+                              <Input {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <FormField
+                        control={form.control}
+                        name="emergency_contact"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Contact Number</FormLabel>
+                            <FormControl>
+                              <Input {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 gap-4">
+                    <div className="space-y-2">
+                      <FormField
+                        control={form.control}
+                        name="emergency_contact_address"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Present Address</FormLabel>
+                            <FormControl>
+                              <FormControl>
+                                <Input {...field} />
+                              </FormControl>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
                     </div>
                   </div>
                 </CardContent>
