@@ -119,13 +119,7 @@ export default function RegisterForm() {
     },
   ];
 
-  const occupation = [
-    { value: "Student", label: "Student" },
-    { value: "Alumni", label: "Alumni" },
-    { value: "Faculty ", label: "Faculty" },
-    { value: "Admin Staff", label: "Admin Staff" },
-    { value: "Retiree", label: "Retiree" },
-  ];
+  const occupation = ["Student", "Alumni", "Faculty", "Admin Staff", "Retiree"];
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -298,9 +292,9 @@ export default function RegisterForm() {
                                   </SelectTrigger>
                                 </FormControl>
                                 <SelectContent>
-                                  {occupation.map((value, index) => (
-                                    <SelectItem key={index} value={value.value}>
-                                      {value.label}
+                                  {occupation.map((index) => (
+                                    <SelectItem key={index} value={index}>
+                                      {index}
                                     </SelectItem>
                                   ))}
                                 </SelectContent>
