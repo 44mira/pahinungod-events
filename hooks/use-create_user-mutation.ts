@@ -1,6 +1,5 @@
 import useSupabase from "./useSupabase";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { UUID } from "crypto";
 
 export type User = {
   name: string;
@@ -13,6 +12,8 @@ export type User = {
   city: string;
   province: string;
   postal_code: number | null;
+  region: string;
+  occupation: "Student" | "Faculty" | "Retiree" | "Alumni" | "Admin Staff";
 };
 
 export default function useCreateUser() {
