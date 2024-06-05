@@ -2,13 +2,13 @@
 
 import useSingleUserQuery from "@/hooks/use-single-user-query";
 import useCreateUser from "@/hooks/use-create_user-mutation";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { UUID } from "crypto";
-
 import {
   CreateUserFields,
   CreateUserSchema,
@@ -30,11 +30,20 @@ import {
   FormControl,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectItem,
+  SelectTrigger,
+  SelectContent,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function RegisterForm() {
   const { data: volunteer, isLoading, isError } = useSingleUserQuery();
-
   const { mutate: updateUser } = useCreateUser();
+  const router = useRouter();
+  // const isNewUser = !volunteer;
+
   const form = useForm<CreateUserFields>({
     resolver: zodResolver(CreateUserSchema),
     defaultValues: {
@@ -49,8 +58,29 @@ export default function RegisterForm() {
       city: "",
       province: "",
       postal_code: null,
+      region: "",
+      occupation: undefined,
     },
   });
+
+  const onSubmit = (formData: CreateUserFields) => {
+    updateUser(formData, {
+      onSuccess: () => {
+        router.push("/volunteers/dashboard"); // Change this to your desired success redirect URL
+      },
+      onError: () => {
+        alert("Error updating user. Please try again.");
+      },
+    });
+  };
+
+  // useEffect(() => {
+  //   if (!isLoading && !isError && !isNewUser) {
+  //     router.push("/volunteers/dashboard");
+
+  //     return;
+  //   }
+  // }, [isLoading, isError, isNewUser, router]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -62,11 +92,7 @@ export default function RegisterForm() {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit((formData) => {
-          updateUser(formData);
-        })}
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <pre>{JSON.stringify(volunteer, null, 2)}</pre>
         <div className="flex justify-center items-center min-h-screen">
           <Tabs defaultValue="basic" className="w-full max-w-2xl">
@@ -161,7 +187,20 @@ export default function RegisterForm() {
                           <FormItem>
                             <FormLabel>Gender</FormLabel>
                             <FormControl>
-                              <Input {...field} />
+                              <Select
+                                onValueChange={field.onChange}
+                                defaultValue={field.value}
+                              >
+                                <FormControl>
+                                  <SelectTrigger>
+                                    <SelectValue placeholder="Select Gender" />
+                                  </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                  <SelectItem value="M"> Male </SelectItem>
+                                  <SelectItem value="F">Female</SelectItem>
+                                </SelectContent>
+                              </Select>
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -194,6 +233,54 @@ export default function RegisterForm() {
                             <FormLabel>Phone Number</FormLabel>
                             <FormControl>
                               <Input {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <FormField
+                        control={form.control}
+                        name="occupation"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Occupation</FormLabel>
+                            <FormControl>
+                              <Select
+                                onValueChange={field.onChange}
+                                defaultValue={field.value}
+                              >
+                                <FormControl>
+                                  <SelectTrigger>
+                                    <SelectValue placeholder="Select Occupation" />
+                                  </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                  <SelectItem value="Student">
+                                    {" "}
+                                    Student{" "}
+                                  </SelectItem>
+                                  <SelectItem value="Alumni">
+                                    {" "}
+                                    Alumni{" "}
+                                  </SelectItem>
+                                  <SelectItem value="Faculty">
+                                    {" "}
+                                    Faculty{" "}
+                                  </SelectItem>
+                                  <SelectItem value="Admin Staff">
+                                    {" "}
+                                    Admin Staff
+                                  </SelectItem>
+                                  <SelectItem value="Retiree">
+                                    {" "}
+                                    Retiree{" "}
+                                  </SelectItem>
+                                </SelectContent>
+                              </Select>
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -260,28 +347,107 @@ export default function RegisterForm() {
                     <div className="space-y-2">
                       <FormField
                         control={form.control}
-                        name="postal_code"
+                        name="region"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Zip Code</FormLabel>
+                            <FormLabel>Region</FormLabel>
                             <FormControl>
-                              <Input
-                                type="number"
-                                {...field}
-                                value={field.value || ""}
-                                onChange={(e) => {
-                                  const value =
-                                    e.target.value === ""
-                                      ? null
-                                      : Number(e.target.value);
-                                  field.onChange(value);
-                                }}
-                              />
+                              <Select
+                                onValueChange={field.onChange}
+                                defaultValue={field.value}
+                              >
+                                <FormControl>
+                                  <SelectTrigger>
+                                    <SelectValue placeholder="Select Region" />
+                                  </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                  <SelectItem value="NCR">
+                                    National Capital Region (NCR)
+                                  </SelectItem>
+                                  <SelectItem value="CAR">
+                                    Cordillera Administrative Region (CAR)
+                                  </SelectItem>
+                                  <SelectItem value="Region 1">
+                                    Ilocos Region (Region I)
+                                  </SelectItem>
+                                  <SelectItem value="Region 2">
+                                    Cagayan Valley (Region II)
+                                  </SelectItem>
+                                  <SelectItem value="Region 3">
+                                    Central Luzon (Region III)
+                                  </SelectItem>
+                                  <SelectItem value="Region 4">
+                                    Calabarzon (Region IV-A/Southern Tagalog
+                                    Mainland)
+                                  </SelectItem>
+                                  <SelectItem value="Region 5">
+                                    Bicol Region (Region V)
+                                  </SelectItem>
+                                  <SelectItem value="Region 6">
+                                    Western Visayas (Region VI)
+                                  </SelectItem>
+                                  <SelectItem value="Region 7">
+                                    Central Visayas (Region VII)
+                                  </SelectItem>
+                                  <SelectItem value="Region 8">
+                                    Eastern Visayas (Region VIII)
+                                  </SelectItem>
+                                  <SelectItem value="Region 9">
+                                    Zamboanga Peninsula (Region IX)
+                                  </SelectItem>
+                                  <SelectItem value="Region 10">
+                                    Northern Mindanao (Region X)
+                                  </SelectItem>
+                                  <SelectItem value="Region 11">
+                                    Davao Region (Region XI)
+                                  </SelectItem>
+                                  <SelectItem value="Region 12">
+                                    Soccsksargen (Region XII)
+                                  </SelectItem>
+                                  <SelectItem value="Region 13">
+                                    Caraga Region (Region XIII)
+                                  </SelectItem>
+                                  <SelectItem value="BARMM">
+                                    Bangsamoro Autonomous Region in Muslim
+                                    Mindanao (BARMM)
+                                  </SelectItem>
+                                </SelectContent>
+                              </Select>
                             </FormControl>
                             <FormMessage />
                           </FormItem>
                         )}
                       />
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <FormField
+                          control={form.control}
+                          name="postal_code"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Zip Code</FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="number"
+                                  {...field}
+                                  value={field.value || ""}
+                                  onChange={(e) => {
+                                    const value =
+                                      e.target.value === ""
+                                        ? null
+                                        : Number(e.target.value);
+                                    field.onChange(value);
+                                  }}
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
                     </div>
                   </div>
                 </CardContent>
