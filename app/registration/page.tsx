@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
 import {
   CreateUserFields,
   CreateUserSchema,
@@ -36,11 +37,13 @@ import {
   SelectContent,
   SelectValue,
 } from "@/components/ui/select";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 export default function RegisterForm() {
   const { data: volunteer, isLoading, isError } = useSingleUserQuery();
   const { mutate: updateUser } = useCreateUser();
   const router = useRouter();
+  const [selectedRole, setSelectedRole] = useState("");
 
   const form = useForm<CreateUserFields>({
     resolver: zodResolver(CreateUserSchema),
@@ -62,6 +65,26 @@ export default function RegisterForm() {
       emergency_contact_name: "",
       emergency_contact_affiliation: "",
       emergency_contact_address: "",
+
+      college: "",
+      degree: "",
+      fam_first_college: "",
+      fam_first_up: "",
+
+      alumni_constituent: "",
+      alumni_college: "",
+      alumni_course: "",
+      alumni_graduatedYr: "",
+      alumni_occupation: "",
+      alumni_office: "",
+
+      faculty_collegeDep: "",
+
+      adminStaff_office: "",
+      adminStaff_position: "",
+
+      retiree_designation: "",
+      retiree_office: "",
     },
   });
 
@@ -272,8 +295,9 @@ export default function RegisterForm() {
                             <FormLabel>Occupation</FormLabel>
                             <FormControl>
                               <Select
-                                onValueChange={field.onChange}
+                                onValueChange={setSelectedRole}
                                 defaultValue={field.value}
+                                value={selectedRole}
                               >
                                 <FormControl>
                                   <SelectTrigger>
@@ -295,6 +319,317 @@ export default function RegisterForm() {
                       />
                     </div>
                   </div>
+                  {selectedRole === "Student" && (
+                    <div className="hidden-div">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <FormField
+                            control={form.control}
+                            name="college"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>College</FormLabel>
+                                <FormControl>
+                                  <Input {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <FormField
+                            control={form.control}
+                            name="degree"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Year & Degree</FormLabel>
+                                <FormControl>
+                                  <Input {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-2 gap-4 mt-4">
+                        <div className="space-y-2">
+                          <FormField
+                            control={form.control}
+                            name="fam_first_college"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>
+                                  Are you the first in the family to go to
+                                  college?
+                                </FormLabel>
+                                <FormControl>
+                                  <RadioGroup
+                                    onValueChange={field.onChange}
+                                    defaultValue={field.value}
+                                  >
+                                    <FormItem className="flex items-center space-x-3 space-y-0">
+                                      <FormControl>
+                                        <RadioGroupItem value="yes" />
+                                      </FormControl>
+                                      <FormLabel className="font-normal">
+                                        Yes
+                                      </FormLabel>
+                                    </FormItem>
+                                    <FormItem className="flex items-center space-x-3 space-y-0">
+                                      <FormControl>
+                                        <RadioGroupItem value="no" />
+                                      </FormControl>
+                                      <FormLabel className="font-normal">
+                                        No
+                                      </FormLabel>
+                                    </FormItem>
+                                  </RadioGroup>
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <FormField
+                            control={form.control}
+                            name="fam_first_up"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>
+                                  Are you the first in the family to study in
+                                  University of the Philippines?
+                                </FormLabel>
+                                <FormControl>
+                                  <RadioGroup
+                                    onValueChange={field.onChange}
+                                    defaultValue={field.value}
+                                  >
+                                    <FormItem className="flex items-center space-x-3 space-y-0">
+                                      <FormControl>
+                                        <RadioGroupItem value="yes" />
+                                      </FormControl>
+                                      <FormLabel className="font-normal">
+                                        Yes
+                                      </FormLabel>
+                                    </FormItem>
+                                    <FormItem className="flex items-center space-x-3 space-y-0">
+                                      <FormControl>
+                                        <RadioGroupItem value="no" />
+                                      </FormControl>
+                                      <FormLabel className="font-normal">
+                                        No
+                                      </FormLabel>
+                                    </FormItem>
+                                  </RadioGroup>
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  {selectedRole === "Alumni" && (
+                    <div className="hidden-div">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <FormField
+                            control={form.control}
+                            name="alumni_constituent"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>UP Constituent Unit</FormLabel>
+                                <FormControl>
+                                  <Input {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <FormField
+                            control={form.control}
+                            name="alumni_college"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>College</FormLabel>
+                                <FormControl>
+                                  <Input {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <FormField
+                            control={form.control}
+                            name="alumni_course"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Course</FormLabel>
+                                <FormControl>
+                                  <Input {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <FormField
+                            control={form.control}
+                            name="alumni_graduatedYr"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Year Graduated</FormLabel>
+                                <FormControl>
+                                  <Input {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <FormField
+                            control={form.control}
+                            name="alumni_occupation"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>UP Constituent Unit</FormLabel>
+                                <FormControl>
+                                  <Input {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <FormField
+                            control={form.control}
+                            name="alumni_office"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Office/Department/Unit</FormLabel>
+                                <FormControl>
+                                  <Input {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {selectedRole === "Faculty" && (
+                    <div className="hidden-div">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <FormField
+                            control={form.control}
+                            name="faculty_collegeDep"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>College Department</FormLabel>
+                                <FormControl>
+                                  <Input {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {selectedRole === "Admin Staff" && (
+                    <div className="hidden-div">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <FormField
+                            control={form.control}
+                            name="adminStaff_office"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Office/Department/Unit</FormLabel>
+                                <FormControl>
+                                  <Input {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <FormField
+                            control={form.control}
+                            name="adminStaff_position"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Position/Designation</FormLabel>
+                                <FormControl>
+                                  <Input {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  {selectedRole === "Retiree" && (
+                    <div className="hidden-div">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <FormField
+                            control={form.control}
+                            name="retiree_designation"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Designation while in UP</FormLabel>
+                                <FormControl>
+                                  <Input {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <FormField
+                            control={form.control}
+                            name="retiree_office"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Office/Department/Unit</FormLabel>
+                                <FormControl>
+                                  <Input {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {selectedRole === "" && <span></span>}
                 </CardContent>
               </Card>
             </TabsContent>
