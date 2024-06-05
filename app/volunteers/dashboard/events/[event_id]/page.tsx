@@ -29,7 +29,7 @@ export default function SingleEvent() {
 
   // Row from the event_volunteer table.
   const { data: eventData, refetch } = useEventVolunteerSingleQuery(
-    event_id as UUID
+    event_id as UUID,
   );
 
   // Fetch the row from database with corresponding ID in the URL.
@@ -66,6 +66,8 @@ export default function SingleEvent() {
     if (eventInfoData.data?.description === "") {
       setDescription(false);
     }
+
+    volunteerListData.refetch();
   }, [volunteerListData, eventInfoData, isOpen, hasDescription]);
 
   const formatedDate = formatDate(eventInfoData.data?.event_start ?? "");
