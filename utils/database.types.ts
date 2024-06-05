@@ -38,20 +38,20 @@ export type Database = {
       admin_staff: {
         Row: {
           admin_staff_id: string
-          department: string | null
-          positio: string | null
+          adminStaff_office: string | null
+          adminStaff_position: string | null
           volunteer_id: string | null
         }
         Insert: {
           admin_staff_id?: string
-          department?: string | null
-          positio?: string | null
+          adminStaff_office?: string | null
+          adminStaff_position?: string | null
           volunteer_id?: string | null
         }
         Update: {
           admin_staff_id?: string
-          department?: string | null
-          positio?: string | null
+          adminStaff_office?: string | null
+          adminStaff_position?: string | null
           volunteer_id?: string | null
         }
         Relationships: [
@@ -66,34 +66,34 @@ export type Database = {
       }
       alumni: {
         Row: {
+          alumni_college: string | null
+          alumni_constituent: string | null
+          alumni_course: string | null
+          alumni_graduatedYr: string | null
           alumni_id: number
-          college: string | null
-          constituent: string | null
-          course: string | null
-          current_occupation: string | null
-          office: string | null
+          alumni_occupation: string | null
+          alumni_office: string | null
           volunteer_id: string | null
-          year_graduated: string | null
         }
         Insert: {
+          alumni_college?: string | null
+          alumni_constituent?: string | null
+          alumni_course?: string | null
+          alumni_graduatedYr?: string | null
           alumni_id?: number
-          college?: string | null
-          constituent?: string | null
-          course?: string | null
-          current_occupation?: string | null
-          office?: string | null
+          alumni_occupation?: string | null
+          alumni_office?: string | null
           volunteer_id?: string | null
-          year_graduated?: string | null
         }
         Update: {
+          alumni_college?: string | null
+          alumni_constituent?: string | null
+          alumni_course?: string | null
+          alumni_graduatedYr?: string | null
           alumni_id?: number
-          college?: string | null
-          constituent?: string | null
-          course?: string | null
-          current_occupation?: string | null
-          office?: string | null
+          alumni_occupation?: string | null
+          alumni_office?: string | null
           volunteer_id?: string | null
-          year_graduated?: string | null
         }
         Relationships: [
           {
@@ -113,7 +113,6 @@ export type Database = {
             | Database["public"]["Enums"]["attendance"]
             | null
           status: Database["public"]["Enums"]["event_volunteer_status"]
-          time_logged: number
           volunteer_id: string
         }
         Insert: {
@@ -123,7 +122,6 @@ export type Database = {
             | Database["public"]["Enums"]["attendance"]
             | null
           status?: Database["public"]["Enums"]["event_volunteer_status"]
-          time_logged?: number
           volunteer_id: string
         }
         Update: {
@@ -133,7 +131,6 @@ export type Database = {
             | Database["public"]["Enums"]["attendance"]
             | null
           status?: Database["public"]["Enums"]["event_volunteer_status"]
-          time_logged?: number
           volunteer_id?: string
         }
         Relationships: [
@@ -157,6 +154,7 @@ export type Database = {
         Row: {
           admin_id: string
           description: string | null
+          event_active: boolean
           event_end: string
           event_id: string
           event_start: string
@@ -168,6 +166,7 @@ export type Database = {
         Insert: {
           admin_id: string
           description?: string | null
+          event_active?: boolean
           event_end: string
           event_id?: string
           event_start: string
@@ -179,6 +178,7 @@ export type Database = {
         Update: {
           admin_id?: string
           description?: string | null
+          event_active?: boolean
           event_end?: string
           event_id?: string
           event_start?: string
@@ -199,17 +199,17 @@ export type Database = {
       }
       faculty: {
         Row: {
-          department: string | null
+          faculty_collegeDep: string | null
           faculty_id: string
           volunteer_id: string | null
         }
         Insert: {
-          department?: string | null
+          faculty_collegeDep?: string | null
           faculty_id?: string
           volunteer_id?: string | null
         }
         Update: {
-          department?: string | null
+          faculty_collegeDep?: string | null
           faculty_id?: string
           volunteer_id?: string | null
         }
@@ -260,21 +260,21 @@ export type Database = {
       }
       retiree: {
         Row: {
-          department: string | null
-          designation: string | null
+          retiree_designation: string | null
           retiree_id: string
+          retiree_office: string | null
           volunteer_id: string | null
         }
         Insert: {
-          department?: string | null
-          designation?: string | null
+          retiree_designation?: string | null
           retiree_id?: string
+          retiree_office?: string | null
           volunteer_id?: string | null
         }
         Update: {
-          department?: string | null
-          designation?: string | null
+          retiree_designation?: string | null
           retiree_id?: string
+          retiree_office?: string | null
           volunteer_id?: string | null
         }
         Relationships: [
@@ -291,18 +291,21 @@ export type Database = {
         Row: {
           college: string | null
           degree: string | null
+          fam_first_college: string | null
           student_id: string
           year: number | null
         }
         Insert: {
           college?: string | null
           degree?: string | null
+          fam_first_college?: string | null
           student_id?: string
           year?: number | null
         }
         Update: {
           college?: string | null
           degree?: string | null
+          fam_first_college?: string | null
           student_id?: string
           year?: number | null
         }
@@ -319,6 +322,7 @@ export type Database = {
           emergency_contact_address: string | null
           emergency_contact_affiliation: string | null
           emergency_contact_name: string | null
+          hours_rendered: number
           indigenous_affiliation: string | null
           name: string
           nickname: string | null
@@ -341,6 +345,7 @@ export type Database = {
           emergency_contact_address?: string | null
           emergency_contact_affiliation?: string | null
           emergency_contact_name?: string | null
+          hours_rendered?: number
           indigenous_affiliation?: string | null
           name?: string
           nickname?: string | null
@@ -365,6 +370,7 @@ export type Database = {
           emergency_contact_address?: string | null
           emergency_contact_affiliation?: string | null
           emergency_contact_name?: string | null
+          hours_rendered?: number
           indigenous_affiliation?: string | null
           name?: string
           nickname?: string | null
