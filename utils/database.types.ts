@@ -285,21 +285,24 @@ export type Database = {
         Row: {
           college: string | null
           degree: string | null
-          fam_first_college: string | null
+          fam_first_college: boolean
+          fam_first_up: boolean
           student_id: string
           year: number | null
         }
         Insert: {
           college?: string | null
           degree?: string | null
-          fam_first_college?: string | null
+          fam_first_college: boolean
+          fam_first_up: boolean
           student_id?: string
           year?: number | null
         }
         Update: {
           college?: string | null
           degree?: string | null
-          fam_first_college?: string | null
+          fam_first_college?: boolean
+          fam_first_up?: boolean
           student_id?: string
           year?: number | null
         }
