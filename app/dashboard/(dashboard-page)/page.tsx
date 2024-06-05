@@ -28,7 +28,15 @@ export default function DashboardPage() {
         </CardHeader>
         <CardContent className="flex flex-col gap-3">
           {data
-            ?.filter(({ event_start }) => moment(event_start) <= moment())
+            ?.filter(
+              ({ event_start, event_active }) =>
+                moment(event_start) <= moment() || !event_active,
+            )
+            .sort(
+              (a, b) =>
+                moment(b.event_start).valueOf() -
+                moment(a.event_start).valueOf(),
+            )
             .map(({ event_id }) => (
               <EventCard event_id={event_id as UUID} key={event_id} />
             ))}
