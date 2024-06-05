@@ -5,7 +5,6 @@ import search_icon from "@/public/search_icon.svg";
 import filter_icon from "@/public/filter_icon.svg";
 import calendar_icon from "@/public/calendar.svg";
 import location_icon from "@/public/location_icon.svg";
-import person_icon from "@/public/person_icon.svg";
 import { Input } from "@/components/ui/input";
 import { Event, EventStatus } from "./_types/types";
 import {
@@ -31,6 +30,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 import { useEffect, useState } from "react";
+import { VolunteerCount } from "./VolunteerCount";
 
 export default function Events() {
   // for pagination
@@ -79,7 +79,7 @@ export default function Events() {
               (props) =>
                 eventFilter === "none" ||
                 calculateStatus(props.event_start, props.event_end) ===
-                  eventFilter
+                  eventFilter,
             )
             .map(({ event_id, ...props }: Event) => (
               <Card
@@ -100,9 +100,7 @@ export default function Events() {
                       {props.location}
                     </span>
                     <span className="flex min-w-full">
-                      <span className="flex items-center gap-3 p-5 border border-accent">
-                        <Image src={person_icon} alt="person icon" />0
-                      </span>
+                      <VolunteerCount event_id={event_id} />
                       <span className="flex items-center gap-3 p-5 border border-accent grow">
                         <Image src={calendar_icon} alt="calendar icon" />
                         {deltaDate(props.event_start, props.event_end)}

@@ -38,13 +38,13 @@ export default function SingleEvent() {
 
   // Fetch the row from database with corresponding ID in the URL.
   const [eventInfoData, volunteerListData] = useSingleEventQuery(
-    event_id as UUID
+    event_id as UUID,
   );
 
   // Apply Event Mutation
   const { mutate: applyEvent } = useInsertVntrToEvent(
     event_id as UUID,
-    user_id as UUID
+    user_id as UUID,
   );
 
   // Checks if the state of the event is still open or close.
