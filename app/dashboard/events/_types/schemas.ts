@@ -53,10 +53,8 @@ export const UpdateEventSchema = z
 export type UpdateEventFields = z.infer<typeof UpdateEventSchema>;
 
 export const CreateUserSchema = z.object({
-  volunteer_id: z.string().uuid(),
   name: z.string(),
   nickname: z.string(),
-  email: z.string(),
   phone_number: z.string(),
   birth_date: z.string().date(),
   age: z.union([z.number(), z.null()]),
@@ -66,6 +64,18 @@ export const CreateUserSchema = z.object({
   city: z.string(),
   province: z.string(),
   postal_code: z.union([z.number(), z.null()]),
+  region: z.string(),
+  occupation: z.enum([
+    "Student",
+    "Faculty",
+    "Retiree",
+    "Alumni",
+    "Admin Staff",
+  ]),
+  emergency_contact: z.string(),
+  emergency_contact_name: z.string(),
+  emergency_contact_affiliation: z.string(),
+  emergency_contact_address: z.string(),
 });
 
 export type CreateUserFields = z.infer<typeof CreateUserSchema>;

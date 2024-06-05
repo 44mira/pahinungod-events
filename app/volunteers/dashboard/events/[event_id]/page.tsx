@@ -9,15 +9,36 @@ import { UUID } from "crypto";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import { useEffect } from "react";
+import useInsertVntrToEvent from "@/hooks/use-insert-volunteer-to-event-mutation";
+import useEventVolunteerSingleQuery from "@/hooks/use-event-volunteer-single-query";
+
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 export default function SingleEvent() {
   // Get the ID from the URL
   const { event_id } = useParams();
 
+  // Row from the event_volunteer table.
+  const { data: eventData, refetch } = useEventVolunteerSingleQuery(
+    event_id as UUID,
+  );
+
   // Fetch the row from database with corresponding ID in the URL.
   const [eventInfoData, volunteerListData] = useSingleEventQuery(
-    event_id as UUID
+    event_id as UUID,
   );
+
+  // Apply Event Mutation
+  const { mutate: applyEvent } = useInsertVntrToEvent(event_id as UUID);
 
   // Checks if the state of the event is still open or close.
   const [isOpen, setStatus] = useState(true);
@@ -28,24 +49,38 @@ export default function SingleEvent() {
   //  Nullish coalescing operator if there is potential undefined values.
 
   useEffect(() => {
-    // Close if the volunteer count exceeds the maximum count.
+    // Close if the volunteer count exceeds or is equal to the maximum count.
     if (
       (volunteerListData!.data?.length ?? 0) >=
       (eventInfoData.data?.volunteer_cap ?? 0)
     ) {
-      setStatus(isOpen);
+      setStatus(false);
+    }
+
+    // If there is no volunteer cap.
+    if (!eventInfoData.data?.volunteer_cap) {
+      setStatus(true);
     }
 
     // Checks if the event has description or not
     if (eventInfoData.data?.description === "") {
       setDescription(false);
     }
+
+    volunteerListData.refetch();
   }, [volunteerListData, eventInfoData, isOpen, hasDescription]);
 
   const formatedDate = formatDate(eventInfoData.data?.event_start ?? "");
 
+  // For handling form submits.
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    applyEvent();
+  };
+
   return (
     <>
+      {() => refetch()}
       <div className="flex justify-end items-center gap-3 text-accent-strong ">
         <span className=" bg-accent-strong text-white px-3 space-x-1 py-1 rounded-2xl">
           <span>&#x2022;</span>
@@ -54,7 +89,8 @@ export default function SingleEvent() {
         <UsersWhite />
         <span>
           {/* Volunteer Count / Maximum Volunteer*/}
-          {volunteerListData!.data?.length}/{eventInfoData.data?.volunteer_cap}
+          {volunteerListData!.data?.length}/
+          {eventInfoData.data?.volunteer_cap || "No max participants"}
         </span>
       </div>
       <div className="font-bold text-xl">{eventInfoData.data?.name}</div>
@@ -72,13 +108,52 @@ export default function SingleEvent() {
           : "No available description."}
       </div>
 
-      <Button
-        className="w-full text-lg rounded-full"
-        variant={"accent"}
-        size={"lg"}
-      >
-        Apply
-      </Button>
+      {eventData ? (
+        <Button
+          className="w-full text-lg rounded-full"
+          variant={"outline"}
+          size={"lg"}
+          type="button"
+          disabled
+        >
+          You already registered on this event
+        </Button>
+      ) : (
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button
+              className="w-full text-lg rounded-full"
+              variant={"default"}
+              size={"lg"}
+              type="button"
+            >
+              Apply
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle>Confirmation</DialogTitle>
+              <DialogDescription>
+                Are you sure you want to volunteer on this event?
+              </DialogDescription>
+            </DialogHeader>
+            <DialogFooter className="sm:gap-x-0 flex-row justify-end md: gap-x-3">
+              <DialogClose>
+                <Button type="button" variant="outline">
+                  Close
+                </Button>
+              </DialogClose>
+              <form onSubmit={handleSubmit}>
+                <DialogClose>
+                  <Button variant="outline" type="submit">
+                    Confirm
+                  </Button>
+                </DialogClose>
+              </form>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      )}
     </>
   );
 }

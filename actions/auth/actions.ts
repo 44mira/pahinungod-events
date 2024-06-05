@@ -47,5 +47,17 @@ export async function signout() {
     throw new Error(error.message);
   }
 
+  redirect("/login_admin");
+}
+
+export async function signoutUser() {
+  const supabase = createClient();
+
+  let { error } = await supabase.auth.signOut();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
   redirect("/login");
 }

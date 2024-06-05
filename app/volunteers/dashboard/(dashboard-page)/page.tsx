@@ -12,12 +12,9 @@ import UsersWhite from "@/public/usersWhite";
 import CalendarWhite from "@/public/calendar_white";
 import { Button } from "@/components/ui/button";
 import useDashboardQuery from "@/hooks/use-dashboard-query";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function Dashboard() {
-  const router = useRouter();
-
   // Fetch data from database
   const { data: events, status } = useDashboardQuery();
 

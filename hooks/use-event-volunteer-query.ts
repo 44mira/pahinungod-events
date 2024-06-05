@@ -1,23 +1,27 @@
-import useSupabase from "./useSupabase";
 import { useQuery } from "@tanstack/react-query";
+import useSupabase from "./useSupabase";
 import { UUID } from "crypto";
 
-export default function useVolunteeridQuery(volunteer_id: UUID) {
+export default function useEventVolunteerQuery(
+  event_id: UUID,
+  volunteer_id: UUID
+) {
   const supabase = useSupabase();
-  const queryKey = ["volunteerData"];
+  const queryKey = ["event_volunteer_data"];
 
   const queryFn = async () => {
     const { data, error } = await supabase
-      .from("volunteer")
+      .from("event_volunteer")
       .select()
       .eq("volunteer_id", volunteer_id)
-      .single(); //Filter
+      .single();
 
     if (error) {
-      console.log("An error has occurred in fetching volunteer data.");
+      console.log("An error has occurred in fetching event_volunteer data.");
       throw error;
     }
 
+    // Returns the object data not in array form.
     return data;
   };
 
