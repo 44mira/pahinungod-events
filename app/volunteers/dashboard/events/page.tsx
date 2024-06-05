@@ -41,7 +41,8 @@ export default function Dashboard() {
     volunteerCap: event.volunteer_cap, // 'volunteer_cap' column in a single row iterated.
   }));
 
-  const eventStatus = registeredEvents?.registeredEvents.map((event) => ({
+  const eventStatus = registeredEvents?.eventVolunteer.map((event) => ({
+    eventId: event.event_id,
     status: event.status,
   }));
 
@@ -64,8 +65,10 @@ export default function Dashboard() {
               <span>{event.date}</span>
             </CardDescription>
           </CardContent>
-          {eventStatus?.map((status, index) => (
-            <CardDescription key={index}>{status.status}</CardDescription>
+          {eventStatus?.map((status) => (
+            <CardDescription key={status.eventId}>
+              {status.status}
+            </CardDescription>
           ))}
           <CardFooter>
             <Link
