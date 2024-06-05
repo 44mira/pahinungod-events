@@ -11,7 +11,6 @@ import { useState } from "react";
 import { useEffect } from "react";
 import useInsertVntrToEvent from "@/hooks/use-insert-volunteer-to-event-mutation";
 import useEventVolunteerSingleQuery from "@/hooks/use-event-volunteer-single-query";
-import useSingleUserQuery from "@/hooks/use-single-user-query";
 
 import {
   Dialog,
@@ -28,15 +27,9 @@ export default function SingleEvent() {
   // Get the ID from the URL
   const { event_id } = useParams();
 
-  const { data: user, status } = useSingleUserQuery();
-
-  // User ID
-  const user_id = user?.volunteer_id;
-
   // Row from the event_volunteer table.
   const { data: eventData, refetch } = useEventVolunteerSingleQuery(
-    event_id as UUID,
-    user_id as UUID
+    event_id as UUID
   );
 
   // Fetch the row from database with corresponding ID in the URL.
@@ -45,10 +38,7 @@ export default function SingleEvent() {
   );
 
   // Apply Event Mutation
-  const { mutate: applyEvent } = useInsertVntrToEvent(
-    event_id as UUID,
-    user_id as UUID,
-  );
+  const { mutate: applyEvent } = useInsertVntrToEvent(event_id as UUID);
 
   // Checks if the state of the event is still open or close.
   const [isOpen, setStatus] = useState(true);

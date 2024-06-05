@@ -2,6 +2,22 @@
 
 import { Label } from "@/components/ui/label";
 import useSingleUserQuery from "@/hooks/use-single-user-query";
+import Image from "next/image";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { z } from "zod";
+
+const formSchema = z.object({
+  username: z.string().min(2, {
+    message: "Username must be at least 2 characters.",
+  }),
+});
 
 export default function Profile() {
   const { data: volunteer, isLoading, isError } = useSingleUserQuery();
@@ -23,9 +39,19 @@ export default function Profile() {
     return <div>Error loading user data.</div>;
   }
 
+  const profilePicDimesnsion = 250;
+
   return (
     <>
-      <div className="w-32 h-32 bg-gray-500 rounded-full mx-auto"></div>
+      <div className="w-32 h-32 bg-gray-500 rounded-full mx-auto">
+        {/* <Image
+          src={userMetaData?.picture}
+          alt="profile picture"
+          width={profilePicDimesnsion}
+          height={profilePicDimesnsion}
+          className="rounded-full"
+        /> */}
+      </div>
       <div className="pt-10 space-y-7">
         {ProfileDataTemplate.map(({ label, valueKey }) => (
           <div key={label}>
