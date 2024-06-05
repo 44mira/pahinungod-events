@@ -15,9 +15,8 @@ import useDashboardEventQuery from "@/hooks/use-dashboard-event-query";
 export default function EventCard({ event_id }: { event_id: UUID }) {
   const [volunteerCountInfo, eventInfo] = useDashboardEventQuery(event_id);
 
-  const { data: event, status: eventStatus } = eventInfo;
-  const { data: volunteerCount, status: volunteerCountStatus } =
-    volunteerCountInfo;
+  const { data: event } = eventInfo;
+  const { data: volunteerCount } = volunteerCountInfo;
 
   return (
     <Card>
@@ -26,7 +25,7 @@ export default function EventCard({ event_id }: { event_id: UUID }) {
           <span>{event?.name}</span>
           <span className="grow" />
           <span className="text-md text-accent">
-            {moment(event?.event_end).format("MMM D")}
+            {moment(event?.event_start).format("MMM D")}
           </span>
         </CardTitle>
       </CardHeader>

@@ -26,12 +26,12 @@ import pencil_icon from "@/public/pencil_icon.svg";
 import { useEffect, useState } from "react";
 import useVolunteerUpdateMutation from "@/hooks/use-volunteer-update-mutation";
 import { Database } from "@/utils/database.types";
+import { Label } from "@radix-ui/react-label";
 
 // Define form schema with password match validation
 const formSchema = z.object({
   name: z.string(),
   nickname: z.string().optional(),
-  email: z.string(),
   occupation: z.string().optional(),
   phone_number: z.string().optional(),
   sex: z.string().optional(),
@@ -41,7 +41,6 @@ const formSchema = z.object({
 type ProfileDataKey =
   | "name"
   | "nickname"
-  | "email"
   | "occupation"
   | "phone_number"
   | "sex"
@@ -62,7 +61,6 @@ export default function Profile() {
     defaultValues: {
       name: "",
       nickname: "",
-      email: "",
       occupation: "Student",
       phone_number: "",
       sex: "M",
@@ -73,7 +71,6 @@ export default function Profile() {
   useEffect(() => {
     form.setValue("name", volunteer?.name ?? "No name provided");
     form.setValue("nickname", volunteer?.nickname ?? "No nickname provided");
-    form.setValue("email", volunteer?.email ?? "No email provided");
     form.setValue("occupation", volunteer?.occupation ?? "Student");
     form.setValue("phone_number", volunteer?.phone_number ?? "");
     form.setValue("sex", volunteer?.sex ?? "M");
@@ -159,23 +156,10 @@ export default function Profile() {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>E-mail</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled
-                      {...field}
-                      className="bg-background disabled:bg-slate-200 placeholder:text-black disabled:cursor-default"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="flex flex-col gap-2">
+              <Label>Email</Label>
+              <Input disabled value={volunteer.email} />
+            </div>
             <FormField
               control={form.control}
               name="occupation"
@@ -267,6 +251,11 @@ export default function Profile() {
                 </FormItem>
               )}
             />
+            <div className="flex flex-col gap-2">
+              <Label>Hours Rendered</Label>
+              <Input disabled value={volunteer.hours_rendered} />
+            </div>
+
             <Button type="submit" variant={"outline"} className="w-fit">
               Save
             </Button>

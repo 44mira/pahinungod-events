@@ -8,7 +8,9 @@ export default function useVolunteerQuery() {
   const queryFn = async () => {
     const { data, error } = await supabase
       .from("volunteer")
-      .select("volunteer_id, name, occupation, email, age, sex");
+      .select(
+        "volunteer_id, name, occupation, email, age, sex, hours_rendered",
+      );
 
     if (error) {
       console.log("An error has occurred in fetching volunteers.");

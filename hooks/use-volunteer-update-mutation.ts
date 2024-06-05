@@ -5,7 +5,6 @@ import { Database } from "@/utils/database.types";
 type ProfileDataKey =
   | "name"
   | "nickname"
-  | "email"
   | "occupation"
   | "phone_number"
   | "sex"

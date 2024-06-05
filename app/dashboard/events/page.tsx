@@ -78,6 +78,7 @@ export default function Events() {
             .filter(
               (props) =>
                 eventFilter === "none" ||
+                (!props.event_active && eventFilter === "past") ||
                 calculateStatus(props.event_start, props.event_end) ===
                   eventFilter,
             )
@@ -100,7 +101,10 @@ export default function Events() {
                       {props.location}
                     </span>
                     <span className="flex min-w-full">
-                      <VolunteerCount event_id={event_id} />
+                      <VolunteerCount
+                        event_id={event_id}
+                        volunteer_cap={props.volunteer_cap}
+                      />
                       <span className="flex items-center gap-3 p-5 border border-accent grow">
                         <Image src={calendar_icon} alt="calendar icon" />
                         {deltaDate(props.event_start, props.event_end)}
@@ -148,21 +152,6 @@ function PendingResponse() {
     </>
   );
 }
-
-// Deprecated
-// export function Badge({ status }: { status: EventStatus }) {
-//   return (
-//     <span
-//       className={clsx("rounded-full w-fit px-4 py-2 text-sm", {
-//         "bg-primary text-primary-foreground": status == "active",
-//         "bg-secondary text-secondary-foreground": status == "upcoming",
-//         "bg-accent text-accent-foreground": status == "past",
-//       })}
-//     >
-//       {status}
-//     </span>
-//   );
-// }
 
 function Searchbar({
   handleSearch,

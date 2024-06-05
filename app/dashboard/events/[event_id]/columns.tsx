@@ -12,7 +12,6 @@ import {
 
 export type EventVolunteerList = {
   volunteer: { name: string };
-  time_logged: number;
   orientation_attendance: "attended" | "rejected" | null;
   final_attendance: "attended" | "rejected" | null;
 };
@@ -29,16 +28,9 @@ export const EventVolunteerColumns: ColumnDef<EventVolunteerList>[] = [
     },
   },
   {
-    accessorKey: "time_logged",
-    header: "Time Logged",
-    cell: ({ row }) => {
-      return row.getValue("time_logged") + " hrs";
-    },
-  },
-  {
     accessorKey: "orientation_attendance",
     header: "Orientation Attendance",
-    cell: ({ row, table }) => {
+    cell: ({ row }) => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const { mutate } = useUpdateVolunteerMutation(
         "orientation_attendance",
@@ -47,21 +39,14 @@ export const EventVolunteerColumns: ColumnDef<EventVolunteerList>[] = [
       );
 
       const attendance: string = row.getValue("orientation_attendance");
-      const rejected = !table.getColumn("time_logged")?.getIsVisible();
 
-      return (
-        <SelectAttendance
-          mutate={mutate}
-          attendance={attendance}
-          rejected={rejected}
-        />
-      );
+      return <SelectAttendance mutate={mutate} attendance={attendance} />;
     },
   },
   {
     accessorKey: "final_attendance",
     header: "Final Attendance",
-    cell: ({ row, table }) => {
+    cell: ({ row }) => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const { mutate } = useUpdateVolunteerMutation(
         "final_attendance",
@@ -70,24 +55,13 @@ export const EventVolunteerColumns: ColumnDef<EventVolunteerList>[] = [
       );
 
       const attendance: string = row.getValue("final_attendance");
-      const rejected = !table.getColumn("time_logged")?.getIsVisible();
 
-      return (
-        <SelectAttendance
-          mutate={mutate}
-          attendance={attendance}
-          rejected={rejected}
-        />
-      );
+      return <SelectAttendance mutate={mutate} attendance={attendance} />;
     },
   },
 ];
 
-function SelectAttendance({ mutate, attendance, rejected }: any) {
-  if (rejected) {
-    return <span>{attendance}</span>;
-  }
-
+function SelectAttendance({ mutate, attendance }: any) {
   return (
     <Select onValueChange={mutate} defaultValue={attendance}>
       <SelectTrigger className="max-w-fit">

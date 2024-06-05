@@ -1,11 +1,5 @@
-export type Event = {
-  event_id: string;
-  admin_id: string;
-  name: string;
-  location: string;
-  event_start: string;
-  event_end: string;
-  description: string | null;
-};
+import { Database } from "@/utils/database.types";
+
+export type Event = Database["public"]["Tables"]["events"]["Row"];
 
 export type EventStatus = "active" | "upcoming" | "past";
