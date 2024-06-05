@@ -83,10 +83,10 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
                   idx === 0 && currentPath === "/volunteers/dashboard"
                     ? "font-bold text-xmd text-accent bg-white px-3 rounded-xl flex gap-1 items-center transition ease-in-out duration-300"
                     : /* Style selected except for dashboard */
-                      idx !== 0 &&
-                        currentPath.includes(`/volunteers/dashboard/${url}`)
-                      ? "font-bold text-xmd text-accent bg-white px-3 rounded-xl flex gap-1 items-center transition ease-in-out duration-300"
-                      : "font-bold text-xmd text-white px-3 rounded-xl flex gap-1 items-center transition ease-in-out duration-300"
+                    idx !== 0 &&
+                      currentPath.includes(`/volunteers/dashboard/${url}`)
+                    ? "font-bold text-xmd text-accent bg-white px-3 rounded-xl flex gap-1 items-center transition ease-in-out duration-300"
+                    : "font-bold text-xmd text-white px-3 rounded-xl flex gap-1 items-center transition ease-in-out duration-300"
                 }
               >
                 {icon}

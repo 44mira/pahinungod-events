@@ -70,7 +70,7 @@ export default function Dashboard() {
       <div className="space-y-14">
         <div>
           <p className="text-2lg font-semibold mb-5">Active Events</p>
-          <div className="space-y-5 sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+          <div className="space-y-5 sm:grid sm:space-y-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
             {eventInfo?.map((event, index) =>
               currentDate === event.date ? (
                 <Card key={index}>
@@ -118,7 +118,7 @@ export default function Dashboard() {
         <Separator className=" border-[1.5px] border-slate-300 " />
         <div>
           <p className="text-2lg font-semibold mb-5">Upcoming Events</p>
-          <div className="space-y-5 sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+          <div className="space-y-5 sm:grid sm:space-y-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
             {eventInfo?.map((event, index) =>
               new Date(event.date).getTime() > new Date().getTime() &&
               currentDate !== event.date ? (
@@ -167,7 +167,7 @@ export default function Dashboard() {
         <Separator className=" border-[1.5px] border-slate-300 " />
         <div>
           <p className="text-2lg font-semibold mb-5">Past Events</p>
-          <div className="space-y-5 sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+          <div className="space-y-5 sm:grid sm:space-y-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
             {eventInfo?.map((event, index) =>
               new Date().getTime() - new Date(event.date).getTime() <
                 oneWeekInMilliseconds &&
