@@ -8,6 +8,7 @@ export default function useEventEndMutation(event_id: UUID) {
   const queryClient = useQueryClient();
 
   const mutationFn = async () => {
+    // set event to not active
     const { data, error } = await supabase
       .from("events")
       .update({ event_active: false })
@@ -33,13 +34,15 @@ export default function useEventEndMutation(event_id: UUID) {
       throw volunteersError;
     }
 
+    // for each volunteer, update time rendered by adding the event length to
+    // current rendered
     const updates = volunteers!.map(({ volunteer_id, volunteer }) => {
-      // update hours rendered
       const newTime =
         moment(volunteer!.hours_rendered).valueOf() +
         moment(data.event_end).valueOf() -
         moment(data.event_start).valueOf();
 
+      // Store as a promise for optimization
       return supabase
         .from("volunteer")
         .update({ hours_rendered: newTime / BY_HOUR })
