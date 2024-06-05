@@ -82,8 +82,8 @@ export const CreateUserSchema = z.object({
 
   college: z.string().nullable(),
   degree: z.string().nullable(),
-  fam_first_college: z.string().nullable(),
-  fam_first_up: z.string().nullable(),
+  fam_first_college: z.boolean(),
+  fam_first_up: z.boolean(),
 
   alumni_constituent: z.string().nullable(),
   alumni_college: z.string().nullable(),
