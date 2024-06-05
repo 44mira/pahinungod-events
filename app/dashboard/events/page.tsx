@@ -152,21 +152,6 @@ function PendingResponse() {
   );
 }
 
-// Deprecated
-// export function Badge({ status }: { status: EventStatus }) {
-//   return (
-//     <span
-//       className={clsx("rounded-full w-fit px-4 py-2 text-sm", {
-//         "bg-primary text-primary-foreground": status == "active",
-//         "bg-secondary text-secondary-foreground": status == "upcoming",
-//         "bg-accent text-accent-foreground": status == "past",
-//       })}
-//     >
-//       {status}
-//     </span>
-//   );
-// }
-
 function Searchbar({
   handleSearch,
   eventFilter,
