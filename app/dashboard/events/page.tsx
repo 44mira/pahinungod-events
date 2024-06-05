@@ -78,6 +78,7 @@ export default function Events() {
             .filter(
               (props) =>
                 eventFilter === "none" ||
+                (!props.event_active && eventFilter === "past") ||
                 calculateStatus(props.event_start, props.event_end) ===
                   eventFilter,
             )
