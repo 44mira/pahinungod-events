@@ -14,6 +14,10 @@ export type User = {
   postal_code: number | null;
   region: string;
   occupation: "Student" | "Faculty" | "Retiree" | "Alumni" | "Admin Staff";
+  emergency_contact: string;
+  emergency_contact_name: string;
+  emergency_contact_affiliation: string;
+  emergency_contact_address: string;
 };
 
 export default function useCreateUser() {
