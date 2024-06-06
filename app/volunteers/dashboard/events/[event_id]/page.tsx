@@ -66,7 +66,10 @@ export default function SingleEvent() {
 
     if (
       !eventInfoData.data?.event_active ||
-      moment(eventInfoData.data.event_end).valueOf() - moment().valueOf() < 0
+      new Date(eventInfoData.data.event_start).getTime() -
+        new Date().getTime() <
+        0
+      // moment(eventInfoData.data.event_start).valueOf() - moment().valueOf() < 0
     ) {
       setStatus(false);
     }
@@ -80,6 +83,9 @@ export default function SingleEvent() {
   }, [volunteerListData, eventInfoData, isOpen, hasDescription]);
 
   const formatedDate = formatDate(eventInfoData.data?.event_start ?? "");
+  const formatedOrientation = formatDate(
+    eventInfoData.data?.orientation_date ?? ""
+  );
 
   // For handling form submits.
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -109,6 +115,10 @@ export default function SingleEvent() {
         </span>
       </div>
       <div className="font-bold text-xl mt-2">{eventInfoData.data?.name}</div>
+      <div className="flex items-center gap-3 ps-1 text-lg font-semibold  text-accent-strong">
+        <CalendarWhite /> Orientation Date
+        <span>{formatedOrientation}</span>
+      </div>
       <div className="flex items-center gap-3 ps-1 text-lg font-semibold  text-accent-strong">
         <CalendarWhite />
         <span>{formatedDate}</span>

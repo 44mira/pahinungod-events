@@ -31,8 +31,8 @@ export default function RegisteredEvents() {
             <CardHeader>
               <CardTitle className="text-2lg">{name}</CardTitle>
             </CardHeader>
-            <CardContent className="flex items-center border-y-2 border-accent/50 pb-0 mb-3">
-              <CardDescription className="flex items-center gap-3 font-semibold text-md border-r-[3px] border-accent/50 pr-4">
+            <CardContent className="flex items-center border-y-2 border-black/50 pb-0 mb-3">
+              <CardDescription className="flex items-center gap-3 font-semibold text-md border-r-[3px] border-black/50 pr-4">
                 <UsersWhite className="text-accent-strong" />
                 <span>{volunteer_cap}</span>
               </CardDescription>
@@ -40,18 +40,33 @@ export default function RegisteredEvents() {
                 <div className=" text-accent-strong">
                   <CalendarWhite />
                 </div>
-                <span>{moment(event_start).format("MMM D YYY")}</span>
+                <span>{moment(event_start).format(" MMMM DD YYYY")}</span>
               </CardDescription>
             </CardContent>
-            {registeredEvents?.eventVolunteer.map(({ event_id, status }) => (
-              <CardDescription key={event_id}>{status}</CardDescription>
-            ))}
+            {registeredEvents?.eventVolunteer.map(
+              ({ event_id: singleEventID, status }) =>
+                singleEventID == event_id ? (
+                  <CardDescription
+                    key={event_id}
+                    className={
+                      status === "accepted"
+                        ? "text-center text-primary-foreground font-semibold py-3 px-5 mb-3 bg-green-400 rounded-lg"
+                        : "text-center text-primary-foreground font-semibold py-3 px-5 mb-3 bg-red-500 rounded-lg"
+                    }
+                  >
+                    You are&nbsp;
+                    {status}
+                  </CardDescription>
+                ) : (
+                  ""
+                )
+            )}
             <CardFooter>
               <Link
                 href={{ pathname: `/volunteers/dashboard/events/${event_id}` }}
                 className="w-full"
               >
-                <Button className=" w-full bg-gradient-to-l from-accent-strong to-accent-light from-5% to-95%">
+                <Button className=" w-full " variant={"outline"}>
                   View
                 </Button>
               </Link>
