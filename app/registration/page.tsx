@@ -70,7 +70,10 @@ export default function RegisterForm() {
   });
 
   const onSubmit = (
-    formData: Omit<Volunteer, "volunteer_id" | "hours_rendered" | "email">,
+    formData: Omit<
+      Volunteer,
+      "volunteer_id" | "hours_rendered" | "email" | "picture"
+    >,
   ) => {
     updateUser(
       { ...(formData as any) },
