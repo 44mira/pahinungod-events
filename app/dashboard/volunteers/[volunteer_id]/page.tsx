@@ -76,7 +76,7 @@ export default function Volunteers() {
   const hoursRendered = [
     {
       name: "Hours Rendered",
-      value: volunteer.rendered_hours,
+      value: volunteer.hours_rendered,
     },
   ];
 
@@ -96,7 +96,7 @@ export default function Volunteers() {
           <Card className="">
             <CardHeader className="p-0 py-7 text-xsm">
               <Avatar className="w-44 h-44 mx-auto">
-                <AvatarImage src={volunteer.picture} />
+                <AvatarImage src={volunteer.picture!} />
               </Avatar>
               <CardTitle className="text-md mx-auto pt-5 pb-1">
                 {volunteer.nickname}
@@ -201,7 +201,7 @@ export default function Volunteers() {
                           </CardDescription>
                         ) : (
                           ""
-                        )
+                        ),
                     )}
                   </CardHeader>
                   <CardContent></CardContent>
@@ -221,7 +221,7 @@ export default function Volunteers() {
                     </Link>
                   </CardFooter>
                 </Card>
-              )
+              ),
             )}
           </div>
         </div>

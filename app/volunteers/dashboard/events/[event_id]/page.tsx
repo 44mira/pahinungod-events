@@ -33,7 +33,7 @@ export default function SingleEvent() {
 
   // Fetch the row from database with corresponding ID in the URL.
   const [eventInfoData, volunteerListData] = useSingleEventQuery(
-    event_id as UUID
+    event_id as UUID,
   );
 
   // Apply Event Mutation
@@ -81,7 +81,7 @@ export default function SingleEvent() {
 
   const formatedDate = formatDate(eventInfoData.data?.event_start ?? "");
   const formatedOrientation = formatDate(
-    eventInfoData.data?.orientation_date ?? ""
+    eventInfoData.data?.orientation_date ?? "",
   );
 
   // For handling form submits.

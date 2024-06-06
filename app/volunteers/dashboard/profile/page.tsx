@@ -72,8 +72,6 @@ export default function Profile() {
     form.setValue("age", volunteer?.age ?? 0);
   }, [form, volunteer]);
 
-  const occupation = ["Student", "Alumni", "Faculty", "Admin Staff", "Retiree"];
-
   if (status === "pending") {
     return <div>Loading...</div>;
   }

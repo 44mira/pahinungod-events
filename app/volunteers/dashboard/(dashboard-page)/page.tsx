@@ -32,13 +32,13 @@ export default function Dashboard() {
     if (events) {
       // Check if there is active event
       const isActive = events.some(
-        (event) => formatDate(event.event_start) === currentDate
+        (event) => formatDate(event.event_start) === currentDate,
       );
       setActiveStatus(isActive); // Sets to true if there is active
 
       // Check if there is upcoming event
       const isUpcoming = events.some(
-        (event) => event.event_start > new Date().toISOString()
+        (event) => event.event_start > new Date().toISOString(),
       );
       setUpcomingStatus(isUpcoming); // Sets to true if there is upcoming
 
@@ -47,7 +47,7 @@ export default function Dashboard() {
           new Date().getTime() - new Date(event.event_start).getTime() <
             oneWeekInMilliseconds &&
           new Date(event.event_start).getTime() < new Date().getTime() &&
-          new Date().toISOString() !== event.event_start
+          new Date().toISOString() !== event.event_start,
       );
       setPastStatus(isPast); // Sets to true if there is past event within a week
     }
@@ -104,7 +104,7 @@ export default function Dashboard() {
                 </Card>
               ) : (
                 ""
-              )
+              ),
             )}
           </div>
           {activeEvent ? (
@@ -153,7 +153,7 @@ export default function Dashboard() {
                 </Card>
               ) : (
                 ""
-              )
+              ),
             )}
           </div>
           {upcomingEvent ? (
@@ -204,7 +204,7 @@ export default function Dashboard() {
                 </Card>
               ) : (
                 ""
-              )
+              ),
             )}
           </div>
           {pastEvent ? (

@@ -34,9 +34,9 @@ export default function IconMenu(props: SVGProps<SVGSVGElement>) {
         <g fill="currentColor">
           <path
             fill="currentColor"
-            fillRule="evenodd"
+            fill-rule="evenodd"
             d="M19.75 12a.75.75 0 0 0-.75-.75H5a.75.75 0 0 0 0 1.5h14a.75.75 0 0 0 .75-.75Zm0-5a.75.75 0 0 0-.75-.75H5a.75.75 0 0 0 0 1.5h14a.75.75 0 0 0 .75-.75Zm0 10a.75.75 0 0 0-.75-.75H5a.75.75 0 0 0 0 1.5h14a.75.75 0 0 0 .75-.75Z"
-            clipRule="evenodd"
+            clip-rule="evenodd"
           />
         </g>
       </svg>

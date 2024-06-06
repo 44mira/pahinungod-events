@@ -60,13 +60,13 @@ export const CreateUserSchema = z.object({
     .string()
     .regex(/^(0|63)9\d{9}$/, { message: "Invalid phone number" }),
   birth_date: z.string().date(),
-  age: z.union([z.number(), z.null()]),
+  age: z.number(),
   sex: z.string(),
   indigenous_affiliation: z.string(),
   address: z.string(),
   city: z.string(),
   province: z.string(),
-  postal_code: z.union([z.number(), z.null()]),
+  postal_code: z.number().max(9999).min(1000),
   region: z.string(),
   occupation: z.enum([
     "Student",
