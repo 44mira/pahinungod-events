@@ -76,7 +76,7 @@ export default function Volunteers() {
   const hoursRendered = [
     {
       name: "Hours Rendered",
-      value: volunteer.rendered_hours,
+      value: volunteer.hours_rendered,
     },
   ];
 
@@ -201,7 +201,7 @@ export default function Volunteers() {
                           </CardDescription>
                         ) : (
                           ""
-                        )
+                        ),
                     )}
                   </CardHeader>
                   <CardContent></CardContent>
@@ -221,7 +221,7 @@ export default function Volunteers() {
                     </Link>
                   </CardFooter>
                 </Card>
-              )
+              ),
             )}
           </div>
         </div>
