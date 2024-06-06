@@ -60,13 +60,13 @@ export const CreateUserSchema = z.object({
     .string()
     .regex(/^(0|63)9\d{9}$/, { message: "Invalid phone number" }),
   birth_date: z.string().date(),
-  age: z.union([z.number(), z.null()]),
+  age: z.number(),
   sex: z.string(),
   indigenous_affiliation: z.string(),
   address: z.string(),
   city: z.string(),
   province: z.string(),
-  postal_code: z.union([z.number(), z.null()]),
+  postal_code: z.number().max(9999).min(1000),
   region: z.string(),
   occupation: z.enum([
     "Student",
@@ -79,26 +79,6 @@ export const CreateUserSchema = z.object({
   emergency_contact_name: z.string(),
   emergency_contact_affiliation: z.string(),
   emergency_contact_address: z.string(),
-
-  college: z.string().nullable(),
-  degree: z.string().nullable(),
-  fam_first_college: z.boolean(),
-  fam_first_up: z.boolean(),
-
-  alumni_constituent: z.string().nullable(),
-  alumni_college: z.string().nullable(),
-  alumni_course: z.string().nullable(),
-  alumni_graduatedYr: z.string().nullable(),
-  alumni_occupation: z.string().nullable(),
-  alumni_office: z.string().nullable(),
-
-  faculty_collegeDep: z.string().nullable(),
-
-  adminStaff_office: z.string().nullable(),
-  adminStaff_position: z.string().nullable(),
-
-  retiree_designation: z.string().nullable(),
-  retiree_office: z.string().nullable(),
 });
 
 export type CreateUserFields = z.infer<typeof CreateUserSchema>;
