@@ -29,9 +29,6 @@ export default function SingleEvent() {
   const { event_id } = useParams();
 
   // Row from the event_volunteer table.
-  const { data: eventData, refetch } = useEventVolunteerSingleQuery(
-    event_id as UUID,
-  );
   const { data: eventData } = useEventVolunteerSingleQuery(event_id as UUID);
 
   // Fetch the row from database with corresponding ID in the URL.
@@ -84,7 +81,7 @@ export default function SingleEvent() {
 
   const formatedDate = formatDate(eventInfoData.data?.event_start ?? "");
   const formatedOrientation = formatDate(
-    eventInfoData.data?.orientation_date ?? ""
+    eventInfoData.data?.orientation_date ?? "",
   );
 
   // For handling form submits.
