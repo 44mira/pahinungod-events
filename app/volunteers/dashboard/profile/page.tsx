@@ -1,6 +1,5 @@
 "use client";
 
-import { Label } from "@/components/ui/label";
 import useSingleUserQuery from "@/hooks/use-single-user-query";
 import Image from "next/image";
 import {
@@ -11,6 +10,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectItem,
+  SelectTrigger,
+  SelectContent,
+  SelectValue,
+} from "@/components/ui/select";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -22,12 +28,8 @@ import useVolunteerUpdateMutation from "@/hooks/use-volunteer-update-mutation";
 import { Database } from "@/utils/database.types";
 import { Label } from "@radix-ui/react-label";
 
+// Define form schema with password match validation
 const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-});
-
   name: z.string(),
   nickname: z.string().optional(),
   occupation: z.string().optional(),
@@ -47,18 +49,9 @@ type Volunteer = Pick<
 >;
 
 export default function Profile() {
-  const { data: volunteer, isLoading, isError } = useSingleUserQuery();
+  const { data: volunteer, status } = useSingleUserQuery();
+  const { mutate } = useVolunteerUpdateMutation();
 
-  const ProfileDataTemplate = [
-    { label: "Full name", valueKey: volunteer?.name },
-    { label: "Nickname", valueKey: volunteer?.nickname },
-    { label: "E-mail", valueKey: volunteer?.email },
-    { label: "Occupation", valueKey: volunteer?.occupation },
-    { label: "Phone No.", valueKey: volunteer?.phone_number },
-    { label: "Sex", valueKey: volunteer?.sex },
-    { label: "Age", valueKey: volunteer?.age },
-  ];
-  if (isLoading) {
   const [editProfileState, setEditProfileState] = useState(true);
   const form = useForm<Volunteer>({
     resolver: zodResolver(formSchema),
@@ -85,34 +78,24 @@ export default function Profile() {
     return <div>Loading...</div>;
   }
 
-  if (isError) {
+  if (status === "error") {
     return <div>Error loading user data.</div>;
   }
 
+  const userMetaData = volunteer?.userData.user.user_metadata;
   const profilePicDimesnsion = 250;
 
   return (
-    <>
     <div className="py-5 flex flex-col gap-5">
       <div className="w-32 h-32 bg-gray-500 rounded-full mx-auto">
-        {/* <Image
+        <Image
           src={userMetaData?.picture}
           alt="profile picture"
           width={profilePicDimesnsion}
           height={profilePicDimesnsion}
           className="rounded-full"
-        /> */}
+        />
       </div>
-      <div className="pt-10 space-y-7">
-        {ProfileDataTemplate.map(({ label, valueKey }) => (
-          <div key={label}>
-            <Label className="text-gray-500">{label}</Label>
-            <div className="border-b-[3px] border-gray-300 font-semibold text-lg drop-shadow-md">
-              {/* Fetch data in the user_metadata object.*/}
-              {valueKey || "No data available"}
-            </div>
-          </div>
-        ))}
       <span className=" text-white">
         <Button
           size={"xs"}
@@ -249,6 +232,6 @@ export default function Profile() {
           </form>
         </Form>
       </div>
-    </>
+    </div>
   );
 }
