@@ -70,30 +70,30 @@ export type Database = {
           alumni_constituent: string | null
           alumni_course: string | null
           alumni_graduatedYr: string | null
-          alumni_id: number
+          alumni_id: string
           alumni_occupation: string | null
           alumni_office: string | null
-          volunteer_id: string | null
+          volunteer_id: string
         }
         Insert: {
           alumni_college?: string | null
           alumni_constituent?: string | null
           alumni_course?: string | null
           alumni_graduatedYr?: string | null
-          alumni_id?: number
+          alumni_id?: string
           alumni_occupation?: string | null
           alumni_office?: string | null
-          volunteer_id?: string | null
+          volunteer_id: string
         }
         Update: {
           alumni_college?: string | null
           alumni_constituent?: string | null
           alumni_course?: string | null
           alumni_graduatedYr?: string | null
-          alumni_id?: number
+          alumni_id?: string
           alumni_occupation?: string | null
           alumni_office?: string | null
-          volunteer_id?: string | null
+          volunteer_id?: string
         }
         Relationships: [
           {
@@ -288,6 +288,7 @@ export type Database = {
           fam_first_college: boolean
           fam_first_up: boolean
           student_id: string
+          volunteer_id: string | null
           year: number | null
         }
         Insert: {
@@ -296,6 +297,7 @@ export type Database = {
           fam_first_college: boolean
           fam_first_up: boolean
           student_id?: string
+          volunteer_id?: string | null
           year?: number | null
         }
         Update: {
@@ -304,9 +306,18 @@ export type Database = {
           fam_first_college?: boolean
           fam_first_up?: boolean
           student_id?: string
+          volunteer_id?: string | null
           year?: number | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "student_volunteer_id_fkey"
+            columns: ["volunteer_id"]
+            isOneToOne: false
+            referencedRelation: "volunteer"
+            referencedColumns: ["volunteer_id"]
+          },
+        ]
       }
       volunteer: {
         Row: {
@@ -325,10 +336,10 @@ export type Database = {
           nickname: string | null
           occupation: Database["public"]["Enums"]["volunteer_occupation"] | null
           phone_number: string
+          picture: string | null
           postal_code: number | null
           province: string | null
           region: string | null
-          rendered_hours: number | null
           sex: string | null
           volunteer_id: string
         }
@@ -350,10 +361,10 @@ export type Database = {
             | Database["public"]["Enums"]["volunteer_occupation"]
             | null
           phone_number?: string
+          picture?: string | null
           postal_code?: number | null
           province?: string | null
           region?: string | null
-          rendered_hours?: number | null
           sex?: string | null
           volunteer_id: string
         }
@@ -375,10 +386,10 @@ export type Database = {
             | Database["public"]["Enums"]["volunteer_occupation"]
             | null
           phone_number?: string
+          picture?: string | null
           postal_code?: number | null
           province?: string | null
           region?: string | null
-          rendered_hours?: number | null
           sex?: string | null
           volunteer_id?: string
         }
